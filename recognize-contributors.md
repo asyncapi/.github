@@ -25,7 +25,7 @@ To recognize work, after it is done, in closed issue or pull request, add a prop
 Check out a full list of [emoji keys](https://allcontributors.org/docs/en/emoji-key) although here you can find a shortlist of the most popular one:
 
 Emoji/Type | Represents |
-:---: | :---: | :---:
+:---: | :---:
 🐛 <br /> `bug` | Bug reports |
 📝 <br /> `blog` | Blogposts |
 💻 <br /> `code` | Code |
