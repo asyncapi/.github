@@ -1,3 +1,8 @@
+---
+name: Blog post suggestion
+about: Let us know that you want to write a blog post at https://www.asyncapi.com/blog/
+---
+
 <!--
 We're super happy to see you want to publish on our blog.
 Please fill the data below and we'll guide you through the process.
