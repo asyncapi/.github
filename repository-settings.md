@@ -19,6 +19,7 @@ Leave only the **Allow squash merging** option selected. This option combines al
 3. Make sure option **Automatically delete head branches** is selected
 
 * Each repository must be integrated with https://sonarcloud.io/organizations/asyncapi/projects for automated quality and security scans.
+* 
 
 ## Add basic GitHub Actions configurations
 
@@ -136,6 +137,7 @@ Create `.github/workflows` directory and the following configurations:
     ```
 
 * Release workflow that should be based on the following content:
+* Of particular note within this workflow is the twitter section. All repositories should ensure that the ``if: steps.check.outputs.changed == 'true' && steps.check.outputs.type != 'patch'`` validation is always there so that ``patch`` releases are not tweeted. 
     ```
     name: Release
 
