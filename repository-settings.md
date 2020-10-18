@@ -60,7 +60,7 @@ Create `.github/workflows` directory and the following configurations:
     name: Welcome first time contributors
 
     on:
-      pull_request:
+      pull_request_target:
         types: 
         - opened
       issues:
