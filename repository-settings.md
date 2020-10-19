@@ -137,7 +137,6 @@ Create `.github/workflows` directory and the following configurations:
     ```
 
 * Release workflow that should be based on the following content:
-* Of particular note within this workflow is the twitter section. All repositories should ensure that the ``if: steps.check.outputs.changed == 'true' && steps.check.outputs.type != 'patch'`` validation is always there so that ``patch`` releases are not tweeted. 
     ```
     name: Release
 
@@ -191,6 +190,7 @@ Create `.github/workflows` directory and the following configurations:
           - name: Check if version changed  # Version check based on package.json version number
             uses: EndBug/version-check@v1.6.0
             id: check
+            # All repositories should ensure that the ``if: steps.check.outputs.changed == 'true' && steps.check.outputs.type != 'patch'`` validation is always there so that ``patch`` releases are not tweeted. 
           - name: Publish information about the release to Twitter # tweet only if detected version change is not a patch
             if: steps.check.outputs.changed == 'true' && steps.check.outputs.type != 'patch'
             uses: m1ner79/Github-Twittction@v1.0.1
