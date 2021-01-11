@@ -9,6 +9,7 @@ on:
     pull_request:
         types:
             - opened
+            - edited
 
 jobs:
 
@@ -25,7 +26,7 @@ jobs:
             - name: Send info about issue
               uses: rtCamp/action-slack-notify@v2
               env:
-                SLACK_WEBHOOK: ${{ secrets.SLACK_GITHUB_NEWISSUEPR }}
+                SLACK_WEBHOOK: ${{secrets.SLACK_GITHUB_NEWISSUEPR}}
                 SLACK_TITLE: 🐛 New Issue 🐛
                 SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
                 MSG_MINIMAL: true
@@ -43,7 +44,7 @@ jobs:
             - name: Send info about pull request
               uses: rtCamp/action-slack-notify@v2
               env:
-                SLACK_WEBHOOK: ${{ secrets.SLACK_GITHUB_NEWISSUEPR }}
+                SLACK_WEBHOOK: ${{secrets.SLACK_GITHUB_NEWISSUEPR}}
                 SLACK_TITLE: 💪 New Pull Request 💪
                 SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
                 MSG_MINIMAL: true
