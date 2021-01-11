@@ -1,6 +1,6 @@
 #This action is centrally managed in https://github.com/asyncapi/.github/
 #Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
-name: 'Notify slack that there is a new issue or a PR'
+name: 'Notify slack'
 
 on:
     issues:
@@ -9,13 +9,12 @@ on:
     pull_request:
         types:
             - opened
-            - edited
 
 jobs:
 
     issue:
         if: github.event_name == 'issues' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        name: Slack - notify on every new issue
+        name: On every new issue
         runs-on: ubuntu-latest
         steps:
             - name: Convert markdown to slack markdown for issue
@@ -33,7 +32,7 @@ jobs:
 
     pull_request:
         if: github.event_name == 'pull_request' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        name: Slack - notify on every new pull request
+        name: On every new pull request
         runs-on: ubuntu-latest
         steps:
             - name: Convert markdown to slack markdown for pull request
