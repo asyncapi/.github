@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Check if Node.js project and has package.json
         id: packagejson
-        run: test -e ./package.json && "echo ::set-output name=exists::true" || echo "::set-output name=exists::false"
+        run: bash test -e ./package.json && "echo ::set-output name=exists::true" || echo "::set-output name=exists::false"
       - if: steps.packagejson.outputs.exists == 'true'
         name: Setup Node.js
         uses: actions/setup-node@v1
