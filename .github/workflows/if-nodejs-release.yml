@@ -30,7 +30,7 @@ jobs:
           node-version: 14
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
-        run: npm ci
+        run: npm install
       - if: steps.packagejson.outputs.exists == 'true'
         name: Run test
         run: npm test
@@ -52,7 +52,7 @@ jobs:
           node-version: 14
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
-        run: npm ci
+        run: npm install
       - if: steps.packagejson.outputs.exists == 'true'
         name: Release to NPM and GitHub
         id: release
