@@ -1,7 +1,7 @@
 #This action is centrally managed in https://github.com/asyncapi/.github/
 #Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 #It does magic only if there is package.json file in the root of the project
-name: PR testing if Node project
+name: PR testing - if Node project
 
 on:
   pull_request:
@@ -29,7 +29,7 @@ jobs:
           node-version: 14
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
-        run: npm install
+        run: npm install --loglevel verbose
       - if: steps.packagejson.outputs.exists == 'true'
         name: Test
         run: npm test
