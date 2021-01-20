@@ -16,6 +16,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          subjectPattern: ^(?![a-z]).+$
+          subjectPattern: ^(?![A-Z]).+$
           subjectPatternError: |
-            The subject "{subject}" found in the pull request title "{title}" should start with an uppercase character.
+            The subject "{subject}" found in the pull request title "{title}" should start with a lowercase character.
