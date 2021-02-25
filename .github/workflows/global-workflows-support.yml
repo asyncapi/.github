@@ -20,7 +20,7 @@ jobs:
           # this action will not replicate to other repos workflows listed here
           files_to_ignore: global-workflows-support.yml
           # workflows will not be replicated to repos listed here
-          repos_to_ignore: shape-up-process,marketing,roadmap
+          repos_to_ignore: shape-up-process,marketing,roadmap,event-gateway
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           # it is both, commit message and PR title
