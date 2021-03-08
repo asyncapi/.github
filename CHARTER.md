@@ -60,7 +60,7 @@ This Charter sets forth the responsibilities and procedures for technical contri
 
 1. Contributors include anyone in the community that contributes code, documentation, pull request reviews, or other technical artifacts to the Project (“Contributors”); 
 2. Committers are Contributors who have earned the ability to modify (“commit”) source code, documentation, or other technical artifacts in a project’s repository (“Committers”);
-3. A Contributor may become a Committer of a given Project’s repository by  majority approval of the repository Committers.
+3. A Contributor may become a Committer of a given Project’s repository by majority approval of the repository Committers.
 4. A Committer must be listed in the CODEOWNERS file of a given Project’s repository, along with the scope of their responsibility in the repository.
 5. A Committer may be removed from a Project’s repository by the majority approval of the other Committers of the same repository.
 6. Participation in the Project through becoming a Contributor and Committer is open to anyone so long as they abide by the terms of this Charter. 
