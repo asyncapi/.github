@@ -41,7 +41,7 @@ This Charter sets forth the responsibilities and procedures for technical contri
 10. TSC members are expected to regularly participate in TSC voting.
 11. In the case where an individual TSC member -- within any three-month period -- does not participate in TSC votes, the member shall be automatically removed from the TSC.
 12. A TSC member may be removed from the TSC by the majority approval of the other TSC members.
-13. The TSC may elect a TSC Chair, who will preside over meetings of the TSC and will serve until their resignation or replacement by the TSC.** **In the case of replacement, TSC voting must follow the approach described in Section 4.
+13. The TSC may elect a TSC Chair, who will preside over meetings of the TSC and will serve until their resignation or replacement by the TSC. In the case of replacement, TSC voting must follow the approach described in Section 4.
 14. The TSC may decide to change the Project’s vision and strategy. In that case, TSC voting must follow the approach described in Section 4.
 15. The TSC may (1) establish workflow procedures for the submission, approval, and closure/archiving of projects, (2) set requirements for the promotion of Contributors to Committer status, as applicable, and (3) amend, adjust, refine and/or eliminate the roles of Contributors, and Committers, and create new roles, and publicly document any TSC roles, as it sees fit.
 16. Responsibilities: The TSC will be responsible for all aspects of oversight relating to the Project, which may include:
