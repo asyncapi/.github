@@ -27,7 +27,8 @@ jobs:
       - if: steps.gomod.outputs.exists == 'true'
         name: golangci-lint
         uses: golangci/golangci-lint-action@v2 # golangci-lint version extracted from go.mod. `latest` if missing.
-        skip-go-installation: true # we wanna control the version of Go in use
+        with:
+          skip-go-installation: true # we wanna control the version of Go in use
   
   test:
     if: github.event.pull_request.draft == false
