@@ -22,6 +22,7 @@ Leave only the **Allow squash merging** option selected. This option combines al
 ## SonarCloud scans
 
 Each repository must be integrated with https://sonarcloud.io/organizations/asyncapi/projects for automated quality and security scans.
+If your project is not in the list, please add it via https://sonarcloud.io/projects/create.
 
 ## Add basic GitHub Actions configurations
 
