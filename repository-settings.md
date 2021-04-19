@@ -33,6 +33,5 @@ AsyncAPI Github organization [global workflows](https://github.com/asyncapi/.git
 * Automated bump of the npm package in its dependent project. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/if-nodejs-version-bump.yml)
 * Release workflow. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/if-nodejs-release.ymll)
 
-### Installation
 Add basic workflow by **manually** triggering the [Global workflow to rule them all](https://github.com/asyncapi/.github/actions/workflows/global-workflows-support.yml) workflow as shown in the following screenshot:
 ![image](https://user-images.githubusercontent.com/1083296/115218253-a5e42480-a106-11eb-9723-165b9ba90e93.png)
