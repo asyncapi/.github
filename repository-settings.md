@@ -26,13 +26,7 @@ If your project is not in the list, please add it via https://sonarcloud.io/proj
 
 ## Add basic GitHub Actions configurations
 
-AsyncAPI Github organization [global workflows](https://github.com/asyncapi/.github/tree/master/.github/workflows) cover mostly all the needs. For example:
-* Handling of stale issues and PRs. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/stale-issues-prs.yml)
-* Welcome message for first-time contributors. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/welcome-first-time-contrib.yml)
-* Automerge workflow. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/automerge.yml)
-* Sentiment analysis workflow. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/sentiment-analysis.yml)
-* Automated bump of the npm package in its dependent project. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/if-nodejs-version-bump.yml)
-* Release workflow. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/if-nodejs-release.ymll)
+AsyncAPI Github organization [global workflows](https://github.com/asyncapi/.github/tree/master/.github/workflows) cover mostly all the needs for most of the repositories.
 
 Add basic workflow by **manually** triggering the [Global workflow to rule them all](https://github.com/asyncapi/.github/actions/workflows/global-workflows-support.yml) workflow as shown in the following screenshot:
 ![image](https://user-images.githubusercontent.com/1083296/115218253-a5e42480-a106-11eb-9723-165b9ba90e93.png)
