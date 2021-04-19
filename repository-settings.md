@@ -25,11 +25,14 @@ Each repository must be integrated with https://sonarcloud.io/organizations/asyn
 
 ## Add basic GitHub Actions configurations
 
-Create `.github/workflows` directory and the following configurations:
+AsyncAPI Github organization [global workflows](https://github.com/asyncapi/.github/tree/master/.github/workflows) cover mostly all the needs. For example:
+* Handling of stale issues and PRs. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/stale-issues-prs.yml)
+* Welcome message for first-time contributors. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/welcome-first-time-contrib.yml)
+* Automerge workflow. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/automerge.yml)
+* Sentiment analysis workflow. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/sentiment-analysis.yml)
+* Automated bump of the npm package in its dependent project. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/if-nodejs-version-bump.yml)
+* Release workflow. [file](https://github.com/asyncapi/.github/blob/master/.github/workflows/if-nodejs-release.ymll)
 
-* Handling of stale issues and PRs take from [here](https://github.com/asyncapi/.github/blob/master/.github/workflows/stale-issues-prs.yml)
-* Welcome message for first-time contributors take from [here](https://github.com/asyncapi/.github/blob/master/.github/workflows/welcome-first-time-contrib.yml)
-* Automerge workflow take from [here](https://github.com/asyncapi/.github/blob/master/.github/workflows/automerge.yml)
-* Sentiment analysis workflow take from [here](https://github.com/asyncapi/.github/blob/master/.github/workflows/sentiment-analysis.yml)
-* Automated bump of the npm package in its dependent project take from [here](https://github.com/asyncapi/parser-js/blob/master/.github/workflows/bump.yml)
-* Release workflow that should be inspired by [this](https://github.com/asyncapi/parser-js/blob/master/.github/workflows/release.yml)
+### Installation
+Run **manually** the [Global workflow to rule them all](https://github.com/asyncapi/.github/actions/workflows/global-workflows-support.yml) workflow as shown in the following screenshot:
+![image](https://user-images.githubusercontent.com/1083296/115218253-a5e42480-a106-11eb-9723-165b9ba90e93.png)
