@@ -1,0 +1,9 @@
+AsyncAPI Community uses Slack for real-time conversations. It helps us stay closer to each other and know each other better. Join us by following [this](https://www.asyncapi.com/slack-invite/) invitation and the following etiquette:
+
+- Respect each other. Choose empathy over judgment. Act according to [the AsyncAPI Code of Conduct](https://github.com/asyncapi/.github/blob/master/CODE_OF_CONDUCT.md)
+- Run discussions in threads. Every single message in the main thread triggers a notification. Another message about the same triggers another notification. Let us not ping each other when it is not necessary. It is the main cause for people to mute channels. Always reply to a message in a thread.
+- Avoid using `@channel` and `@here` unless the description of a given channel states differently.
+- Once you post a message with links, remove generated previews. Leave them only if they add some more context to the message.
+- Channels with `N_` prefix (for example, `1_` or `10_`) are considered to be officially maintained because they are always mentioned in the welcome message for new joiners, and project contributors and committers (maintainers) are always encouraged to join them.
+- If you need a dedicated channel for some discussion, feel free to create it but don't use `N_` prefix that is allowed only for officially maintained channels.
+- Once you decide to mute some channel, we encourage you to configure alerts for discussions that are most interesting for you. We do not want to lose your input. Go to **Settings** -> **Notifications** -> **My keywords** section. How does it work? If you are in our Slack because of Kafka, mute the channel if it is too noisy and set a notification to ping you only if `kafka` is mentioned in the message. For more details read [this](https://slack.com/intl/en-pl/slack-tips/get-notified-when-someone-mentions-a-topic-you-care-about) article.
