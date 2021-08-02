@@ -2,7 +2,7 @@
 <p align="center">
   for</br>
   AsyncAPI Project a Series of LF Projects, LLC</br>
-  Adopted ___________
+  Adopted 03-19-2021
 </p>
 
 <!-- TOC -->
