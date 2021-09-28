@@ -2,11 +2,11 @@
 <img src="/assets/v2_launch.gif" alt="This is a GIF showing the AsyncAPI logo and their two mascots, Eve and Chan; the animation is of a rocket flying over Eve and Chan's heads." />
 </p>
 
-[![Slack](https://img.shields.io/badge/slack-@asyncAPI.slack.com-yellow.svg)](https://asyncapi.slack.com)
-[![Twitter](https://img.shields.io/badge/twitter-@asyncAPIspec-9cf.svg)](https://twitter.com/asyncapispec)
-[![LinkedIN](https://img.shields.io/badge/linkedin-@asyncAPI-lightgray.svg)](https://www.linkedin.com/company/asyncapi)
-[![YouTube](https://img.shields.io/badge/youtube-@asyncAPI-red.svg)](https://www.youtube.com/c/AsyncAPI)
-[![Twitch](https://img.shields.io/badge/twitch-@asyncAPI-blueviolet.svg)](https://www.twitch.tv/asyncapi)
+[![Slack](https://img.shields.io/badge/Slack-@asyncAPI.slack.com-yellow.svg)](https://asyncapi.slack.com)
+[![Twitter](https://img.shields.io/badge/Twitter-@asyncAPIspec-9cf.svg)](https://twitter.com/asyncapispec)
+[![LinkedIN](https://img.shields.io/badge/LinkedIn-@asyncAPI-lightgray.svg)](https://www.linkedin.com/company/asyncapi)
+[![YouTube](https://img.shields.io/badge/YouTube-@asyncAPI-red.svg)](https://www.youtube.com/c/AsyncAPI)
+[![Twitch](https://img.shields.io/badge/Twitch-@asyncAPI-blueviolet.svg)](https://www.twitch.tv/asyncapi)
 
 ## ✨ Welcome
 Welcome to the Open-Source (OSS) [AsyncAPI Initiative](https://www.asyncapi.com/), part of [the Linux Foundation](https://www.linuxfoundation.org/en/press-release/linux-foundation-will-host-asyncapi-to-support-growth-and-collaboration-for-industrys-fastest-growing-api-spec/). 
@@ -30,7 +30,7 @@ We're a community of great people who are passionate about AsyncAPI and Event-Dr
 - **Subscribe to our [Newsletter](https://www.asyncapi.com/)**: keep up to date on the project's status.
 - **GitHub issues**: for bugs and feature requests.
 - **GitHub Pull Requests (PRs)**: for fixes or new features already discussed, as per the [contributing guidelines](https://github.com/asyncapi/asyncapi/blob/master/CONTRIBUTING.md#contributing-to-asyncapi).
-- **The AsyncAPI [YouTube Channel](https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS)**: we record and upload our public community meetings here.
+- **The AsyncAPI [YouTube Channel](https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS)**: it's where we record and upload our public community meetings.
 
 
 ## 👩🏽‍💻 Contribute to AsyncAPI
