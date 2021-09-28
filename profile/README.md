@@ -1,12 +1,12 @@
 <p align="center">
-<img src="/assets/v2_launch.gif" alt="AsyncAPI is building the future of event-driven architecture!" />
+<img src="/assets/v2_launch.gif" alt="This is a GIF showing the AsyncAPI logo and their two mascots, Eve and Chan; the animation is of a rocket flying over Eve and Chan's heads." />
 </p>
 
-[![Slack](https://img.shields.io/badge/slack-@asyncAPI--community-yellow.svg)](https://asyncapi.slack.com)
-[![Twitter](https://img.shields.io/badge/twitter-@asyncAPI--twitter-9cf.svg)](https://twitter.com/asyncapispec)
-[![LinkedIN](https://img.shields.io/badge/linkedin-@asyncAPI--LinkedIn-lightgray.svg)](https://www.linkedin.com/company/asyncapi)
-[![YouTube](https://img.shields.io/badge/youtube-@asyncAPI--youtube-red.svg)](https://www.youtube.com/c/AsyncAPI)
-[![Twitch](https://img.shields.io/badge/twitch-@asyncAPI--twitch-blueviolet.svg)](https://www.twitch.tv/asyncapi)
+[![Slack](https://img.shields.io/badge/slack-@asyncAPI.slack.com-yellow.svg)](https://asyncapi.slack.com)
+[![Twitter](https://img.shields.io/badge/twitter-@asyncAPIspec-9cf.svg)](https://twitter.com/asyncapispec)
+[![LinkedIN](https://img.shields.io/badge/linkedin-@asyncAPI-lightgray.svg)](https://www.linkedin.com/company/asyncapi)
+[![YouTube](https://img.shields.io/badge/youtube-@asyncAPI-red.svg)](https://www.youtube.com/c/AsyncAPI)
+[![Twitch](https://img.shields.io/badge/twitch-@asyncAPI-blueviolet.svg)](https://www.twitch.tv/asyncapi)
 
 ## ✨ Welcome
 Welcome to the Open-Source (OSS) [AsyncAPI Initiative](https://www.asyncapi.com/), part of [the Linux Foundation](https://www.linuxfoundation.org/en/press-release/linux-foundation-will-host-asyncapi-to-support-growth-and-collaboration-for-industrys-fastest-growing-api-spec/). 
