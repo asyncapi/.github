@@ -32,27 +32,26 @@ We're a community of great people who are passionate about AsyncAPI and Event-Dr
 - **GitHub Pull Requests (PRs)**: for fixes or new features already discussed, as per the [contributing guidelines](https://github.com/asyncapi/asyncapi/blob/master/CONTRIBUTING.md#contributing-to-asyncapi).
 - **The AsyncAPI [YouTube Channel](https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS)**: it's where we record and upload our public community meetings.
 
+## 📑 Getting started
+Are you wondering where to look first? Then search no more! Here are some great first [AsyncAPI Documentation](https://www.asyncapi.com/docs/) spots to visit, so as to get acquianted with the project and tools:
+- [Intro to AsyncAPI](https://www.asyncapi.com/docs/getting-started) 🔮
+- [Tutorials](https://www.asyncapi.com/docs/tutorials) 📚
+- [Spec Details](https://www.asyncapi.com/docs/specifications/v2.2.0) 🔍
+- [Tools](https://www.asyncapi.com/docs/community/tooling) 🛠️
 
 ## 👩🏽‍💻 Contribute to AsyncAPI
 First of all, thanks for getting involved! ✨
 
 There are many awesome ways to contribute to the AsyncAPI Initiative. (Code isn't the only way to help out! ❤️) The below table gives you an idea of [how contributions are recognized](https://github.com/asyncapi/.github/blob/master/CONTRIBUTING.md) in the project.
 
-Emoji/Type | Represents |
-:---: | :---:
-🐛 <br /> `bug` | Bug reports |
-📝 <br /> `blog` | Blogposts |
-💻 <br /> `code` | Code |
-📖 <br /> `doc` | Documentation |
-🎨 <br /> `design` | Design |
-💡 <br /> `example` | Examples |
-🤔 <br /> `ideas` | Ideas & Planning |
-🚧 <br /> `maintenance` | Maintenance | 
-💬 <br /> `question` | Answering Questions | 
-👀 <br /> `review` | Reviewed Pull Requests |
-📢 <br /> `talk` | Talks |
-📹 <br /> `video` | Videos |
+
+Emoji/Type | Represents | Emoji/Type | Represents | Emoji/Type | Represents |
+:---: | :---: | :---: | :---: | :---: | :---:
+🐛 <br /> `bug` | Bug reports | 📝 <br /> `blog` | Blogposts | 💻 <br /> `code` | Code |
+📖 <br /> `doc` | Documentation | 🎨 <br /> `design` | Design | 💡 <br /> `example` | Examples |
+🤔 <br /> `ideas` | Ideas & Planning | 🚧 <br /> `maintenance` | Maintenance | 💬 <br /> `question` | Answering Questions | 
+👀 <br /> `review` | Reviewed Pull Requests | 📢 <br /> `talk` | Talks | 📹 <br /> `video` | Videos |
 
 To figure out a great `first GitHub issue` to work on, [join our Slack workspace](https://www.asyncapi.com/slack-invite) and visit the `11_how-to-contribute` 🙂 channel. This channel is specifically designed for supporting all community questions on getting started as a contributor.
 
-We can't wait to meet you!
+We can't wait to meet you! 🤗
