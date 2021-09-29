@@ -33,7 +33,7 @@ We're a community of great people who are passionate about AsyncAPI and Event-Dr
 - **The AsyncAPI [YouTube Channel](https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS)**: it's where we record and upload our public community meetings.
 
 ## 📑 Getting started
-Are you wondering where to look first? Then search no more! Here are some great first [AsyncAPI Documentation](https://www.asyncapi.com/docs/) spots to visit, so as to get acquianted with the project and tools:
+Are you wondering where to look first? Then search no more! Here are some great first [AsyncAPI Documentation](https://www.asyncapi.com/docs/) spots to visit, so as to get acquainted with the project and tools:
 - [Intro to AsyncAPI](https://www.asyncapi.com/docs/getting-started) 🔮
 - [Tutorials](https://www.asyncapi.com/docs/tutorials) 📚
 - [Spec Details](https://www.asyncapi.com/docs/specifications/v2.2.0) 🔍
