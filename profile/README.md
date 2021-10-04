@@ -36,7 +36,7 @@ We're a community of great people who are passionate about AsyncAPI and Event-Dr
 Are you wondering where to look first? Then search no more! Here are some great first [AsyncAPI Documentation](https://www.asyncapi.com/docs/) spots to visit, so as to get acquainted with the project and tools:
 - [Intro to AsyncAPI](https://www.asyncapi.com/docs/getting-started) 🔮
 - [Tutorials](https://www.asyncapi.com/docs/tutorials) 📚
-- [Spec Details](https://www.asyncapi.com/docs/specifications/v2.2.0) 🔍
+- [Spec Details](https://www.asyncapi.com/docs/specifications/latest) 🔍
 - [Tools](https://www.asyncapi.com/docs/community/tooling) 🛠️
 
 ## 👩🏽‍💻 Contribute to AsyncAPI
