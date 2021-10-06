@@ -17,22 +17,6 @@ on:
   pull_request_review:
     types:
       - submitted
-  push:
-    branches:
-      - master
-  
-jobs:
-
-  autoupdate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Autoupdating
-        uses: docker://chinthakagodawita/autoupdate-action:v1
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          PR_FILTER: "all"
-          PR_READY_STATE: "ready_for_review"
-          MERGE_CONFLICT_ACTION: "ignore"
 
   autoapprove:
     if: github.event.pull_request.draft == false

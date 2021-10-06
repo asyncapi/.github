@@ -1,0 +1,20 @@
+#This action is centrally managed in https://github.com/asyncapi/.github/
+#Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
+
+name: autoupdate
+
+on:
+  push: {}
+  
+jobs:
+
+  autoupdate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Autoupdating
+        uses: docker://chinthakagodawita/autoupdate-action:v1
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          PR_FILTER: "all"
+          PR_READY_STATE: "ready_for_review"
+          MERGE_CONFLICT_ACTION: "ignore"
