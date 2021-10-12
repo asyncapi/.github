@@ -29,7 +29,8 @@ jobs:
           if (isIssue) {
               const query = `query($owner:String!, $name:String!, $contributer:String!) {
               repository(owner:$owner, name:$name){
-                issues(last: 100, filterBy: {createdBy:$contributer}){
+                //since we are reading only totalCount there is no need to fetch more than 1. 
+                issues(first: 1, filterBy: {createdBy:$contributer}){
                   totalCount
                 }
               }
@@ -40,11 +41,10 @@ jobs:
               contributer: context.payload.sender.login
             };
             const { repository: { issues: { totalCount } } } = await github.graphql(query, variables);
-            console.log(`use opened ${totalCount} issues`);
             isFirstContribution = totalCount === 1;
           } else {
               const query = `query($qstr: String!) {
-                search(query: $qstr, type: ISSUE, first: 2) {
+                search(query: $qstr, type: ISSUE, first: 1) {
                    issueCount
                  }
               }`;
@@ -52,7 +52,6 @@ jobs:
               "qstr": `repo:${context.repo.owner}/${context.repo.repo} type:pr author:${context.payload.sender.login}`,
             };
             const { search: { issueCount } } = await github.graphql(query, variables);
-            console.log(`user opened ${issueCount} PRs`);
             isFirstContribution = issueCount === 1;
           }
           
