@@ -18,7 +18,7 @@ We are a caring community 👐🏿, shaping the future of how you work with `#Ev
 Follow our [public roadmap](https://www.asyncapi.com/roadmap) ✨ and feel free to share your suggestions 🙇🏿‍♀️🙇🏿. Or better yet, join our community 👇🏽!
 
 ## 🌎 Join AsyncAPI community
-To get involved with our community, please make sure you are familiar with the project's [Code of Conduct](https://github.com/asyncapi/asyncapi/blob/master/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct).
+To get involved with our community, please make sure you are familiar with the project's [Code of Conduct](https://github.com/asyncapi/.github/blob/master/CODE_OF_CONDUCT.md).
 
 We're a community of great people who are passionate about AsyncAPI and Event-Driven Architectures. There are several ways to communicate with other people working on the AsyncAPI project:
 
