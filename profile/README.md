@@ -52,6 +52,8 @@ Emoji/Type | Represents | Emoji/Type | Represents | Emoji/Type | Represents |
 🤔 <br /> `ideas` | Ideas & Planning | 🚧 <br /> `maintenance` | Maintenance | 💬 <br /> `question` | Answering Questions | 
 👀 <br /> `review` | Reviewed Pull Requests | 📢 <br /> `talk` | Talks | 📹 <br /> `video` | Videos |
 
-To figure out a great `first GitHub issue` to work on, [join our Slack workspace](https://www.asyncapi.com/slack-invite) and visit the `11_how-to-contribute` 🙂 channel. This channel is specifically designed for supporting all community questions on getting started as a contributor. Also check out our [contribution guide](https://github.com/asyncapi/community/blob/master/CONTRIBUTING.md).
+To figure out a great `first GitHub issue` to work on, [join our Slack workspace](https://www.asyncapi.com/slack-invite) and visit the `11_how-to-contribute` 🙂 channel. This channel is specifically designed for supporting all community questions on getting started as a contributor. We also host a live stream dedicated to contributors called `Contributor-first`. Feel invited to join one of them and for details check [the list of future events](https://github.com/asyncapi/community/issues?q=is%3Aissue+is%3Aopen+label%3Ameeting).
+
+You should also check out our [contribution guide](https://github.com/asyncapi/community/blob/master/CONTRIBUTING.md).
 
 We can't wait to meet you! 🤗
