@@ -12,8 +12,17 @@ jobs:
     if: github.event.issue.pull_request && github.event.issue.state != 'closed'
     runs-on: ubuntu-latest
     steps:
+      - name: Check if PR is draft # such info is not available in the context of issue_comment event
+        uses: actions/github-script@v5
+        id: checkDraft
+        with:
+          result-encoding: string
+          script: |
+            const prDetailsUrl = context.payload.issue.pull_request.url;
+            const response = await github.request(prDetailsUrl);
+            return response.data.draft;
       - name: Add label
-        if: contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' )
+        if: steps.checkDraft.outputs.result == 'false' && (contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' ))
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GH_TOKEN }}
