@@ -27,7 +27,7 @@ jobs:
         if: github.actor != 'asyncapi-bot' || github.actor != 'dependabot[bot]' || github.actor != 'dependabot-preview[bot]' #it runs only if PR actor is not a bot, at least not a bot that we know
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
-          MERGE_LABELS: "ready-to-merge"
+          MERGE_LABELS: "do-not-merge,ready-to-merge"
           MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: "pull-request-title"
           MERGE_RETRIES: "20"
