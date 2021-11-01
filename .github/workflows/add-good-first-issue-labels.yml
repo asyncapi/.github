@@ -1,0 +1,57 @@
+#This workflow is centrally managed in https://github.com/asyncapi/.github/
+#Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
+
+#Purpose of this workflow is to enable anyone to label issue with 'Good First Issue','complexity/*' and 'area/*' with a single command.
+name: Add 'Good First Issue', 'complexity/*' and 'area/*' labels # if proper comment added
+
+on: issue_comment
+
+jobs:
+  add-labels:
+    if: github.event.issue && github.event.issue.state != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add label
+        if: contains(github.event.comment.body, '/good-first-issue') || contains(github.event.comment.body, '/gfi' )
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const complexities = ['easy', 'medium', 'challenging'];
+            const areas = ['javascript', 'typescript', 'markdown', 'docs', 'github-actions'];
+            const values = context.payload.comment.body.split(" ");
+            if(values.length != 3 || !complexities.includes(values[1]) || !areas.includes(values[2])){
+              const message = `Hey @${context.payload.sender.login}, something is wrong with your command please use \`/help\` for help.`
+
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: message
+              })
+            } else {
+
+              //remove complexity and areas if there are any before adding new labels;
+              const currentLabels = (await github.rest.issues.listLabelsOnIssue({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              })).data.map(label => label.name);
+
+              const shouldBeRemoved = currentLabels.filter(label => (label.startsWith('area/') && !label.endsWith(values[2])) || (label.startsWith('complexity/') && !label.endsWith(values[1])));
+              shouldBeRemoved.forEach(label => {
+                github.rest.issues.deleteLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label,
+                });
+              });
+
+              //add new labels
+              github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['good first issue', `complexity/${values[1]}`, `area/${values[2]}`]
+              });
+            }
