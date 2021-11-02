@@ -12,7 +12,6 @@ on:
       - edited
 
 jobs:
-
   remove-ready-label:
     runs-on: ubuntu-latest
     steps:

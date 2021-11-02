@@ -7,7 +7,6 @@ name: Add ready-to-merge or do-not-merge label # if proper comment added
 on: issue_comment
 
 jobs:
-
   parse-comment-and-add-ready: # for handling cases when you want to mark as ready to merge
     if: github.event.issue.pull_request && github.event.issue.state != 'closed'
     runs-on: ubuntu-latest
