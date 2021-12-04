@@ -10,7 +10,7 @@ body:
     attributes:
       value: |
         Thank you for contributing to AsyncAPI Docs! 📑 👩🏻‍💻 We appreciate your feedback. 
-        Before filing this issue, please make sure to check to if there's already a similar issue open in our [Dev Docs Board](https://github.com/orgs/asyncapi/projects/8).
+        Before filing this issue, please make sure to check if there's already a similar issue open in our [Dev Docs Board](https://github.com/orgs/asyncapi/projects/8).
   - type: input
     id: contact
     attributes:
