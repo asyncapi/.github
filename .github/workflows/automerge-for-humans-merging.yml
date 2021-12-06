@@ -18,12 +18,11 @@ on:
 
 jobs:
   automerge-for-humans:
-    if: github.event.pull_request.draft == false
+    if: github.event.pull_request.draft == false && (github.event.pull_request.user.login != 'asyncapi-bot' || github.event.pull_request.user.login != 'dependabot[bot]' || github.event.pull_request.user.login != 'dependabot-preview[bot]') #it runs only if PR actor is not a bot, at least not a bot that we know
     runs-on: ubuntu-latest
     steps:
       - name: Automerge PR
         uses: pascalgn/automerge-action@v0.14.3
-        if: github.actor != 'asyncapi-bot' || github.actor != 'dependabot[bot]' || github.actor != 'dependabot-preview[bot]' #it runs only if PR actor is not a bot, at least not a bot that we know
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
           MERGE_LABELS: "!do-not-merge,ready-to-merge"
