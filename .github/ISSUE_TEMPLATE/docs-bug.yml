@@ -1,0 +1,46 @@
+name: Docs Bug 🐞 report
+description: Report mistakes and/or bugs in our Documentation.
+title: "[Docs Bug 🐞 report]: "
+labels: ["docs", "bug"]
+assignees: alequetzalli
+  - 
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting mistakes and/or bugs 🐞 in AsyncAPI Docs 📑. We appreciate your contribution! 🙂
+        Before filing this `Docs Bug` report, please make sure to check if someone already filed this bug report in our [Dev Docs Board](https://github.com/orgs/asyncapi/projects/8).
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. Slack username
+    validations:
+      required: false
+  - type: textarea
+    id: describe-bug
+    attributes:
+      label: Describe the bug
+      description: Is there a bug in one of our code snippets? Did we explain a concept incorrectly? 
+      placeholder: Please share a clear and concise description of what the bug is.
+      value: "I would like to file an AsyncAPI Docs Bug 🐞 report about..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce-bug
+    attributes:
+      label: Attach any resources that can help us understand the issue:
+      description: Send us screenshots, direct quotes of the text that has issues, a link to the GitHub repository with project that has issues, etc.
+      placeholder: Help reproduce this Docs issue.
+      value: "Please find attached a screenshot of the text with issues..."
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
