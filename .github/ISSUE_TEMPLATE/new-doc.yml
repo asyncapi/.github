@@ -1,0 +1,37 @@
+name: New Doc 📑 
+description: Propose changes and improvements to AsyncAPI Docs.
+labels: docs
+title: "[New Doc 📑]: "
+assignees: alequetzalli
+  - 
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing to AsyncAPI Docs! 📑 👩🏻‍💻 We appreciate your feedback and contributions. 
+        Before filing this issue, please make sure to check if there's already a similar issue open in our [Dev Docs Board](https://github.com/orgs/asyncapi/projects/8).
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. Slack username
+    validations:
+      required: false
+  - type: textarea
+    id: reason-context
+    attributes:
+      label: What Dev Docs changes are you proposing?
+      description: Why do the Docs need this improvement? What is the motivation for this change? 
+      placeholder: How will this change benefit our Open-Source community?
+      value: "I would like to contribute to AsyncAPI Docs by..."
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
