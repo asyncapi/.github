@@ -21,9 +21,9 @@ body:
   - type: textarea
     id: describe-bug
     attributes:
-      label: Describe the bug
+      label: Describe the Docs bug:
       description: Is there a bug in one of our code snippets? Did we explain a concept incorrectly? 
-      placeholder: Please share a clear and concise description of what the bug is.
+      placeholder: Please share a clear and concise description of what the bug or mistake is.
       value: "I would like to file an AsyncAPI Docs Bug 🐞 report about..."
     validations:
       required: true
@@ -32,7 +32,7 @@ body:
     attributes:
       label: Attach any resources that can help us understand the issue:
       description: Send us screenshots, direct quotes of the text that has issues, a link to the GitHub repository with project that has issues, etc.
-      placeholder: Help reproduce this Docs issue.
+      placeholder: Help us reproduce this Docs issue.
       value: "Please find attached a screenshot of the text with issues..."
     validations:
       required: true
