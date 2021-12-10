@@ -17,7 +17,7 @@ jobs:
         with:
           github-token: ${{ secrets.GH_TOKEN }}
           script: |
-            const complexities = ['easy', 'medium', 'challenging'];
+            const complexities = ['1', '2', '3'];
             const areas = ['javascript', 'typescript', 'markdown', 'docs', 'github-actions'];
             const values = context.payload.comment.body.split(" ");
             if(values.length != 3 || !complexities.includes(values[1]) || !areas.includes(values[2])){
