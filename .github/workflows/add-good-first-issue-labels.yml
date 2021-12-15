@@ -18,7 +18,7 @@ jobs:
           github-token: ${{ secrets.GH_TOKEN }}
           script: |
             const complexities = ['1', '2', '3'];
-            const areas = ['javascript', 'typescript', 'markdown', 'docs', 'github-actions'];
+            const areas = ['javascript', 'typescript', 'java', 'go', 'docs', 'ci-cd', 'design'];
             const values = context.payload.comment.body.split(" ");
             if(values.length != 3 || !complexities.includes(values[1]) || !areas.includes(values[2])){
               const message = `Hey @${context.payload.sender.login}, something is wrong with your command please use \`/help\` for help.`
