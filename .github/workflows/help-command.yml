@@ -6,12 +6,11 @@ name: Create help comment
 on: [issue_comment]
 
 jobs:
-  create_help_comment:
-    if: contains(github.event.comment.body, '/help')
+  create_help_comment_pr:
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/help') }} 
     runs-on: ubuntu-latest
     steps:
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ github.event.issue.pull_request }}
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           body: |
@@ -23,8 +22,11 @@ jobs:
 
             - `/ready-to-merge` or `/rtm` - This comment will trigger automerge of PR in case all required checks are green, approvals in place and do-not-merge label is not added
             - `/do-not-merge` or `/dnm` - This comment will block automerging even if all conditions are met and ready-to-merge label is added
+  create_help_comment_issue:
+    if: ${{ !github.event.issue.pull_request && contains(github.event.comment.body, '/help') }}
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ !github.event.issue.pull_request }}
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           body: |
@@ -34,4 +36,5 @@ jobs:
 
             At the moment the following comments are supported in issues:
 
-            - `/good-first-issue {1|2|3} {javascript | typescript | markdown | docs} ` or `/gfi {1|2|3} {javascript | typescript | markdown | docs} ` - label an issue as a `good first issue`, Where the first option is the complexity of the issue and the second option is the area.
+            - `/good-first-issue {1|2|3} {javascript | typescript | markdown | docs} ` or `/gfi {1|2|3} {javascript | typescript | markdown | docs} ` - label an issue as a `good first issue`, Where the first option is the complexity of the issue (1 least complex, 3 most complex) and the second option is the area.
+            example: `/gfi 2 javascript` or `/good-first-issue 1 typescript`
