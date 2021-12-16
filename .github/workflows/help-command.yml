@@ -36,5 +36,5 @@ jobs:
 
             At the moment the following comments are supported in issues:
 
-            - `/good-first-issue {1|2|3} {javascript | typescript | markdown | docs} ` or `/gfi {1|2|3} {javascript | typescript | markdown | docs} ` - label an issue as a `good first issue`, Where the first option is the complexity of the issue (1 least complex, 3 most complex) and the second option is the area.
+            - `/good-first-issue {1|2|3} {javascript | typescript | java | go | docs | design | ci-cd} ` or `/gfi {1|2|3} {javascript | typescript | java | go | docs | design | ci-cd} ` - label an issue as a `good first issue`, Where the first option is the complexity of the issue (1 least complex, 3 most complex) and the second option is the area.
             example: `/gfi 2 javascript` or `/good-first-issue 1 typescript`
