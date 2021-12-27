@@ -26,7 +26,7 @@ jobs:
             - `/ready-to-merge` or `/rtm` - This comment will trigger automerge of PR in case all required checks are green, approvals in place and do-not-merge label is not added
             - `/do-not-merge` or `/dnm` - This comment will block automerging even if all conditions are met and ready-to-merge label is added
   create_help_comment_issue:
-    if: !github.event.issue.pull_request && contains(github.event.comment.body, '/help')
+    if: ${{ !github.event.issue.pull_request && contains(github.event.comment.body, '/help') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions-ecosystem/action-create-comment@v1
@@ -39,5 +39,5 @@ jobs:
 
             At the moment the following comments are supported in issues:
 
-            - `/good-first-issue {1|2|3} {javascript | typescript | java | go | docs | design | ci-cd} ` or `/gfi {1|2|3} {javascript | typescript | java | go | docs | design | ci-cd} ` - label an issue as a `good first issue`, Where the first option is the complexity of the issue (1 least complex, 3 most complex) and the second option is the area.
-            example: `/gfi 2 javascript` or `/good-first-issue 1 typescript`
+            - `/good-first-issue {javascript | typescript | java | go | docs | design | ci-cd} ` or `/gfi {javascript | typescript | java | go | docs | design | ci-cd} ` - label an issue as a `good first issue`.
+            example: `/gfi javascript` or `/good-first-issue typescript`
