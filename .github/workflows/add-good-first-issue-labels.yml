@@ -1,10 +1,13 @@
 #This workflow is centrally managed in https://github.com/asyncapi/.github/
 #Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 
-#Purpose of this workflow is to enable anyone to label issue with 'Good First Issue','complexity/*' and 'area/*' with a single command.
-name: Add 'Good First Issue', 'complexity/*' and 'area/*' labels # if proper comment added
+#Purpose of this workflow is to enable anyone to label issue with 'Good First Issue' and 'area/*' with a single command.
+name: Add 'Good First Issue' and 'area/*' labels # if proper comment added
 
-on: issue_comment
+on: 
+    issue_comment:
+        types: 
+            - created
 
 jobs:
   add-labels:
@@ -17,10 +20,9 @@ jobs:
         with:
           github-token: ${{ secrets.GH_TOKEN }}
           script: |
-            const complexities = ['1', '2', '3'];
             const areas = ['javascript', 'typescript', 'java' , 'go', 'docs', 'ci-cd', 'design'];
             const values = context.payload.comment.body.split(" ");
-            if(values.length != 3 || !complexities.includes(values[1]) || !areas.includes(values[2])){
+            if(values.length != 2 || !areas.includes(values[1])){
               const message = `Hey @${context.payload.sender.login}, something is wrong with your command please use \`/help\` for help.`
 
               await github.rest.issues.createComment({
@@ -38,7 +40,7 @@ jobs:
                 repo: context.repo.repo,
               })).data.map(label => label.name);
 
-              const shouldBeRemoved = currentLabels.filter(label => (label.startsWith('area/') && !label.endsWith(values[2])) || (label.startsWith('complexity/') && !label.endsWith(values[1])));
+              const shouldBeRemoved = currentLabels.filter(label => (label.startsWith('area/') && !label.endsWith(values[1])));
               shouldBeRemoved.forEach(label => {
                 github.rest.issues.deleteLabel({
                   owner: context.repo.owner,
@@ -52,6 +54,6 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                labels: ['good first issue', `complexity/${values[1]}`, `area/${values[2]}`]
+                labels: ['good first issue', `area/${values[1]}`]
               });
             }
