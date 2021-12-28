@@ -39,5 +39,5 @@ jobs:
 
             At the moment the following comments are supported in issues:
 
-            - `/good-first-issue {javascript | typescript | java | go | docs | design | ci-cd} ` or `/gfi {javascript | typescript | java | go | docs | design | ci-cd} ` - label an issue as a `good first issue`.
-            example: `/gfi javascript` or `/good-first-issue typescript`
+            - `/good-first-issue {js | ts | java | go | docs | design | ci-cd} ` or `/gfi {js | ts | java | go | docs | design | ci-cd} ` - label an issue as a `good first issue`.
+            example: `/gfi js` or `/good-first-issue ci-cd`

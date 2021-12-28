@@ -22,6 +22,15 @@ jobs:
           script: |
             const areas = ['javascript', 'typescript', 'java' , 'go', 'docs', 'ci-cd', 'design'];
             const values = context.payload.comment.body.split(" ");
+            switch(values[1]){
+              case 'ts':
+                values[1] = 'typescript';
+                break;
+              case 'js':
+                values[1] = 'javascript';
+              case 'markdown':
+                values[1] = 'docs';
+            }
             if(values.length != 2 || !areas.includes(values[1])){
               const message = `Hey @${context.payload.sender.login}, something is wrong with your command please use \`/help\` for help.`
 
