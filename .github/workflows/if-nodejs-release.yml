@@ -47,7 +47,7 @@ jobs:
 
   release:
     needs: test
-    name: Publish to NPM/DockerHub and GitHub
+    name: Publish to any of NPM, Github, and Docker Hub
     runs-on: ubuntu-latest
     steps:
       - name: Set git to use LF #to once and for all finish neverending fight between Unix and Windows
@@ -68,7 +68,7 @@ jobs:
         name: Install dependencies
         run: npm install
       - if: steps.packagejson.outputs.exists == 'true'
-        name: Publish to any of NPM, Github, and Docker Hub
+        name: Release to any of NPM, Github, and Docker Hub
         id: release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
