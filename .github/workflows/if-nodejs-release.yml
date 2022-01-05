@@ -68,7 +68,7 @@ jobs:
         name: Install dependencies
         run: npm install
       - if: steps.packagejson.outputs.exists == 'true'
-        name: Release to any of NPM, Github, and Docker Hub
+        name: Publish to any of NPM, Github, and Docker Hub
         id: release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
