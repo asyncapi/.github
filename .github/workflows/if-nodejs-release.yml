@@ -68,10 +68,7 @@ jobs:
         name: Install dependencies
         run: npm install
       - if: steps.packagejson.outputs.exists == 'true'
-        name: Build Docker Image (if script exists)
-        run: npm run generate:docker --if-present
-      - if: steps.packagejson.outputs.exists == 'true'
-        name: Release to NPM/DockerHub and GitHub
+        name: Publish to any of NPM, Github, and Docker Hub
         id: release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
