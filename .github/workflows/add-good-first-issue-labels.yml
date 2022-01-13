@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add label
-        if: contains(github.event.comment.body, '/good-first-issue') || contains(github.event.comment.body, '/gfi' )
+        if: startsWith(github.event.comment.body, '/good-first-issue') || startsWith(github.event.comment.body, '/gfi' )
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GH_TOKEN }}
