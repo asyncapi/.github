@@ -11,11 +11,11 @@ on:
 
 jobs:
   add-labels:
-    if: github.event.issue && github.event.issue.state != 'closed'
+    if: ${{!github.event.issue.pull_request && github.event.issue.state != 'closed' && github.actor != 'asyncapi-bot'}}
     runs-on: ubuntu-latest
     steps:
       - name: Add label
-        if: startsWith(github.event.comment.body, '/good-first-issue') || startsWith(github.event.comment.body, '/gfi' )
+        if: contains(github.event.comment.body, '/good-first-issue') || contains(github.event.comment.body, '/gfi' )
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GH_TOKEN }}
@@ -32,7 +32,7 @@ jobs:
                 values[1] = 'docs';
             }
             if(values.length != 2 || !areas.includes(values[1])){
-              const message = `Hey @${context.payload.sender.login}, something is wrong with your command please use \`/help\` for help.`
+              const message = `Hey @${context.payload.sender.login}, your message doesn't follow the requirements, you can try \`/help\`.`
 
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
