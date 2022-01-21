@@ -4,10 +4,10 @@ about: Let us know that you want to write a blog post at https://www.asyncapi.co
 ---
 
 <!--
-We're super happy to see you want to publish on our blog. The AsyncAPI blog is open for everyone, any contribution is allowed, including reposting.
-By posting an article on the AsyncAPI blog, you get many advantages. We'll ask on the community Slack to help promote it whenever it's' released. We'll share it on the official AsyncAPI Twitter, LinkedIn, Hacker News, and Reddit.
-You can share your use cases, products, or tools in a form of a blog post to reach out to the entire AsyncAPI community.
-Please fill in the data below and we'll guide you through the process.
+We're super happy to see you want to publish on our blog. The AsyncAPI blog is open for everyone; any contribution is allowed, including reposting.
+By posting an article on the AsyncAPI blog, you get many advantages. We'll ask on the community Slack to help promote it whenever released. We'll share it on the official AsyncAPI Twitter, LinkedIn, Hacker News, and Reddit.
+You can even share your use cases, products, or tools in a blog post to reach out to the entire AsyncAPI community.
+Please fill in the data below, and we'll guide you through the process. 
 Happy writing!
 -->
 
