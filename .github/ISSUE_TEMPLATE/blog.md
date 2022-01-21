@@ -27,14 +27,14 @@ fine too. Please provide the link to the article.
 -->
 
 ## Guide
-Here are a few steps you can follow to write a blog post for AsyncAPI:
+Here are a few steps you can follow to write an AsyncAPI blog post:
 
-1. After getting some feedback on the issue, fork the `website` [repository](https://github.com/asyncapi/website)
-1. Run the command `npm run write:blog`
+1. After getting feedback on the issue, fork the `website` [repository](https://github.com/asyncapi/website).
+1. Run the command `npm run write:blog`.
 1. Run the website locally or with Gitpod by using instructions from the `README` to test your changes
 1. Open a PR with your blog post and test your changes with a preview of the site on Netlify.
-1. Maintainers will review the article (e.g. language, images) and potentially ask for improvements
-1. Once it gets merged it will be available live in production :rocket:
+1. Maintainers reviewing the article (e.g., language, images) may ask for improvements.
+1. Once it's merged, it will be available live in production. :rocket:
 
-We encourage you to write a blog post and sharing it with the community. We can't wait to read it :smile:!
+We encourage you to write a blog post and share it with the community. We can't wait to read it :smile:!
  
