@@ -11,7 +11,12 @@
 name: autoupdate
 
 on:
-  push: {}
+  push:
+    branches-ignore:  
+      - 'version-bump/**'
+      - 'dependabot/**'
+      - 'bot/**'
+      - 'all-contributors/**'
 
 jobs:
   autoupdate:
