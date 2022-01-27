@@ -1,7 +1,7 @@
-name: New Doc 📑 
+name: 📑 Docs
 description: Propose changes and improvements to AsyncAPI Docs.
-labels: "📑 new doc"
-title: "[New Doc 📑]: "
+labels: "📑 docs"
+title: "[📑 Docs]: "
 assignees: alequetzalli
   - 
 body:
