@@ -9,7 +9,7 @@ on:
     types: [opened, reopened, synchronize, edited, ready_for_review]
 
 jobs:
-
+    if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors"]'), github.actor) }}
     lint:
       runs-on: ubuntu-latest
       steps:
