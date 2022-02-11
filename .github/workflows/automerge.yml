@@ -7,12 +7,11 @@ on:
   pull_request_target:
     types:
       - opened
-      - reopened
+      - synchronize
 
 jobs:
   autoapprove:
     if: >
-      github.event.pull_request.draft == false &&
       contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.event.pull_request.user.login) &&
       contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.actor) &&
       !contains(github.event.pull_request.labels.*.name, 'released')
@@ -37,7 +36,6 @@ jobs:
 
   automerge:
     needs: [autoapprove]
-    if: contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.event.pull_request.user.login)
     runs-on: ubuntu-latest
     steps:
       - name: Automerging
