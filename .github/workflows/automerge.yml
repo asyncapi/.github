@@ -6,23 +6,15 @@ name: Automerge release bump PR
 on:
   pull_request_target:
     types:
-      - labeled
-      - unlabeled
-      - synchronize
       - opened
-      - edited
-      - ready_for_review
       - reopened
-      - unlocked
-  pull_request_review:
-    types:
-      - submitted
 
 jobs:
   autoapprove:
     if: >
       github.event.pull_request.draft == false &&
       contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.event.pull_request.user.login) &&
+      contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.actor) &&
       !contains(github.event.pull_request.labels.*.name, 'released')
     runs-on: ubuntu-latest
     steps:
