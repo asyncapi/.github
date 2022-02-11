@@ -20,7 +20,10 @@ on:
 
 jobs:
   autoapprove:
-    if: github.event.pull_request.draft == false && (github.actor == 'asyncapi-bot' || github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]') && !contains(github.event.pull_request.labels.*.name, 'released')
+    if: >
+      github.event.pull_request.draft == false &&
+      contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.event.pull_request.user.login) &&
+      !contains(github.event.pull_request.labels.*.name, 'released')
     runs-on: ubuntu-latest
     steps:
       - name: Autoapproving
@@ -42,7 +45,7 @@ jobs:
 
   automerge:
     needs: [autoapprove]
-    if: github.event.pull_request.user.login == 'asyncapi-bot' || github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'dependabot-preview[bot]'
+    if: contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.event.pull_request.user.login)
     runs-on: ubuntu-latest
     steps:
       - name: Automerging
