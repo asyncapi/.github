@@ -9,11 +9,11 @@ on:
     types: [opened, reopened, synchronize, edited, ready_for_review]
 
 jobs:
-    if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors"]'), github.actor) }}
     lint:
       runs-on: ubuntu-latest
       steps:
-      - uses: amannn/action-semantic-pull-request@v3.2.5
+      - if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors"]'), github.actor) }}
+        uses: amannn/action-semantic-pull-request@v3.2.5
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
