@@ -3,7 +3,13 @@ name: Global workflow to rule them all
 on:
   push:
       branches: [ master ]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: |
+          You can specify name of the repository where workflows should be pushed manually. As long as repository is not ignored by workflow settings.
+          If you do not specify exact repository name, the workflow will try to replicate all missing changes to all repositories.
+        required: false
 
 jobs:
 
@@ -15,7 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Replicating global workflows
-        uses: derberg/global-workflows-support@v0.2.0
+        uses: derberg/global-workflows-support@v0.8.1
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           # this action will not replicate to other repos workflows listed here
