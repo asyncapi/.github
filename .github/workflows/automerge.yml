@@ -20,7 +20,7 @@ jobs:
       - name: Autoapproving
         uses: hmarr/auto-approve-action@v2
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          github-token: "${{ secrets.GH_TOKEN_BOT_EVE }}"
 
       - name: Label autoapproved
         uses: actions/github-script@v5
