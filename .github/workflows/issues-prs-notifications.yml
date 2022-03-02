@@ -19,7 +19,7 @@ jobs:
 
     issue:
       if: github.event_name == 'issues' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-      name: On every new issue
+      name: Notify slack on every new issue
       runs-on: ubuntu-latest
       steps:
         - name: Convert markdown to slack markdown for issue
@@ -37,7 +37,7 @@ jobs:
 
     pull_request:
       if: github.event_name == 'pull_request_target' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-      name: On every new pull request
+      name: Notify slack on every new pull request
       runs-on: ubuntu-latest
       steps:
         - name: Convert markdown to slack markdown for pull request
@@ -55,7 +55,7 @@ jobs:
     
     discussion:
       if: github.event_name == 'discussion' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-      name: On every new pull request
+      name: Notify slack on every new pull request
       runs-on: ubuntu-latest
       steps:
         - name: Convert markdown to slack markdown for pull request
