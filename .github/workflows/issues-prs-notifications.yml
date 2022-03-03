@@ -31,7 +31,7 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_GITHUB_NEWISSUEPR}}
-            SLACK_TITLE: 🐛 New Issue 🐛
+            SLACK_TITLE: 🐛 New Issue in ${{github.repository}} 🐛
             SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
             MSG_MINIMAL: true
 
@@ -49,7 +49,7 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_GITHUB_NEWISSUEPR}}
-            SLACK_TITLE: 💪 New Pull Request 💪
+            SLACK_TITLE: 💪 New Pull Request in ${{github.repository}} 💪
             SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
             MSG_MINIMAL: true
     
@@ -67,6 +67,6 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_GITHUB_NEWISSUEPR}}
-            SLACK_TITLE: 💬 New Discussion 💬
+            SLACK_TITLE: 💬 New Discussion in ${{github.repository}} 💬
             SLACK_MESSAGE: ${{steps.discussionmarkdown.outputs.text}}
             MSG_MINIMAL: true
