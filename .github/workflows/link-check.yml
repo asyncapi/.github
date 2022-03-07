@@ -1,7 +1,8 @@
 name: Check Markdown links
 
 on: 
-  pull_request:
+  pull_request_target:
+    types: [synchronize, ready_for_review, opened, reopened]
 
 jobs:
   markdown-link-check:
@@ -13,6 +14,6 @@ jobs:
       with:
         use-quiet-mode: 'no'
         use-verbose-mode: 'yes'
-        check-modified-files-only: 'no'
+        check-modified-files-only: 'yes'
         config-file: 'config.json'
 
