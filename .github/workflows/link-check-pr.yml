@@ -15,5 +15,5 @@ jobs:
         use-quiet-mode: 'no'
         use-verbose-mode: 'yes'
         check-modified-files-only: 'yes'
-        config-file: 'config.json'
+        config-file: 'link-check-config.json'
 

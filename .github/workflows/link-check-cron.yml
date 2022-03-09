@@ -1,0 +1,31 @@
+name: Check Markdown links (Weekly)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # At 00:00 UTC on every Monday
+    - cron: '0 0 * * 0'
+  
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    # Checks the status of hyperlinks in .md files, the link-check-config.json at the root of the repository is used for the configuration
+    - name: Check links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'no'
+        use-verbose-mode: 'yes'
+        check-modified-files-only: 'yes'
+        config-file: 'link-check-config.json'
+
+    - name: Report workflow run status to Slack
+      uses: 8398a7/action-slack@v3
+      with:
+          status: ${{ job.status }}
+          fields: repo,message,action,eventName,ref,workflow
+      env:
+          SLACK_DOCS_CHANNEL: ${{ secrets.SLACK_DOCS_CHANNEL }}
+      if: always() # Pick up events even if the job fails or is canceled.
