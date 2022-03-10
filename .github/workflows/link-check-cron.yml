@@ -12,13 +12,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    # Checks the status of hyperlinks in .md files, the link-check-config.json at the root of the repository is used for the configuration
+    # Checks the status of hyperlinks in .md files
     - name: Check links
       uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
-        config-file: 'link-check-config.json'
 
     - name: Report workflow run status to Slack
       uses: 8398a7/action-slack@v3
