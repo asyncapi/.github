@@ -1,6 +1,4 @@
-<p align="center">
-<img src="/assets/v2_launch.gif" alt="This is a GIF showing the AsyncAPI logo and their two mascots, Eve and Chan; the animation is of a rocket flying over Eve and Chan's heads." />
-</p>
+[![AsyncAPI logo - Building the future of Event-Driven Architectures.](/assets/Github_Banner.png)](https://www.asyncapi.com)
 
 [![Slack](https://img.shields.io/badge/Slack-@asyncAPI.slack.com-yellow.svg)](https://asyncapi.slack.com)
 [![Twitter](https://img.shields.io/badge/Twitter-@asyncAPIspec-9cf.svg)](https://twitter.com/asyncapispec)
