@@ -1,8 +1,0 @@
-{
-    "ignorePatterns": [
-        {
-            "pattern": "^https://github.com/nodejs/node/commit",
-            "pattern" : "https://www.linkedin.com/company/asyncapi"
-        }
-    ]
-}

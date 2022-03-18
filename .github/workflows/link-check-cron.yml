@@ -10,7 +10,7 @@ jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
 
     # Checks the status of hyperlinks in .md files
     - name: Check links
@@ -26,4 +26,4 @@ jobs:
           fields: repo,message,action,eventName,ref,workflow
       env:
           SLACK_DOCS_CHANNEL: ${{ secrets.SLACK_DOCS_CHANNEL }}
-      if: failure() # Send a message Slack only on failure (if there are broken links)
+      if: failure() # Only, on failure, send a message on the Slack Docs Channel (if there are broken links)
