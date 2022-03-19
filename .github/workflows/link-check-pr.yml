@@ -5,7 +5,7 @@ on:
     types: [synchronize, ready_for_review, opened, reopened]
 
 jobs:
-  External link validation(on PR):
+  External-link-validation-on-PR:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
