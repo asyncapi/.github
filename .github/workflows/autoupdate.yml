@@ -17,6 +17,13 @@ on:
       - 'dependabot/**'
       - 'bot/**'
       - 'all-contributors/**'
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches-ignore:  
+      - 'version-bump/**'
+      - 'dependabot/**'
+      - 'bot/**'
+      - 'all-contributors/**'
 
 jobs:
   autoupdate-for-bot:
