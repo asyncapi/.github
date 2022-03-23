@@ -12,7 +12,7 @@ name: autoupdate
 
 on:
   push:
-    branches-ignore:
+    branches-ignore:  
       - 'version-bump/**'
       - 'dependabot/**'
       - 'bot/**'
@@ -30,8 +30,8 @@ jobs:
       - name: Autoupdating
         uses: docker://chinthakagodawita/autoupdate-action:v1
         env:
-          GITHUB_TOKEN: '${{ secrets.GH_TOKEN }}'
-          PR_FILTER: 'labelled'
-          PR_LABELS: 'auto-update'
-          PR_READY_STATE: 'ready_for_review'
-          MERGE_CONFLICT_ACTION: 'ignore'
+          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
+          PR_FILTER: "labelled"
+          PR_LABELS: "auto-update"
+          PR_READY_STATE: "ready_for_review"
+          MERGE_CONFLICT_ACTION: "ignore"
