@@ -53,7 +53,7 @@ jobs:
               labels: ['do-not-merge']
             }) 
 
-      - name: Add auto-update label
+      - name: Add autoupdate label
         if: steps.checkDraft.outputs.result == 'false' && (contains(github.event.comment.body, '/auto-update') || contains(github.event.comment.body, '/au' ))
         uses: actions/github-script@v5
         with:
