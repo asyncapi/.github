@@ -3,7 +3,7 @@
 
 # Purpose of this workflow is to enable anyone to label PR with the following labels:
 # `ready-to-merge` and `do-not-merge` labels to get stuff merged or blocked from merging
-# `auto-update` to keep a branch up-to-date with the target branch
+# `autoupdate` to keep a branch up-to-date with the target branch
 
 name: Add label to PR # if proper comment added
 
@@ -54,7 +54,7 @@ jobs:
             }) 
 
       - name: Add autoupdate label
-        if: steps.checkDraft.outputs.result == 'false' && (contains(github.event.comment.body, '/auto-update') || contains(github.event.comment.body, '/au' ))
+        if: steps.checkDraft.outputs.result == 'false' && (contains(github.event.comment.body, '/autoupdate') || contains(github.event.comment.body, '/au' ))
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GH_TOKEN }}
@@ -63,5 +63,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['auto-update']
+              labels: ['autoupdate']
             }) 
