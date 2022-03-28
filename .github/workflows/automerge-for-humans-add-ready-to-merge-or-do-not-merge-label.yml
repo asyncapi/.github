@@ -53,7 +53,7 @@ jobs:
           github_token: ${{ secrets.GH_TOKEN }}
           body: |
             Hello, @${{ github.actor }}! 👋🏼
-            This PR is not up to date with the base branch.
+            This PR is not up to date with the base branch and can't be merged.
             Please use `/autoupdate` in the comment to update it. If that did't work, update the branch locally.
             Thanks :)
 
