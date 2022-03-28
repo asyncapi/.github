@@ -55,7 +55,7 @@ jobs:
             Hello, @${{ github.actor }}! 👋🏼
             This PR is not up to date with the base branch and can't be merged.
             Please use `/autoupdate` in the comment to update it. If that did't work, update the branch locally.
-            Thanks :)
+            Thanks 😄 
 
       - name: Add ready-to-merge label
         if: ${{ !steps.checkPR.outputs.result.isDraft }}
