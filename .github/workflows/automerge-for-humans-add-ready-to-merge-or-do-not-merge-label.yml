@@ -1,5 +1,5 @@
-#This workflow is centrally managed in https://github.com/asyncapi/.github/
-#Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
+# This workflow is centrally managed in https://github.com/asyncapi/.github/
+# Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 
 # Purpose of this workflow is to enable anyone to label PR with the following labels:
 # `ready-to-merge` and `do-not-merge` labels to get stuff merged or blocked from merging
