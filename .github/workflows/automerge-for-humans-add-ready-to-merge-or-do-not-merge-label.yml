@@ -54,7 +54,7 @@ jobs:
           body: |
             Hello, @${{ github.actor }}! 👋🏼
             This PR is not up to date with the base branch.
-            Please use `/autoupdate` in the comment to update it. If that did't work, ask one of the maintainers to merge it.
+            Please use `/autoupdate` in the comment to update it. If that did't work, update the branch locally.
             Thanks :)
 
       - name: Add ready-to-merge label
