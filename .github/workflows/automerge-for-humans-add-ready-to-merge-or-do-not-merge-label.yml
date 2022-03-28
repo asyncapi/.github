@@ -54,7 +54,7 @@ jobs:
           body: |
             Hello, @${{ github.actor }}! 👋🏼
             This PR is not up to date with the base branch and can't be merged.
-            Please use `/autoupdate` in the comment to update it. If that did't work, update the branch locally.
+            You can add comment to this PR with text: `/autoupdate` or `/au`. This way you ask our bot to perform regular updates for you. The only requirement for this to work is to enable [Allow edits from maintainers](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork) option in your PR. Otherwise the only option that you have is to manually update your branch with latest version of the base branch.
             Thanks 😄 
 
       - name: Add ready-to-merge label
