@@ -23,4 +23,4 @@ jobs:
         # More information can be found here: https://github.com/tcort/markdown-link-check#config-file-format
         # The default file is mlc_config.json, located at the root of the directory
         
-        # config: name-of-config-file.json
+        # config-file: name-of-config-file.json
