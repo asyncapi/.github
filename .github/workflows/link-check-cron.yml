@@ -24,9 +24,7 @@ jobs:
         
         # A configuration file can be included, indicating the properties of the link check action
         # More information can be found here: https://github.com/tcort/markdown-link-check#config-file-format
-        # The default file is mlc_config.json, located at the root of the directory
-        
-        # config-file: name-of-config-file.json
+        # Create mlc_config.json file in the root of the directory
 
     - name: Report workflow run status to Slack
       uses: 8398a7/action-slack@v3
