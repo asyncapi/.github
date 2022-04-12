@@ -1,6 +1,6 @@
 #This action is centrally managed in https://github.com/asyncapi/.github/
 #Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
-#It does magic only if there is package.json file in the root of the project
+#It does magic only if there is a Dockerfile in the root of the project
 name: PR testing - if Docker
 
 on:
@@ -38,13 +38,13 @@ jobs:
       - if: steps.docker.outputs.exists == 'true'
         name: Extract metadata for Docker
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v3
         with:
           images: ${{ env.IMAGE_NAME }}
 
       - if: steps.docker.outputs.exists == 'true'
-        name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        name: Build Docker image
+        uses: docker/build-push-action@v2
         with:
           context: .
           push: false
