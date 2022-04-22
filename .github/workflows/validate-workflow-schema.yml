@@ -1,0 +1,34 @@
+name: Validate Workflow Schema
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    name: Test changed-files
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v18.7
+
+      - run: |
+            npm install ajv@8.11.0
+            npm install axios
+            npm install js-yaml
+            
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            node .github/scripts/validate-workflow-schema.js $file
+          done
+          
