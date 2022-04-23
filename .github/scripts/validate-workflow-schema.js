@@ -1,5 +1,4 @@
 function getFileExtension(filename){
-    console.log("file name is " + filename);
     return filename.split('.').pop();
 }
 
@@ -9,7 +8,7 @@ async function validateYmlSchema(filename){
         const axios = require('axios');
         const yaml = require('js-yaml');
         const fs = require('fs').promises;
-    
+        console.log("File name " + filename);
         const schema = await axios.get(
         'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-workflow.json'
         );
@@ -23,6 +22,7 @@ async function validateYmlSchema(filename){
             const valid = validator(target);
             if (!valid) {
             console.error(`Validation failed with the following errors:`);
+            console.log(validator.errors)
             } else {
             console.log(`workflow is valid`);
             }
