@@ -20,13 +20,17 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.7
+        with:
+          files: |
+            *.yml
 
-      - run: |
+      - name: Install dependencies
+        run: |
             npm install ajv@8.11.0
             npm install axios
             npm install js-yaml
             
-      - name: List all changed files
+      - name: Identify changed yml files # Identifies files added, modified, copied or renamed
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             node .github/scripts/validate-workflow-schema.js $file
