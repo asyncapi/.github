@@ -1,7 +1,7 @@
 {
   "ignorePatterns": [
     {
-      "pattern": "^https://www.linkedin.com/company/asyncapi/"
+      "pattern": "^https://www.linkedin.com/company/asyncapi"
     },
         {
       "pattern": "^/assets/Github_Banner.png"
