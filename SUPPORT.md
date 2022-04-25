@@ -7,5 +7,5 @@ There are several ways to communicate with the AsyncAPI community to get support
   * See the shared [Google Calendar](https://calendar.google.com/calendar?cid=dGJyYmZxNGRlNWJjbmd0OG9rdmV2NGxzdGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ). 
   * To get a meeting invite into your mailbox just join [this](https://groups.google.com/forum/#!forum/asyncapi-users) mailing list.
 * Watch content of our [YouTube Channel](https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS).
-* Subscribe to the [Newsletter](https://www.asyncapi.com/subscribe/) to learn about the status of the project.
+* Subscribe to the [Newsletter](https://www.asyncapi.com/#newsletter) to learn about the status of the project.
 * Reach out to us on social media like [Twitter](https://twitter.com/AsyncAPISpec) or [Linkedin](https://www.linkedin.com/company/asyncapi/).
