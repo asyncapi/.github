@@ -96,3 +96,19 @@ jobs:
           committer_email: info@asyncapi.io
           commit_message: "ci: update generic workflows"
           repos_to_ignore: shape-up-process,glee-hello-world
+
+  replicate_docker_workflows:
+    name: Replicate Docker workflows needed for any project
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Replicating file
+      uses: derberg/copy-files-to-other-repositories@v1.0.0
+      with:
+        github_token: ${{ secrets.GH_TOKEN }}
+        topics_to_include: docker
+        patterns_to_include: .github/workflows/if-docker-pr-testing.yml
+        committer_username: asyncapi-bot
+        committer_email: info@asyncapi.io
+        commit_message: "ci: update workflows for docker-based projects"
