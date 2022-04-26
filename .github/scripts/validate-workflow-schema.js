@@ -1,3 +1,9 @@
+const core = require('@actions/core');
+const Ajv = require('ajv');
+const axios = require('axios');
+const yaml = require('js-yaml');
+const fs = require('fs').promises;
+
 function getFileExtension(filename){
     return filename.split('.').pop();
 }
