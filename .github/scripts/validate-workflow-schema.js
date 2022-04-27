@@ -11,7 +11,6 @@ function getFileExtension(filename){
 function validateYmlSchema(filename){
     const fileExtensions = ['yml', 'yaml'];
     if(fileExtensions.includes(getFileExtension(filename))){
-
         // Read the schema file and workflow file synchronously
         let schema = fs.readFileSync('.github/scripts/yml-schema.json', {encoding:'utf8', flag:'r'});
         schema = JSON.parse(schema);
