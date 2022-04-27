@@ -1,9 +1,6 @@
-name: Validate Workflow Schema
+name: Schema Validation
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
@@ -11,11 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest  # windows-latest | macos-latest
-    name: Test changed-files
+    name: Validate workflow schema
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: 0 
 
       - name: Get changed files
         id: changed-files
@@ -26,10 +24,13 @@ jobs:
             npm install ajv@8.11.0
             npm install axios
             npm install js-yaml
+            npm install @actions/core
             
-      - name: Identify changed yml files # Identifies files added, modified, copied or renamed
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            node .github/scripts/validate-workflow-schema.js $file
-          done
-          
+      - name: Run script to validate schema
+        uses: actions/github-script@v6
+        id: validate-schema
+        with:
+          script: |
+            let files = `${{ steps.changed-files.outputs.all_changed_files }}`
+            const script = require('.github/scripts/validate-workflow-schema.js');
+            script(files);
