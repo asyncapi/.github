@@ -16,7 +16,6 @@ jobs:
           fetch-depth: 0 
 
       - name: Get changed files
-        id: changed-files
         uses: tj-actions/changed-files@v18.7
 
       - name: Install dependencies
@@ -27,8 +26,7 @@ jobs:
             npm install @actions/core
             
       - name: Run script to validate schema
-        uses: actions/github-script@v6
-        id: validate-schema
+        uses: actions/github-script@v4
         with:
           script: |
             let files = `${{ steps.changed-files.outputs.all_changed_files }}`
