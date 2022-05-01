@@ -2,7 +2,7 @@ name: Schema Validation
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - master
 
