@@ -1,7 +1,10 @@
 name: GitHub Workflows Schema Validation
 
 on:
-  pull_request:
+  pull_request: 
+    paths:
+        - '.github/workflows/**.yml'
+        - '.github/workflows/**.yaml'
     branches:
       - master
 
@@ -18,15 +21,13 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.7
-        with:
-          path: .github/workflows
-
+  
       - name: Install dependencies
         run: |
             npm install ajv@8.11.0
-            npm install axios
-            npm install js-yaml
-            npm install @actions/core
+            npm install axios@0.27.2
+            npm install js-yaml@4.1.0
+            npm install @actions/core@1.8.0
             
       - name: Run script to validate schema
         uses: actions/github-script@v6
