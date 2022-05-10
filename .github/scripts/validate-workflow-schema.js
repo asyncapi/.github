@@ -4,47 +4,35 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 
 
-function getFileExtension(filename){
-    return filename.split('.').pop();
-}
-
 function validateYmlSchema(filename){
-    const fileExtensions = ['yml', 'yaml'];
-    if(fileExtensions.includes(getFileExtension(filename))){
-        // Read the schema file and workflow file synchronously
-        let schema = fs.readFileSync('.github/scripts/yml-schema.json', {encoding:'utf8', flag:'r'});
-        schema = JSON.parse(schema);
-        const file = fs.readFileSync(filename, 'utf8');
-        try{
-            const target = yaml.load(file);
-            const ajv = new Ajv({ strict: false, allErrors: true });
-            const validator = ajv.compile(schema);
-            const valid = validator(target);
-            // Return the status and log for each workflow file validated
-            if (!valid) {
-                return {
-                    'status' : false,
-                    'log': validator.errors
-                }          
-            } else {
-                return {
-                    'status' : true,
-                    'log': 'Validation successful'
-                }
-            }
-        }
-        catch(err){
+    // Read the schema file and workflow file synchronously
+    let schema = fs.readFileSync('.github/scripts/yml-schema.json', {encoding:'utf8', flag:'r'});
+    schema = JSON.parse(schema);
+    const file = fs.readFileSync(filename, 'utf8');
+    try{
+        const target = yaml.load(file);
+        const ajv = new Ajv({ strict: false, allErrors: true });
+        const validator = ajv.compile(schema);
+        const valid = validator(target);
+        // Return the status and log for each workflow file validated
+        if (!valid) {
             return {
                 'status' : false,
-                'log': err
+                'log': validator.errors
+            }          
+        } else {
+            return {
+                'status' : true,
+                'log': 'Validation successful'
             }
         }
-    } else {
-        return {
-            'status' : true,
-            'log': 'Not a yml/yaml file'
-        }
     }
+    catch(err){
+        return {
+            'status' : false,
+            'log': err
+        }
+    } 
 }
 
 module.exports = (allFiles) => {
