@@ -1,7 +1,7 @@
 name: GitHub Workflows Schema Validation
 
 on:
-  push: 
+  pull_request: 
     paths:
         - '.github/workflows/**.yml'
         - '.github/workflows/**.yaml'
@@ -22,7 +22,6 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v18.7
   
-
       - name: Install dependencies
         run: |
             npm install ajv@8.11.0
