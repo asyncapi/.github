@@ -3,8 +3,8 @@ name: GitHub Workflows Schema Validation
 on:
   pull_request: 
     paths:
-        - '.github/workflows/**.yml'
-        - '.github/workflows/**.yaml'
+        - '.github/workflows/*.yml'
+        - '.github/workflows/*.yaml'
     branches:
       - master
 
@@ -21,6 +21,11 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.7
+        with:
+          path: .github/workflows 
+          files: |
+            .github/workflows/*.yml
+            .github/workflows/*.yaml
   
       - name: Install dependencies
         run: |
