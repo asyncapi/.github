@@ -1,3 +1,4 @@
+// Dependencies
 const core = require('@actions/core');
 const Ajv = require('ajv');
 const yaml = require('js-yaml');
