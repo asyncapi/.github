@@ -3,9 +3,8 @@ const Ajv = require('ajv');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-
 function validateYmlSchema(filename){
-    // Read the schema file and workflow file synchronously
+    // Read the schema and workflow file synchronously
     let schema = fs.readFileSync('.github/scripts/yml-schema.json', {encoding:'utf8', flag:'r'});
     schema = JSON.parse(schema);
     const file = fs.readFileSync(filename, 'utf8');
