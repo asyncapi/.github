@@ -3,8 +3,8 @@ name: GitHub Workflows Schema Validation
 on:
   pull_request: 
     paths:
-        - '**.yml'
-        - '**.yaml'
+        - '.github/workflows/*.yml'
+        - '.github/workflows/*.yaml'
     branches:
       - master
 
