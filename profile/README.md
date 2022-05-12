@@ -21,10 +21,7 @@ To get involved with our community, please make sure you are familiar with the p
 We're a community of great people who are passionate about AsyncAPI and Event-Driven Architectures. There are several ways to communicate with other people working on the AsyncAPI project:
 
 - **Join our Slack workspace**: [Join our Slack workspace](https://www.asyncapi.com/slack-invite) ☎️  and please respect [our slack etiquette](https://github.com/asyncapi/.github/blob/master/slack-etiquette.md). If you have a question on how to use AsyncAPI, want to contribute, or simply want to say hello 👋🏾, feel free to chat with us in Slack. We're nice people. 🙂
-- **Join our public meetings**: We meet every two weeks to discuss the current state of the art, future releases, and everything AsyncAPI. We alternate the time of the meeting to adapt for different world regions; choose the one that suites you best.
-    - Join our regular bi-weekly [Zoom meetings](https://zoom.us/j/165106914).
-    - Add our shared [Google Calendar](https://calendar.google.com/calendar?cid=dGJyYmZxNGRlNWJjbmd0OG9rdmV2NGxzdGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ). 
-    - Join our [mailing list](https://groups.google.com/forum/#!forum/asyncapi-users).
+- **Join our public meetings**: AsyncAPI hosts different meetings every week. They are focused on different topic, sometimes purely technical and sometimes about community building. Pick one and join us! [Learn more about our meetings](https://www.asyncapi.com/community/meetings).
 - **Subscribe to our [Newsletter](https://www.asyncapi.com/)**: keep up to date on the project's status.
 - **GitHub issues**: for bugs and feature requests.
 - **GitHub Pull Requests (PRs)**: for fixes or new features already discussed, as per the [contributing guidelines](https://github.com/asyncapi/asyncapi/blob/master/CONTRIBUTING.md#contributing-to-asyncapi).
