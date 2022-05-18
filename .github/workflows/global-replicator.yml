@@ -18,6 +18,7 @@ on:
 jobs:
 
   replicate_coc:
+      if: startsWith(github.repository, 'asyncapi/')
       name: Replicate Code of Conduct in all repositories
       runs-on: ubuntu-latest
       steps:
@@ -34,6 +35,7 @@ jobs:
           repos_to_ignore: shape-up-process,glee-hello-world
 
   replicate_contributing:
+      if: startsWith(github.repository, 'asyncapi/')
       name: Replicate CONTRIBUTING guide to all repositories
       runs-on: ubuntu-latest
       steps:
@@ -50,6 +52,7 @@ jobs:
           commit_message: "ci: update global contribution guide"
 
   replicate_go_workflows:
+      if: startsWith(github.repository, 'asyncapi/')
       name: Replicate workflows for Go projects
       runs-on: ubuntu-latest
       steps:
@@ -66,6 +69,7 @@ jobs:
           commit_message: "ci: update workflows for go projects"
 
   replicate_nodejs_workflows:
+      if: startsWith(github.repository, 'asyncapi/')
       name: Replicate workflows for Nodejs projects
       runs-on: ubuntu-latest
       steps:
@@ -82,6 +86,7 @@ jobs:
           commit_message: "ci: update workflows for nodejs projects"
       
   replicate_generic_workflows:
+      if: startsWith(github.repository, 'asyncapi/')
       name: Replicate generic workflows needed for any project
       runs-on: ubuntu-latest
       steps:
@@ -98,6 +103,7 @@ jobs:
           repos_to_ignore: shape-up-process,glee-hello-world
 
   replicate_docker_workflows:
+    if: startsWith(github.repository, 'asyncapi/')
     name: Replicate Docker workflows needed for any project
     runs-on: ubuntu-latest
     steps:
