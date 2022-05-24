@@ -2,11 +2,11 @@ name: Global workflow to rule them all
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - '.github/workflows/**'
-      - 'CODE_OF_CONDUCT.md'
-      - 'CONTRIBUTING.md'
+      - ".github/workflows/**"
+      - "CODE_OF_CONDUCT.md"
+      - "CONTRIBUTING.md"
   workflow_dispatch:
     inputs:
       repo_name:
@@ -16,11 +16,10 @@ on:
         required: false
 
 jobs:
-
   replicate_coc:
-      name: Replicate Code of Conduct in all repositories
-      runs-on: ubuntu-latest
-      steps:
+    name: Replicate Code of Conduct in all repositories
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Replicating file
@@ -28,15 +27,15 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           patterns_to_include: CODE_OF_CONDUCT.md
+          repos_to_ignore: shape-up-process,glee-hello-world
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "chore: update code of conduct"
-          repos_to_ignore: shape-up-process,glee-hello-world
 
   replicate_contributing:
-      name: Replicate CONTRIBUTING guide to all repositories
-      runs-on: ubuntu-latest
-      steps:
+    name: Replicate CONTRIBUTING guide to all repositories
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Replicating file
@@ -50,9 +49,9 @@ jobs:
           commit_message: "ci: update global contribution guide"
 
   replicate_go_workflows:
-      name: Replicate workflows for Go projects
-      runs-on: ubuntu-latest
-      steps:
+    name: Replicate workflows for Go projects
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Replicating file
@@ -66,9 +65,9 @@ jobs:
           commit_message: "ci: update workflows for go projects"
 
   replicate_nodejs_workflows:
-      name: Replicate workflows for Nodejs projects
-      runs-on: ubuntu-latest
-      steps:
+    name: Replicate workflows for Nodejs projects
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Replicating file
@@ -80,11 +79,11 @@ jobs:
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update workflows for nodejs projects"
-      
+
   replicate_generic_workflows:
-      name: Replicate generic workflows needed for any project
-      runs-on: ubuntu-latest
-      steps:
+    name: Replicate generic workflows needed for any project
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Replicating file
@@ -101,14 +100,14 @@ jobs:
     name: Replicate Docker workflows needed for any project
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Replicating file
-      uses: derberg/copy-files-to-other-repositories@v1.0.0
-      with:
-        github_token: ${{ secrets.GH_TOKEN }}
-        topics_to_include: docker
-        patterns_to_include: .github/workflows/if-docker-pr-testing.yml
-        committer_username: asyncapi-bot
-        committer_email: info@asyncapi.io
-        commit_message: "ci: update workflows for docker-based projects"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Replicating file
+        uses: derberg/copy-files-to-other-repositories@v1.0.0
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          topics_to_include: docker
+          patterns_to_include: .github/workflows/if-docker-pr-testing.yml
+          committer_username: asyncapi-bot
+          committer_email: info@asyncapi.io
+          commit_message: "ci: update workflows for docker-based projects"
