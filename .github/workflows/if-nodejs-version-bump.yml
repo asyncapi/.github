@@ -54,7 +54,7 @@ jobs:
           title: 'chore(release): ${{github.event.release.tag_name}}'
           body: 'Version bump in package.json for release [${{github.event.release.tag_name}}](${{github.event.release.html_url}})'
           branch: version-bump/${{github.event.release.tag_name}}
-      - if: failure() # Only, on failure, send a message on the Slack Docs Channel
+      - if: failure() # Only, on failure, send a message on the 94_bot-failing-ci slack channel
         name: Report workflow run status to Slack
         uses: 8398a7/action-slack@v3
         with:
