@@ -1,6 +1,8 @@
 # This action is centrally managed in https://github.com/asyncapi/.github/
 # Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 
+
+
 name: Lint PR title
 
 on:
@@ -21,3 +23,29 @@ jobs:
           subjectPattern: ^(?![A-Z]).+$
           subjectPatternError: |
             The subject "{subject}" found in the pull request title "{title}" should start with a lowercase character.
+        # Comment for specifying error
+      - if: ${{ failure() }}
+        uses: NejcZdovc/comment-pr@v1
+        with: 
+         message: |
+              The subject "{subject}" found in the pull request title "{title}" should start with a lowercase character and a space after `:` is required.
+        # Comment for showing conventions
+      - if: ${{ failure() }}
+        uses: NejcZdovc/comment-pr@v1
+        with:
+         message: |
+                    **Conventional commits**
+                    Our repositories follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) specification. Releasing to GitHub and NPM is done with the support of [semantic-release](https://semantic-release.gitbook.io/semantic-release/).
+
+                    Pull requests should have a title that follows the specification, otherwise, merging is blocked. If you are not familiar with the specification simply ask maintainers to modify. You can also use this cheatsheet if you want:
+
+                    - `fix: ` prefix in the title indicates that PR is a bug fix and PATCH release must be triggered.
+                    - `feat: ` prefix in the title indicates that PR is a feature and MINOR release must be triggered.
+                    - `docs: ` prefix in the title indicates that PR is only related to the documentation and there is no need to trigger release.
+                    - `chore: ` prefix in the title indicates that PR is only related to cleanup in the project and there is no need to trigger release.
+                    - `test: ` prefix in the title indicates that PR is only related to tests and there is no need to trigger release.
+                    - `refactor: ` prefix in the title indicates that PR is only related to refactoring and there is no need to trigger release.
+
+                    What about MAJOR release? just add `!` to the prefix, like `fix!: ` or `refactor!: 
+    env:
+           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
