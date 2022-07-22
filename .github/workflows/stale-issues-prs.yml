@@ -42,3 +42,4 @@ jobs:
         stale-pr-label: stale
         exempt-issue-labels: keep-open
         exempt-pr-labels: keep-open
+        close-issue-reason: not_planned
