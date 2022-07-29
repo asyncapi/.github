@@ -36,11 +36,6 @@ jobs:
                     ${{ steps.lint_pr_title.outputs.error_message}}
                    ```
        # deletes the error comment if the title is correct            
-      - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
-        name: delete the comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:   
-          header: comment
-          delete: true
+
  
         
