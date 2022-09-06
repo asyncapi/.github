@@ -32,7 +32,7 @@ jobs:
         with:
           header: comment
           message: |
-                   ```Hey there 👋🏼 thanks for opening the PR but we need you to adjust the title of the pull request.<br />
+                   ```Hey there 👋🏼 thanks for opening the PR but we need you to adjust the title of the pull request.
                    We require all PRs to follow Conventional Commits specification. More details 👇🏼
                     ${{ steps.lint_pr_title.outputs.error_message}}
                    ```
