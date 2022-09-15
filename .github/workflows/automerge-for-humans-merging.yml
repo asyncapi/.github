@@ -25,6 +25,14 @@ jobs:
         uses: sergeysova/jq-action@v2
         id: authors
         with:
+          # This cmd does following (line by line):
+          # 1. CURL querying the list of commits of the current PR via GH API. Why? Because the current event payload does not carry info about the commits.
+          # 2. Iterates over the previous returned payload, and creates an array with the filtered results (see below) so we can work wit it later. An example of payload can be found in https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#webhook-payload-example-34.
+          # 3. Grabs the data we need for adding the `Co-authored-by: ...` lines later and puts it into objects to be used later on.
+          # 4. Filters the results by excluding the current PR sender. We don't need to add it as co-author since is the PR creator and it will become by default the main author.
+          # 5. Removes repeated authors (authors can have more than one commit in the PR).
+          # 6. Builds the `Co-authored-by: ...` lines with actual info.
+          # 7. Transforms the array into plain text. Thanks to this, the actual stdout of this step can be used by the next Workflow step (wich is basically the automerge).
           cmd: | 
             curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" "${{github.event.pull_request._links.commits.href}}?per_page=100" 
               | jq -r '[.[] 
@@ -40,6 +48,7 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
           MERGE_LABELS: "!do-not-merge,ready-to-merge"
           MERGE_METHOD: "squash"
+          # Using the output of the previous step (`Co-authored-by: ...` lines) as commit description.
           # Important to keep 2 empty lines as https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors#creating-co-authored-commits-on-the-command-line mentions
           MERGE_COMMIT_MESSAGE: "{pullRequest.title} (#{pullRequest.number})\n\n\n${{ steps.authors.outputs.value }}" 
           MERGE_RETRIES: "20"
