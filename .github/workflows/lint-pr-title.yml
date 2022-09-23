@@ -25,7 +25,7 @@ jobs:
           subjectPatternError: |
             The subject "{subject}" found in the pull request title "{title}" should start with a lowercase character.
             
-      # Comments the error message from the above lint_pr_title action and deletes the comment when the linting is correct
+      # Comments the error message from the above lint_pr_title action 
       - if: always()
         name: Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2
