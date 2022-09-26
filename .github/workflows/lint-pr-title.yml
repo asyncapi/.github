@@ -25,7 +25,7 @@ jobs:
           subjectPatternError: |
             The subject "{subject}" found in the pull request title "{title}" should start with a lowercase character.
             
-      # Comments the error message from the above lint_pr_title action and deletes the comment when the linting is correct
+      # Comments the error message from the above lint_pr_title action 
       - if: always()
         name: Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2
@@ -33,9 +33,16 @@ jobs:
           header: comment
           message: |
                    ```
+                   Hey there 👋🏼 thanks for opening the PR but we need you to adjust the title of the pull request. 
+                   We require all PRs to follow Conventional Commits specification. More details 👇🏼
+                   
+                   
                     ${{ steps.lint_pr_title.outputs.error_message}}
                    ```
        # deletes the error comment if the title is correct            
-
- 
-        
+      - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
+        name: delete the comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:   
+          header: comment
+          delete: true
