@@ -30,12 +30,12 @@ jobs:
         name: Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: comment
+          header: pr-title-lint-error
           message: |
-                   ```
-                   Hey there 👋🏼 thanks for opening the PR but we need you to adjust the title of the pull request. 
-                   We require all PRs to follow Conventional Commits specification. More details 👇🏼
                    
+                   We require all PRs to follow [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/). 
+                   More details 👇🏼
+                   ```
                    
                     ${{ steps.lint_pr_title.outputs.error_message}}
                    ```
@@ -44,5 +44,5 @@ jobs:
         name: delete the comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:   
-          header: comment
+          header: pr-title-lint-error
           delete: true
