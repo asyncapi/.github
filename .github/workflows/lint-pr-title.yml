@@ -36,8 +36,7 @@ jobs:
                    We require all PRs to follow [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/). 
                    More details 👇🏼
                    ```
-                   
-                    ${{ steps.lint_pr_title.outputs.error_message}}
+                   ${{ steps.lint_pr_title.outputs.error_message}}
                    ```
        # deletes the error comment if the title is correct            
       - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
