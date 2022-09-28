@@ -29,6 +29,8 @@ jobs:
       - if: ${{always() &&  !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors"]'), github.actor)}}
         name: Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2
+        env:
+         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           header: pr-title-lint-error
           message: |
@@ -42,6 +44,8 @@ jobs:
       - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
         name: delete the comment
         uses: marocchino/sticky-pull-request-comment@v2
+        env:
+         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:   
           header: pr-title-lint-error
           delete: true
