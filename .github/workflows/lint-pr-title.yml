@@ -16,7 +16,7 @@ jobs:
    steps:
       # Since this workflow is REQUIRED for a PR to be mergable, we have to have this 'if' statement in step level instead of job level.
       - if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors"]'), github.actor) }}
-        uses: Krishks369/action-semantic-pull-request@3fb9141f164e97c267a18fe560474547fd7f1fff
+        uses: amannn/action-semantic-pull-request@505e44b4f33b4c801f063838b3f053990ee46ea7      #version 4.6.0
         id: lint_pr_title
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,7 +26,7 @@ jobs:
             The subject "{subject}" found in the pull request title "{title}" should start with a lowercase character.
             
       # Comments the error message from the above lint_pr_title action 
-      - if: always()
+      - if: ${{always() &&  !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors"]'), github.actor)}}
         name: Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
@@ -36,7 +36,7 @@ jobs:
                    We require all PRs to follow [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/). 
                    More details 👇🏼
                    ```
-                   ${{ steps.lint_pr_title.outputs.error_message}}
+                    ${{ steps.lint_pr_title.outputs.error_message}}
                    ```
        # deletes the error comment if the title is correct            
       - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
