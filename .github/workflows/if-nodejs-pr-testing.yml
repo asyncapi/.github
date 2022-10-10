@@ -34,6 +34,10 @@ jobs:
         run: test -e ./package.json && echo "::set-output name=exists::true" || echo "::set-output name=exists::false"
         shell: bash
       - if: steps.packagejson.outputs.exists == 'true'
+        name: Check package-lock.json version is '2'
+        run: |
+          grep '"lockfileVersion": 2' package-lock.json
+      - if: steps.packagejson.outputs.exists == 'true'
         name: Setup Node.js
         uses: actions/setup-node@v2
         with:
