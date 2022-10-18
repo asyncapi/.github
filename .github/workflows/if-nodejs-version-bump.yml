@@ -25,10 +25,23 @@ jobs:
         id: packagejson
         run: test -e ./package.json && echo "::set-output name=exists::true" || echo "::set-output name=exists::false"
       - if: steps.packagejson.outputs.exists == 'true'
+        name: Check package-lock.json lockfileVersion 
+        id: packagelockjson
+        shell: bash
+        run: |
+          grep '"lockfileVersion": 1' package-lock.json && echo "::set-output name=lockfileVersion::1" || echo "::set-output name=lockfileVersion::2"
+      - if: steps.packagejson.outputs.exists == 'true' && steps.packagelockjson.outputs.lockfileVersion == 1
         name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 14
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - if: steps.packagejson.outputs.exists == 'true' && steps.packagelockjson.outputs.lockfileVersion == 2
+        name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       - if: steps.packagejson.outputs.exists == 'true'
