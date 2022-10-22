@@ -20,7 +20,7 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v18.7
+        uses: tj-actions/changed-files@a59f800cbb60ed483623848e31be67659a2940f8 #version https://github.com/tj-actions/changed-files/releases/tag/v18.7
         with:
           path: .github/workflows 
           files: |
