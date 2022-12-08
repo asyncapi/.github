@@ -7,7 +7,7 @@
 [![Twitch](https://img.shields.io/badge/Twitch-@asyncAPI-blueviolet.svg)](https://www.twitch.tv/asyncapi)
 
 ## ✨ Welcome
-Welcome to the Open-Source (OSS) [AsyncAPI Initiative](https://www.asyncapi.com/), part of [the Linux Foundation](https://www.linuxfoundation.org/en/press-release/linux-foundation-will-host-asyncapi-to-support-growth-and-collaboration-for-industrys-fastest-growing-api-spec/). 
+Welcome to the Open-Source (OSS) [AsyncAPI Initiative](https://www.asyncapi.com/), part of [the Linux Foundation](https://www.linuxfoundation.org/press/press-release/linux-foundation-will-host-asyncapi-to-support-growth-and-collaboration-for-industrys-fastest-growing-api-spec).
 
 AsyncAPI seeks to improve the current state of Event-Driven Architectures (EDAs) and the tooling system around them. ❤️   
 
