@@ -84,6 +84,25 @@ jobs:
           committer_email: info@asyncapi.io
           commit_message: "ci: update workflows for nodejs projects"
 
+  # release config file must be managed separately
+  # some projects may still use GH Action workflow for releases, but with different semantic-release config
+  replicate_semantic_release_config:
+    if: startsWith(github.repository, 'asyncapi/')
+    name: Replicate .releaserc file
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Replicating file
+        uses: derberg/copy-files-to-other-repositories@v1
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          patterns_to_include: global-files/.releaserc
+          topics_to_include: get-global-releaserc
+          committer_username: asyncapi-bot
+          committer_email: info@asyncapi.io
+          commit_message: "ci: update workflows for nodejs projects"
+
   replicate_generic_workflows:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate generic workflows and scripts needed for any project
