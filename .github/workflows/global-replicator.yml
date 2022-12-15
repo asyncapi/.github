@@ -114,7 +114,7 @@ jobs:
         uses: derberg/copy-files-to-other-repositories@v1
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          patterns_to_include: global-files/.releaserc
+          patterns_to_include: .github/workflows/.releaserc
           topics_to_include: get-global-releaserc
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
