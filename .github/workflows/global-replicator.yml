@@ -118,7 +118,7 @@ jobs:
           topics_to_include: get-global-releaserc
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
-          commit_message: "ci: update workflows for nodejs projects"
+          commit_message: "ci: update semantic release config file"
 
   replicate_generic_workflows:
     if: startsWith(github.repository, 'asyncapi/')
