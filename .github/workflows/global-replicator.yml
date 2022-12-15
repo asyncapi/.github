@@ -78,11 +78,28 @@ jobs:
         uses: derberg/copy-files-to-other-repositories@v1
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          patterns_to_include: .github/workflows/if-nodejs-pr-testing.yml,.github/workflows/if-nodejs-release.yml,.github/workflows/if-nodejs-version-bump.yml,.github/workflows/bump.yml
+          patterns_to_include: .github/workflows/if-nodejs-pr-testing.yml
           topics_to_include: nodejs
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update workflows for nodejs projects"
+
+  replicate_nodejs_release_workflows:
+    if: startsWith(github.repository, 'asyncapi/')
+    name: Replicate release workflows for Nodejs projects
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Replicating file
+        uses: derberg/copy-files-to-other-repositories@v1
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          patterns_to_include: .github/workflows/if-nodejs-release.yml,.github/workflows/if-nodejs-version-bump.yml,.github/workflows/bump.yml
+          topics_to_include: get-global-node-release-workflows
+          committer_username: asyncapi-bot
+          committer_email: info@asyncapi.io
+          commit_message: "ci: update release-related workflows for nodejs projects"
 
   # release config file must be managed separately
   # some projects may still use GH Action workflow for releases, but with different semantic-release config
