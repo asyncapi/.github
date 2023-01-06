@@ -1,2 +1,0 @@
-Sample text file should not react to action
-This is a test file
