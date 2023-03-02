@@ -7,7 +7,7 @@
 [![Twitch](https://img.shields.io/badge/Twitch-@asyncAPI-blueviolet.svg)](https://www.twitch.tv/asyncapi)
 
 ## ✨ Welcome
-Welcome to the Open-Source (OSS) [AsyncAPI Initiative](https://www.asyncapi.com/), part of [the Linux Foundation](https://www.linuxfoundation.org/en/press-release/linux-foundation-will-host-asyncapi-to-support-growth-and-collaboration-for-industrys-fastest-growing-api-spec/). 
+Welcome to the Open-Source (OSS) [AsyncAPI Initiative](https://www.asyncapi.com/), part of [the Linux Foundation](https://www.linuxfoundation.org/press/press-release/linux-foundation-will-host-asyncapi-to-support-growth-and-collaboration-for-industrys-fastest-growing-api-spec).
 
 AsyncAPI seeks to improve the current state of Event-Driven Architectures (EDAs) and the tooling system around them. ❤️   
 
@@ -20,9 +20,9 @@ To get involved with our community, please make sure you are familiar with the p
 
 We're a community of great people who are passionate about AsyncAPI and Event-Driven Architectures. There are several ways to communicate with other people working on the AsyncAPI project:
 
-- **Join our Slack workspace**: [Join our Slack workspace](https://www.asyncapi.com/slack-invite) ☎️  and please respect [our slack etiquette](https://github.com/asyncapi/.github/blob/master/slack-etiquette.md). If you have a question on how to use AsyncAPI, want to contribute, or simply want to say hello 👋🏾, feel free to chat with us in Slack. We're nice people. 🙂
+- **Join our Slack workspace**: [Join our Slack workspace](https://www.asyncapi.com/slack-invite) ☎️  and please respect [our slack etiquette](https://github.com/asyncapi/community/blob/master/slack-etiquette.md). If you have a question on how to use AsyncAPI, want to contribute, or simply want to say hello 👋🏾, feel free to chat with us in Slack. We're nice people. 🙂
 - **Join our public meetings**: AsyncAPI hosts different meetings every week. They are focused on different topic, sometimes purely technical and sometimes about community building. Pick one and join us! [Learn more about our meetings](https://www.asyncapi.com/community/meetings).
-- **Subscribe to our [Newsletter](https://www.asyncapi.com/)**: keep up to date on the project's status.
+- **Subscribe to our [Newsletter](https://www.asyncapi.com/newsletter)**: keep up to date on the project's status.
 - **GitHub issues**: for bugs and feature requests.
 - **GitHub Pull Requests (PRs)**: for fixes or new features already discussed, as per the [contributing guidelines](https://github.com/asyncapi/asyncapi/blob/master/CONTRIBUTING.md#contributing-to-asyncapi).
 - **The AsyncAPI [YouTube Channel](https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS)**: it's where we record and upload our public community meetings.
