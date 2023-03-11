@@ -80,6 +80,4 @@ body:
       description: This is absolutely not required, but we are happy to guide you in the contribution process.
       options:
         - "Yes I am willing to submit a PR!"
-        - "No, someone else can work on it"
-    validations:
-      required: true   
+        - "No, someone else can work on it" 

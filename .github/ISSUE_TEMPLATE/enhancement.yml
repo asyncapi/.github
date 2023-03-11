@@ -7,16 +7,14 @@ body:
   - type: textarea
     id: need_improvement
     attributes:
-      label: Description
-      description: Why do we need this improvement?
+      label: Why do we need this improvement?
     validations:
       required: true
 
   - type: textarea
     id: change
     attributes:
-      label: Description
-      description: How will this change help?
+      label: How will this change help?
     validations:
       required: true
 
@@ -32,8 +30,7 @@ body:
   - type: textarea
     id: implemented
     attributes:
-      label: Description
-      description: How could it be implemented/designed ?
+      label: How could it be implemented/designed ?
     validations:
       required: true
   
