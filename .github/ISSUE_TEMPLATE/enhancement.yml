@@ -1,0 +1,73 @@
+name: 💡 Feature Request
+description: Have a new idea/feature ? Please suggest!
+title: "[FEATURE] <description>"
+labels: ["enhancement"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Why do we need this improvement?
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: How will this change help?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Please add screenshots if applicable
+    validations:
+      required: false
+
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: How could it be implemented/designed ?
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: breakingchange
+    attributes:
+      label: "🚧 Breaking changes"
+      description: "Will this be a breaking change ?"
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: no-duplicate-issues
+    attributes:
+      label: "👀 Have you checked for similar open issues?"
+      options:
+        - label: "I checked and didn't find similar issue"
+          required: true
+
+  - type: checkboxes
+    id: read-code-of-conduct
+    attributes:
+      label: "🏢 Have you read the Contributing Guidelines?"
+      options:
+        - label: "I have read the [Contributing Guidelines](https://github.com/asyncapi/.github/blob/master/CONTRIBUTING.md)"
+          required: true
+
+  - type: dropdown
+    attributes:
+      label: Are you willing to work on this issue ?
+      description: This is absolutely not required, but we are happy to guide you in the contribution process.
+      options:
+        - "Yes I am willing to submit a PR!"
+        - "No, someone else can work on it"
