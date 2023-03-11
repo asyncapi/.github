@@ -1,50 +1,60 @@
-name: 💡 Feature Request
-description: Have a new idea/feature ? Please suggest!
-title: "[FEATURE] <description>"
-labels: ["enhancement"]
+name: 🐛 Bug Report
+description: Report a bug so we can fix and improve.
+title: "[BUG] <description>"
+labels: ["bug"]
+
 
 body:
   - type: textarea
-    id: need_improvement
+    id: description
     attributes:
-      label: Description
-      description: Why do we need this improvement?
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
     validations:
       required: true
 
   - type: textarea
-    id: change
+    id: expected
     attributes:
-      label: Description
-      description: How will this change help?
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
     validations:
       required: true
+
 
   - type: textarea
     id: screenshots
     attributes:
       label: Screenshots
-      description: Please add screenshots if applicable
+      description: Please add screenshots/video of the bug you faced.
     validations:
-      required: false
-
+      required: true
 
   - type: textarea
-    id: implemented
+    id: reproduce
     attributes:
-      label: Description
-      description: How could it be implemented/designed ?
+      label: How to Reproduce
+      description: Attach all steps/share a github gist that can help anyone reproduce the bug.
+      value: |
+        1. I first did this
+        2. I then did this
+        3. And so on . . . 
     validations:
       required: true
   
   - type: dropdown
-    id: breakingchange
+    id: browser
     attributes:
-      label: "🚧 Breaking changes"
-      description: "Will this be a breaking change ?"
+      label: "🥦 Browser"
+      description: "What browser are you using ?"
       options:
-        - "Yes"
-        - "No"
+        - Google Chrome
+        - Brave
+        - Microsoft Edge
+        - Mozilla Firefox
+        - Safari
+        - Opera
+        - Other
     validations:
       required: true
 
@@ -71,3 +81,5 @@ body:
       options:
         - "Yes I am willing to submit a PR!"
         - "No, someone else can work on it"
+    validations:
+      required: true   
