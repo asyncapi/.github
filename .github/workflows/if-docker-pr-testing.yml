@@ -17,8 +17,8 @@ jobs:
     
     steps:
       - if: >
-          !(github.event.pull_request.draft &&
-            (github.actor == 'asyncapi-bot' && !(
+          !github.event.pull_request.draft && !(
+            (github.actor == 'asyncapi-bot' && (
               startsWith(github.event.pull_request.title, 'ci: update global workflows') || 
               startsWith(github.event.pull_request.title, 'chore: update code of conduct') || 
               startsWith(github.event.pull_request.title, 'ci: update global contribution guide') || 
