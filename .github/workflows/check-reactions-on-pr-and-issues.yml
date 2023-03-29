@@ -14,6 +14,32 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -H "Authorization: token $GITHUB_TOKEN" \
+          run: |
+          echo "Checking reactions..."
+            issues=$(curl -H "Authorization: token $GITHUB_TOKEN" \
             "https://api.github.com/repos/${{ github.repository }}/issues?state=all" \
-            | jq '.[] | {number: .number, title: .title, reactions: .reactions}'
+            | jq '.[] | select(.reactions.total_count > 5) | .number')
+          echo "Found issues with more than 5 reactions: $issues"
+          for issue in $issues; do
+            echo "Adding label to issue #$issue..."
+            curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${{ github.repository }}/issues/$issue/labels" \
+              -d '{"labels": ["more than 5 reactions"]}'
+          done
+          echo "Checking reactions..."
+          prs=$(curl -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/${{ github.repository }}/pulls?state=all" \
+          | jq '.[] | select(.reactions.total_count > 5) | .number')
+          echo "Found pr with more than 5 reactions: $prs"
+          if [ -z "$prs" ]; then
+            echo "No pull requests with more than 5 reactions found."
+          else
+            for pr in $prs; do
+              echo "Adding label to pr #$pr..."
+              curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${{ github.repository }}/pulls/$pr/labels" \
+              -d '{"labels": ["more than 5 reactions"]}'
+            done
+          fi
