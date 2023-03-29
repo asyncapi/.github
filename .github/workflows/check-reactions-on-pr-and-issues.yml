@@ -4,6 +4,9 @@ on:
     types: [opened]
   pull_request:
     types: [opened]
+  schedule:
+    - cron: "0 0 * * 0" # Run at midnight on Sundays
+  workflow_dispatch: {} # Allow manual triggering
 jobs:
   check-reactions:
     runs-on: ubuntu-latest
