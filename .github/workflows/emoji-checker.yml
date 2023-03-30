@@ -88,7 +88,11 @@ jobs:
             }
             return { message: message };
       - name: Debug message value
-        run: echo ${{ steps.check-emojis.outputs.message }}
+        env:
+          MESSAGE: ${{ steps.check-emojis.outputs.message }}
+        run: |
+          echo "Sending message to Slack channel..."
+          echo $MESSAGE
       - name: Post to a Slack channel
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
@@ -101,9 +105,4 @@ jobs:
           slack-message: ${{ steps.check-emojis.outputs.message }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      - name: Debug message value
-        env:
-          MESSAGE: ${{ steps.check-emojis.outputs.message }}
-        run: |
-          echo "Sending message to Slack channel..."
-          echo $MESSAGE
+      
