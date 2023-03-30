@@ -101,9 +101,9 @@ jobs:
           slack-message: ${{ steps.check-emojis.outputs.message }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      - name: Add some debug logs
-        if: steps.check-emojis.outputs.message != null
+      - name: Debug message value
+        env:
+          MESSAGE: ${{ steps.check-emojis.outputs.message }}
         run: |
           echo "Sending message to Slack channel..."
-          echo "${{ steps.check-emojis.outputs.message }}"
-
+          echo $MESSAGE
