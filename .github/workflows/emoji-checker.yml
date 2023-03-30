@@ -100,6 +100,6 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: 'C050YTTDYUS'
           # For posting a simple plain text message
-          slack-message: ${{ steps.check-emojis.outputs.message }}
+          slack-message: "Test Message"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
