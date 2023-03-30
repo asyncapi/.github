@@ -11,7 +11,8 @@ on:
     types: [created, edited]
   pull_request_target:
     types: [opened, synchronize]
-
+env:
+  THRESHOLD_REACTIONS: 4
 jobs:
   check-emojis:
     runs-on: ubuntu-latest
@@ -74,17 +75,16 @@ jobs:
               }
             });
             let message = '';
+            let totalReactions = 0;
             for (const [emoji, count] of Object.entries(reactionCounts)) {
               message += `${emoji}: ${count}\n`;
+              totalReactions += count;
             }
-            if (message !== '') {
+            if (message !== '' && totalReactions >= $THRESHOLD_REACTIONS) {
               const title = node.title;
               const url = node.url;
               message = `The issue/PR "${title}" (${url}) has the following emojis:\n${message}`;
               console.log(message);
-            }
-            else {
-              console.log('-------------------',JSON.stringify(reactions));
             }
             return message;
           result-encoding: string
