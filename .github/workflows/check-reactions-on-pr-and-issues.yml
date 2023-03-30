@@ -14,49 +14,42 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { Octokit } = require('@octokit/rest');
-            const octokit = new Octokit({ auth: '${{ secrets.GITHUB_TOKEN }}'});
             const { owner, repo } = context.repo;
             // Check issues with more than 5 reactions
-            const issuesResponse = await octokit.issues.listForRepo({
+            const issues = await github.paginate(github.issues.listForRepo.endpoint({
               owner,
               repo,
               state: 'open',
-            });
-            if (issuesResponse.data) {
-              console.log(`Found ${issuesResponse.data.length} issues`);
-              for (const issue of issuesResponse.data) {
-                console.log(`Checking issue #${issue.number}`);
-                if (issue.reactions && issue.reactions.total_count > 5) {
-                  console.log(`Issue #${issue.number} has ${issue.reactions.total_count} reactions`);
-                  await octokit.issues.addLabels({
-                    owner,
-                    repo,
-                    issue_number: issue.number,
-                    labels: ['more than 5 reactions'],
-                  });
-                }
+            }));
+
+            for (const issue of issues) {
+              console.log(`Checking issue #${issue.number}`);
+              if (issue.reactions && issue.reactions.total_count > 5) {
+                console.log(`Issue #${issue.number} has ${issue.reactions.total_count} reactions`);
+                await github.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  labels: ['more than 5 reactions'],
+                });
               }
             }
-
             // Check pull requests with more than 5 reactions
-            const pullsResponse = await octokit.pulls.list({
+            const pulls = await github.paginate(github.pulls.list.endpoint({
               owner,
               repo,
               state: 'open',
-            });
-            if (pullsResponse.data) {
-              console.log(`Found ${pullsResponse.data.length} pull requests`);
-              for (const pull of pullsResponse.data) {
-                console.log(`Checking pull request #${pull.number}`);
-                if (pull.reactions && pull.reactions.total_count > 5) {
-                  console.log(`Pull request #${pull.number} has ${pull.reactions.total_count} reactions`);
-                  await octokit.issues.addLabels({
-                    owner,
-                    repo,
-                    issue_number: pull.number,
-                    labels: ['more than 5 reactions'],
-                  });
-                }
+            }));
+            
+            for (const pull of pulls) {
+              console.log(`Checking pull request #${pull.number}`);
+              if (pull.reactions && pull.reactions.total_count > 5) {
+                console.log(`Pull request #${pull.number} has ${pull.reactions.total_count} reactions`);
+                await github.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number: pull.number,
+                  labels: ['more than 5 reactions'],
+                });
               }
             }
