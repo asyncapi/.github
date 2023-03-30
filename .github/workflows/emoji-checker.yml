@@ -5,70 +5,74 @@ on:
     types: [opened, edited]
   pull_request:
     types: [opened, edited]
-  
 
 jobs:
   check-emojis:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Check emojis
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const query = `
-              query($owner: String!, $name: String!, $cursor: String) {
-                repository(owner: $owner, name: $name) {
-                  issues(first: 100, after: $cursor) {
-                    nodes {
+              query ($owner: String!, $repo: String!, $number: Int!) {
+                repository(owner: $owner, name: $repo) {
+                  issueOrPullRequest(number: $number) {
+                    ... on Issue {
                       title
                       url
-                      reactions(first: 100) {
-                        totalCount
+                      reactions(last: 100) {
+                        nodes {
+                          content
+                          user {
+                            login
+                          }
+                        }
                       }
                     }
-                    pageInfo {
-                      endCursor
-                      hasNextPage
-                    }
-                  }
-                  pullRequests(first: 100, after: $cursor) {
-                    nodes {
+                    ... on PullRequest {
                       title
                       url
-                      reactions(first: 100) {
-                        totalCount
+                      reactions(last: 100) {
+                        nodes {
+                          content
+                          user {
+                            login
+                          }
+                        }
                       }
-                    }
-                    pageInfo {
-                      endCursor
-                      hasNextPage
                     }
                   }
                 }
               }
             `;
-            const variables = { owner: context.repo.owner, name: context.repo.repo };
-            let hasNextPage = true;
-            let cursor = null;
-            while (hasNextPage) {
-              if (cursor) {
-                variables.cursor = cursor;
+            const variables = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              number: context.issue.number
+            };
+            const result = await github.graphql(query, variables);
+            const node = result.repository.issueOrPullRequest;
+            const reactions = node.reactions.nodes;
+            const reactionCounts = {};
+            reactions.forEach(reaction => {
+              const content = reaction.content;
+              if (content in reactionCounts) {
+                reactionCounts[content]++;
+              } else {
+                reactionCounts[content] = 1;
               }
-              const result = await github.graphql(query, variables);
-              const issues = result.repository.issues.nodes;
-              const pullRequests = result.repository.pullRequests.nodes;
-              const nodes = issues.concat(pullRequests);
-              for (const node of nodes) {
-                const count = node.reactions.totalCount;
-                if (count > 0) {
-                  const title = node.title;
-                  const url = node.url;
-                  const message = `The issue/PR "${title}" (${url}) has ${count} emojis.`;
-                  console.log(message);
-                  //await slackBot.postMessage(message);
-                }
-              }
-              cursor = issues.pageInfo.endCursor || pullRequests.pageInfo.endCursor;
-              hasNextPage = issues.pageInfo.hasNextPage || pullRequests.pageInfo.hasNextPage;
+            });
+            let message = '';
+            for (const [emoji, count] of Object.entries(reactionCounts)) {
+              message += `${emoji}: ${count}\n`;
+            }
+            if (message !== '') {
+              const title = node.title;
+              const url = node.url;
+              message = `The issue/PR "${title}" (${url}) has the following emojis:\n${message}`;
+              console.log(message);
             }
