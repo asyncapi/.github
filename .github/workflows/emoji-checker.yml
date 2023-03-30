@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Check emojis
         uses: actions/github-script@v6
+        id: check-emojis
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -85,7 +86,9 @@ jobs:
             else {
               console.log('-------------------',JSON.stringify(reactions));
             }
+            return message;
       - name: Post to a Slack channel
+        if: ${{ steps.check-emojis.outputs.message != '' }}
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
@@ -94,6 +97,6 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: 'C050YTTDYUS'
           # For posting a simple plain text message
-          slack-message: "Test message"
+          slack-message: ${{ steps.check-emojis.outputs.message }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
