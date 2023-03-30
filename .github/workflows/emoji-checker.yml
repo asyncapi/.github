@@ -86,7 +86,8 @@ jobs:
             else {
               console.log('-------------------',JSON.stringify(reactions));
             }
-            return { message: message };
+            env:
+              MESSAGE: ${{ steps.check-emojis.outputs.message }}
       - name: Debug message value
         env:
           MESSAGE: ${{ steps.check-emojis.outputs.message }}
