@@ -86,8 +86,8 @@ jobs:
             else {
               console.log('-------------------',JSON.stringify(reactions));
             }
-            env:
-              MESSAGE: ${{ steps.check-emojis.outputs.message }}
+        env:
+          MESSAGE: ${{ steps.check-emojis.outputs.message }}
       - name: Debug message value
         run: echo $MESSAGE
       - name: Post to a Slack channel
