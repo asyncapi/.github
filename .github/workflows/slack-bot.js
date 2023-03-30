@@ -17,5 +17,5 @@ const slackBot = {
     }
   }
 };
-
+slackBot.init(process.env.SLACK_BOT_TOKEN);
 module.exports = slackBot;
