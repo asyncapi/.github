@@ -5,6 +5,7 @@ on:
     types: [opened, edited]
   pull_request:
     types: [opened, edited]
+  
 
 jobs:
   check-emojis:
