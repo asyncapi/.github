@@ -86,6 +86,7 @@ jobs:
             else {
               console.log('-------------------',JSON.stringify(reactions));
             }
+            console.log('---------outside if else message',message);
             return message;
       - name: Post to a Slack channel
         if: ${{ steps.check-emojis.outputs.message != '' }}
