@@ -5,12 +5,14 @@ on:
     types: [opened, edited]
   pull_request:
     types: [opened, edited]
-  issue_comment:
-    types: [created, edited]
   pull_request_review_comment:
     types: [created, edited]
   pull_request_target:
     types: [opened, synchronize]
+  issue_comment:
+    types: [created, edited, deleted]
+  pull_request_review:
+    types: [submitted]
 env:
   THRESHOLD_REACTIONS: 4
 jobs:
