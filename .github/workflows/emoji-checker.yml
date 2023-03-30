@@ -15,8 +15,6 @@ on:
 jobs:
   check-emojis:
     runs-on: ubuntu-latest
-    outputs:
-      message: ${{ steps.check-emojis.outputs.message }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
