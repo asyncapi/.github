@@ -87,7 +87,7 @@ jobs:
               console.log('-------------------',JSON.stringify(reactions));
             }
             console.log('---------outside if else message',message);
-            return message;
+            //run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
       - name: Debug message value
         run: echo ${{ steps.check-emojis.outputs.message }}
       - name: Post to a Slack channel
