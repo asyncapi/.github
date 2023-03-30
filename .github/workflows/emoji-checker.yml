@@ -18,6 +18,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Initialize Slack bot
+        run: |
+          const slackBot = require('./slack-bot.js');
+          slackBot.init(process.env.SLACK_BOT_TOKEN);
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Check emojis
         uses: actions/github-script@v6
         with:
@@ -81,4 +87,8 @@ jobs:
               const url = node.url;
               message = `The issue/PR "${title}" (${url}) has the following emojis:\n${message}`;
               console.log(message);
+              await slackBot.postMessage(message);
+            }
+            else {
+              await slackBot.postMessage(JSON.stringify(reactions));
             }
