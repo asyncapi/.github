@@ -18,10 +18,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Initialize Slack bot
-        run: node slack-bot.js
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Check emojis
         uses: actions/github-script@v6
         with:
@@ -85,8 +81,19 @@ jobs:
               const url = node.url;
               message = `The issue/PR "${title}" (${url}) has the following emojis:\n${message}`;
               console.log(message);
-              await slackBot.postMessage(message);
             }
             else {
-              await slackBot.postMessage(JSON.stringify(reactions));
+              console.log('-------------------',JSON.stringify(reactions));
             }
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
+          channel-id: 'C050YTTDYUS'
+          # For posting a simple plain text message
+          slack-message: "Test message"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
