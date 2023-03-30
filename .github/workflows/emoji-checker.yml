@@ -86,11 +86,13 @@ jobs:
             else {
               console.log('-------------------',JSON.stringify(reactions));
             }
-            return {message: message};
+            return message;
+          result-encoding: string;
       - name: Debug message value
-        run: echo ${{ steps.check-emojis.outputs.message }}
+        run: echo ${{ steps.check-emojis.outputs.result }}
       - name: Post to a Slack channel
         id: slack
+        if: ${{ steps.check-emojis.outputs.result }}
         uses: slackapi/slack-github-action@v1.23.0
         with:
           # Slack channel id, channel name, or user id to post message.
