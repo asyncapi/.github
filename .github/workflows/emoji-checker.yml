@@ -90,6 +90,8 @@ jobs:
             }
             console.log('---------outside if else message',message);
             return message;
+      - name: Debug message value
+        run: echo ${{ steps.check-emojis.outputs.message }}
       - name: Post to a Slack channel
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
