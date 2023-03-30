@@ -86,8 +86,6 @@ jobs:
             else {
               console.log('-------------------',JSON.stringify(reactions));
             }
-            console.log('---------outside if else message',message);
-            //run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
       - name: Debug message value
         run: echo ${{ steps.check-emojis.outputs.message }}
       - name: Post to a Slack channel
@@ -99,6 +97,6 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: 'C050YTTDYUS'
           # For posting a simple plain text message
-          slack-message: "Test Message"
+          slack-message: ${{ steps.check-emojis.outputs.message }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
