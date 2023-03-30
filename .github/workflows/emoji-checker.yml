@@ -91,7 +91,6 @@ jobs:
             console.log('---------outside if else message',message);
             return message;
       - name: Post to a Slack channel
-        if: ${{ steps.check-emojis.outputs.message != '' }}
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
