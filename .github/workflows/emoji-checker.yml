@@ -86,7 +86,7 @@ jobs:
               message += `${emoji}: ${count}\n`;
               totalReactions += count;
             }
-            if (message !== '' && totalReactions >= $THRESHOLD_REACTIONS) {
+            if (message !== '' && totalReactions >= process.env.THRESHOLD_REACTIONS) {
               const title = node.title;
               const url = node.url;
               message = `The issue/PR "${title}" (${url}) has the following emojis:\n${message}`;
