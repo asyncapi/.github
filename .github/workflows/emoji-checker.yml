@@ -20,7 +20,7 @@ on:
   discussion_comment:
     types: [created, edited]
 env:
-  THRESHOLD_REACTIONS: 4
+  THRESHOLD_REACTIONS: 5
 jobs:
   check-emojis:
     runs-on: ubuntu-latest
@@ -93,6 +93,9 @@ jobs:
               const url = node.url;
               message = `The issue/PR "${title}" (${url}) has the following emojis:\n${message}`;
               console.log(message);
+            }
+            else {
+              message = '';
             }
             return message;
           result-encoding: string
