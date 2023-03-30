@@ -7,8 +7,6 @@ on:
     types: [created, edited]
   issue_comment:
     types: [created, edited]
-#   pull_request_review:
-#     types: [submitted]
   discussion_comment:
     types: [created, edited]
 env:
