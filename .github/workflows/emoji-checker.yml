@@ -5,12 +5,10 @@ on:
     - cron: "0 8 * * *" # run this job at 8:00 am daily
 #   pull_request_review_comment:
 #     types: [created, edited]
-#   issue_comment:
-#     types: [created, edited]
+  issue_comment:
+    types: [created, edited]
 #   pull_request_review:
 #     types: [submitted]
-  discussion:
-    types: [created, edited]
   discussion_comment:
     types: [created, edited]
 env:
