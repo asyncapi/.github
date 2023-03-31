@@ -10,13 +10,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Check Reactions
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
             // Check issues with more than 5 reactions
-            const issues = await github.paginate(github.issues.listForRepo.endpoint({
+            const issues = await github.paginate(github.rest.issues.listForRepo.endpoint({
               owner,
               repo,
               state: 'open',
@@ -26,7 +26,7 @@ jobs:
               console.log(`Checking issue #${issue.number}`);
               if (issue.reactions && issue.reactions.total_count > 5) {
                 console.log(`Issue #${issue.number} has ${issue.reactions.total_count} reactions`);
-                await github.issues.addLabels({
+                await github.rest.issues.addLabels({
                   owner,
                   repo,
                   issue_number: issue.number,
@@ -35,7 +35,7 @@ jobs:
               }
             }
             // Check pull requests with more than 5 reactions
-            const pulls = await github.paginate(github.pulls.list.endpoint({
+            const pulls = await github.paginate(github.rest.pulls.list.endpoint({
               owner,
               repo,
               state: 'open',
@@ -45,7 +45,7 @@ jobs:
               console.log(`Checking pull request #${pull.number}`);
               if (pull.reactions && pull.reactions.total_count > 5) {
                 console.log(`Pull request #${pull.number} has ${pull.reactions.total_count} reactions`);
-                await github.issues.addLabels({
+                await github.rest.issues.addLabels({
                   owner,
                   repo,
                   issue_number: pull.number,
