@@ -61,7 +61,7 @@ jobs:
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
       - name: Send email with MailChimp
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         env:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
@@ -106,7 +106,7 @@ jobs:
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
       - name: Send email with MailChimp
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         env:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
@@ -151,7 +151,7 @@ jobs:
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
       - name: Send email with MailChimp
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         env:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
@@ -196,7 +196,7 @@ jobs:
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
       - name: Send email with MailChimp
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         env:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
@@ -241,7 +241,7 @@ jobs:
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
       - name: Send email with MailChimp
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         env:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
@@ -286,7 +286,7 @@ jobs:
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
       - name: Send email with MailChimp
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         env:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
