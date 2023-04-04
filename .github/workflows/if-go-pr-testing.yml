@@ -36,7 +36,7 @@ jobs:
         run: echo "::set-output name=shouldrun::true"
       - if: steps.should_run.outputs.shouldrun == 'true'
         name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - if: steps.should_run.outputs.shouldrun == 'true'
         name: Check if Go project and has go.mod
         id: gomod
@@ -83,7 +83,7 @@ jobs:
         run: echo "::set-output name=shouldrun::true"
       - if: steps.should_run.outputs.shouldrun == 'true'
         name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - if: steps.should_run.outputs.shouldrun == 'true'
         name: Check if Go project and has go.mod
         id: gomod

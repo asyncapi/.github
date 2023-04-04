@@ -50,7 +50,7 @@ jobs:
       # Handling Mailchimp notifications
       #########
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -95,7 +95,7 @@ jobs:
       # Handling Mailchimp notifications
       #########
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -140,7 +140,7 @@ jobs:
       # Handling Mailchimp notifications
       #########
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -185,7 +185,7 @@ jobs:
       # Handling Mailchimp notifications
       #########
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -230,7 +230,7 @@ jobs:
       # Handling Mailchimp notifications
       #########
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -275,7 +275,7 @@ jobs:
       # Handling Mailchimp notifications
       #########
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
