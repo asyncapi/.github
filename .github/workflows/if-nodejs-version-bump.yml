@@ -45,7 +45,7 @@ jobs:
         run: VERSION=${{github.event.release.tag_name}} npm run bump:version
       - if: steps.packagejson.outputs.exists == 'true'
         name: Create Pull Request with updated asset files including package.json
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@38e0b6e68b4c852a5500a94740f0e535e0d7ba54 # use 4.2.4 https://github.com/peter-evans/create-pull-request/releases/tag/v4.2.4
         with:
           token: ${{ secrets.GH_TOKEN }}
           commit-message: 'chore(release): ${{github.event.release.tag_name}}'
