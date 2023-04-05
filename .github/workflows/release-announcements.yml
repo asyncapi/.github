@@ -14,11 +14,13 @@ jobs:
     name: Slack - notify on every release
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Convert markdown to slack markdown for issue
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: ./.github/actions/slackify-markdown
         id: markdown
         with:
-            text: "[${{github.event.release.tag_name}}](${{github.event.release.html_url}}) \n ${{ github.event.release.body }}"
+          markdown: "[${{github.event.release.tag_name}}](${{github.event.release.html_url}}) \n ${{ github.event.release.body }}"
       - name: Send info about release to Slack
         uses: rtCamp/action-slack-notify@v2
         env:

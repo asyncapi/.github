@@ -31,14 +31,22 @@ jobs:
     name: TSC notification on every new issue
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
       #########
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: ./.github/actions/slackify-markdown
         id: issuemarkdown
         with:
-          text: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
+          markdown: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
       - name: Send info about issue
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -49,14 +57,6 @@ jobs:
       #########
       # Handling Mailchimp notifications
       #########
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
@@ -76,14 +76,22 @@ jobs:
     name: TSC notification on every new pull request
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
       #########
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: ./.github/actions/slackify-markdown
         id: prmarkdown
         with:
-          text: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
+          markdown: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
       - name: Send info about pull request
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -94,14 +102,6 @@ jobs:
       #########
       # Handling Mailchimp notifications
       #########
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
@@ -121,14 +121,22 @@ jobs:
     name: TSC notification on every new discussion
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
       #########
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: ./.github/actions/slackify-markdown
         id: discussionmarkdown
         with:
-          text: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
+          markdown: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
       - name: Send info about pull request
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -139,14 +147,6 @@ jobs:
       #########
       # Handling Mailchimp notifications
       #########
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
@@ -166,14 +166,22 @@ jobs:
     name: TSC notification on every new comment in issue
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
       #########
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: ./.github/actions/slackify-markdown
         id: issuemarkdown
         with:
-          text: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
+          markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about issue comment
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -184,14 +192,6 @@ jobs:
       #########
       # Handling Mailchimp notifications
       #########
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
@@ -211,14 +211,22 @@ jobs:
     name: TSC notification on every new comment in pr
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
       #########
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: ./.github/actions/slackify-markdownction@v1.0.0
         id: prmarkdown
         with:
-          text: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
+          markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about PR comment
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -229,14 +237,6 @@ jobs:
       #########
       # Handling Mailchimp notifications
       #########
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
@@ -256,14 +256,22 @@ jobs:
     name: TSC notification on every new comment in discussion
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
       #########
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: ./.github/actions/slackify-markdown
         id: discussionmarkdown
         with:
-          text: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
+          markdown: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about discussion comment
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -274,14 +282,6 @@ jobs:
       #########
       # Handling Mailchimp notifications
       #########
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/scripts/mailchimp
