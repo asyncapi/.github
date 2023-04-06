@@ -43,7 +43,7 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: ./.github/actions/slackify-markdown
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master
         id: issuemarkdown
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
@@ -88,7 +88,7 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: ./.github/actions/slackify-markdown
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master
         id: prmarkdown
         with:
           markdown: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
@@ -133,7 +133,7 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: ./.github/actions/slackify-markdown
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master
         id: discussionmarkdown
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
@@ -178,7 +178,7 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: ./.github/actions/slackify-markdown
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master
         id: issuemarkdown
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
@@ -223,7 +223,7 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: ./.github/actions/slackify-markdownction@v1.0.0
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master
         id: prmarkdown
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
@@ -268,7 +268,7 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: ./.github/actions/slackify-markdown
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master
         id: discussionmarkdown
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
