@@ -62,10 +62,10 @@ jobs:
       - name: Identify release type
         id: releasetype
         # if previousver is not provided then this steps just logs information about missing version, no errors
-        run: echo "::set-output name=type::$(npx -q -p semver-diff-cli semver-diff ${{steps.versions.outputs.previousver}} ${{steps.versions.outputs.lastver}})"
+        run: echo "type=$(npx -q -p semver-diff-cli semver-diff ${{steps.versions.outputs.previousver}} ${{steps.versions.outputs.lastver}})" >> $GITHUB_OUTPUT
       - name: Get name of the person that is behind the newly released version
         id: author
-        run: echo "::set-output name=name::$(git log -1 --pretty=format:'%an')"
+        run: echo "name=$(git log -1 --pretty=format:'%an')" >> $GITHUB_OUTPUT
       - name: Publish information about the release to Twitter # tweet only if detected version change is not a patch
         # tweet goes out even if the type is not major or minor but "You need provide version number to compare."
         # it is ok, it just means we did not identify previous version as we are tweeting out information about the release for the first time
