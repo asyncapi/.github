@@ -15,7 +15,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
-            // Check issues with more than 5 reactions
+            // Check issues with more than 10 reactions
             const issues = await github.paginate(github.rest.issues.listForRepo.endpoint({
               owner,
               repo,
@@ -24,7 +24,7 @@ jobs:
 
             for (const issue of issues) {
               console.log(`Checking issue #${issue.number}`);
-              if (issue.reactions && issue.reactions.total_count > 5) {
+              if (issue.reactions && issue.reactions.total_count > 10) {
                 console.log(`Issue #${issue.number} has ${issue.reactions.total_count} reactions`);
                 await github.rest.issues.addLabels({
                   owner,
@@ -34,7 +34,7 @@ jobs:
                 });
               }
             }
-            // Check pull requests with more than 5 reactions
+            // Check pull requests with more than 10 reactions
             const pulls = await github.paginate(github.rest.pulls.list.endpoint({
               owner,
               repo,
@@ -43,7 +43,7 @@ jobs:
             
             for (const pull of pulls) {
               console.log(`Checking pull request #${pull.number}`);
-              if (pull.reactions && pull.reactions.total_count > 5) {
+              if (pull.reactions && pull.reactions.total_count > 10) {
                 console.log(`Pull request #${pull.number} has ${pull.reactions.total_count} reactions`);
                 await github.rest.issues.addLabels({
                   owner,
