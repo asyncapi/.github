@@ -1,6 +1,6 @@
-#Composite action that can be used in other actions or workflows
-#It do not run on its own
-#Replacement for LoveToKnow/slackify-markdown-action
+# Composite action that can be used in other actions or workflows.
+# It does not run on its own.
+# Replacement for LoveToKnow/slackify-markdown-action.
 
 name: 'Make Markdown Pretty in Slack'
 description: Action used in multiple workflows to handle convertion from markdown to slack--specific-text
@@ -10,7 +10,7 @@ inputs:
     required: true
 outputs:
   text:
-    description: Markdown converted to Slack
+    description: Slack Markdown
     value: ${{ steps.slackify.outputs.text }}
 runs:
   using: "composite"
