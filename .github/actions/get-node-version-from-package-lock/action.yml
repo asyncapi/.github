@@ -6,12 +6,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: 'npm'
-        cache-dependency-path: '**/package-lock.json'
     - name: Get Node version
       uses: actions/github-script@v6
       id: getnode
