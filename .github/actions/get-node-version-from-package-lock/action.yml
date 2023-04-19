@@ -1,4 +1,4 @@
-name: 'Specify Node version basing on package-lock file version'
+name: 'Specify Node version based on package-lock file version'
 outputs:
   version:
     description: 'Node.js version number to use with actions/setup-node action'
