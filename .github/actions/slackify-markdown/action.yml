@@ -33,7 +33,12 @@ runs:
 
           try {
               const md = `${{ inputs.markdown }}`;
-              const mrkdwn = slackifyMarkdown(md);
+              const splitLines = str => str.split(/\r?\n/);
+              let stringmd = ""
+              for (val of splitLines(md)){
+                stringmd += val + "\n \ "
+              }
+              const mrkdwn = slackifyMarkdown(stringmd);
               core.setOutput('text', mrkdwn);
           } catch (error) {
               core.setFailed(error.message);
