@@ -32,7 +32,7 @@ runs:
           const slackifyMarkdown = require('slackify-markdown');
 
           try {
-              const md = `${{ inputs.markdown }}`;
+              const md = "${{ inputs.markdown }}";
               const mrkdwn = slackifyMarkdown(md);
               core.setOutput('text', mrkdwn);
           } catch (error) {
