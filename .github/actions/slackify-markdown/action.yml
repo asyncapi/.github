@@ -27,18 +27,15 @@ runs:
     - name: Slackify
       uses: actions/github-script@v6
       id: slackify
+      env:
+        MARKDOWN: ${{ inputs.markdown }}
       with:
         script: |
           const slackifyMarkdown = require('slackify-markdown');
 
           try {
-              const md = `${{ inputs.markdown }}`;
-              const splitLines = str => str.split(/\r?\n/);
-              let stringmd = ""
-              for (val of splitLines(md)){
-                stringmd += val + "\n \ "
-              }
-              const mrkdwn = slackifyMarkdown(stringmd);
+              const md = process.env.MARKDOWN;
+              const mrkdwn = slackifyMarkdown(md);
               core.setOutput('text', mrkdwn);
           } catch (error) {
               core.setFailed(error.message);
