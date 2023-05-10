@@ -1,0 +1,53 @@
+name: Global workflow to use when some file from repos has to be remove
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - ".github/workflows/**"
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: |
+          You can specify the repository's name where workflows should be pushed manually, as long as workflow settings do not ignore the repository.
+          If you do not specify the exact repository name, the workflow will try to replicate all missing changes to all repositories.
+        required: false
+
+jobs:
+  # these should not be located under .github/workflows but on root
+  # the other workflow push them to root already
+  remove_semantic_release_config:
+    if: startsWith(github.repository, 'asyncapi/')
+    name: remove .releaserc file
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Removing
+        uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          patterns_to_remove: .github/workflows/.releaserc
+          topics_to_include: get-global-releaserc
+          committer_username: asyncapi-bot
+          committer_email: info@asyncapi.io
+          commit_message: "ci: update of files from global .github repo"
+          bot_branch_name: bot/update-files-from-global-repo
+
+  replicate_generic_workflows:
+    if: startsWith(github.repository, 'asyncapi/')
+    name: remove workflow files that are not supposed to be used
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Removing
+        uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          patterns_to_remove: .github/workflows/sentiment-analysis.yml,.github/workflows/link-check-cron.yml,.github/workflows/link-check-pr.yml
+          committer_username: asyncapi-bot
+          committer_email: info@asyncapi.io
+          commit_message: "ci: update of files from global .github repo"
+          repos_to_ignore: shape-up-process,glee-hello-world
+          bot_branch_name: bot/update-files-from-global-repo
