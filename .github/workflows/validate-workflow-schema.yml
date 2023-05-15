@@ -1,0 +1,52 @@
+name: YAML Lint Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  yaml-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install YAML Lint
+        run: npm install yaml-lint
+
+      - name: Install ajv
+        run: npm install ajv
+
+      - name: Install axios
+        run: npm install axios
+
+      - name: Install js-yaml
+        run: npm install js-yaml
+
+      - name: Install fs
+        run: npm install fs
+
+      - name: List node_modules directory
+        run: ls -alh node_modules
+
+      - name: Lint YAML Files
+        run: |
+          set -e
+          find .github/workflows -type f -name "*.yml" -print0 | xargs -0 ./node_modules/.bin/yamllint -q
+
+      - name: List YAML files to validate
+        run: |
+          set -e
+          files=$(find .github/workflows -name '*.yml')
+          echo "Validating the following files:"
+          echo "$files"
+
+      - name: Run YAML validation
+        run: |
+          set -e
+          node ./scripts/validate-workflow-schema.js
+        env:
+          NODE_VERSION: '16.x'
