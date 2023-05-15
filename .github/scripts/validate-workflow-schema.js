@@ -1,4 +1,4 @@
-// validate-workflows.js
+// validate-workflow-schema.js
 
 const Ajv = require("ajv");
 const axios = require("axios");
