@@ -3,7 +3,7 @@ name: YAML Lint Check
 on:
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - '.github/workflows/**'
 
