@@ -21,11 +21,13 @@ async function validateWorkflows() {
     const validator = ajv.compile(schema.data);
     const valid = validator(target);
     if (!valid) {
-      console.error(`Validation failed with the following errors:`);
+      console.error(
+        `Validation failed for file '${file}' with the following errors:`
+      );
       console.error(validator.errors);
       process.exitCode = 1;
     } else {
-      console.log(`Workflow is valid`);
+      console.log(`Workflow in file '${file}' is valid`);
     }
   }
 }
