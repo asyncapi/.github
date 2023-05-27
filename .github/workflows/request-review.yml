@@ -1,0 +1,76 @@
+# This action is centrally managed in https://github.com/asyncapi/.github/
+# Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
+
+# This action is used to call the reviewer to review the PR using the command /review
+# or /rerequest. If the user is not mentioned, then all the reviewers are called to review the PR.
+# If the user is mentioned, then only those users are called to review the PR.
+# e.g. /review @user1 @user2 this will call only user1 and user2 to review the PR
+# e.g. /review this will call all the reviewers to review the PR
+
+name: Review
+
+on:
+    issue_comment:
+        types: [created]
+
+jobs: 
+    review:
+        permissions: write-all
+        if : >
+            github.event.issue.pull_request &&
+            github.event.issue.state != 'closed' &&
+            github.actor != 'asyncapi-bot' && 
+            (             
+                contains(github.event.comment.body, '/review') ||
+                contains(github.event.comment.body, '/rerequest ')
+            )
+        runs-on: ubuntu-latest
+        steps:
+            - name: Adds reviewers to the PR
+              uses: actions/github-script@v6
+              with:
+                github-token: ${{ secrets.GITHUB_TOKEN }}
+                script: |
+                    const comment = context.payload.comment.body;
+                    const prDetailsUrl = context.payload.issue.pull_request.url;
+                    const { data : pull} = await github.request(prDetailsUrl);
+                    const pullRequestId = pull.node_id;
+                    const reviewers = pull.requested_reviewers.map(reviewer => reviewer.login);
+                    const userIDregex = /@([A-Za-z0-9-]+)/g;
+                    const userIDmatches = comment.match(userIDregex);
+                    var userIdArray = [];
+                    if (userIDmatches){
+                        // If user is mentioned, then add only those users
+                        // Remove the @ from the user name
+                        for (const user of userIDmatches) {
+                            const userId = user.substring(1);
+                            userIdArray.push(userId);
+                        }
+                    }
+                    else {
+                        // If no user is mentioned, then add all the reviewers
+                        userIdArray = reviewers;
+                    }
+                    const userIdNodeArray = [];
+                    for (const user of userIdArray) {
+                        const { data } = await github.request(`https://api.github.com/users/${user}`);
+                        const userId = data.node_id;
+                        userIdNodeArray.push(userId);
+                    }
+                    if (userIdNodeArray.length > 0) {
+                        const mutationQuery = `
+                        mutation { 
+                            requestReviews(input: { 
+                                pullRequestId: "${pullRequestId}", 
+                                userIds: ${JSON.stringify(userIdNodeArray)} 
+                            }) { 
+                                pullRequest { 
+                                    id 
+                                } 
+                            }
+                        }`;
+                    
+                        const { data } = await github.graphql(mutationQuery);
+                    }
+                
+                    
