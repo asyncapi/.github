@@ -19,7 +19,9 @@ jobs:
       github.actor != 'asyncapi-bot' &&
       (
         contains(github.event.comment.body, '/ping-for-attention') ||
-        contains(github.event.comment.body, '/pfa')
+        contains(github.event.comment.body, '/pfa') ||
+        contains(github.event.comment.body, '/ptal') ||
+        contains(github.event.comment.body, '/PTAL') 
       )
     runs-on: ubuntu-latest
     steps:
