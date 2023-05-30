@@ -32,6 +32,6 @@ jobs:
       - name: Run YAML validation
         run: |
           set -e
-          node ./scripts/validate-workflow-schema.js
+          node .github/workflows/scripts/validate-workflow-schema.js
         env:
           NODE_VERSION: '16.x'
