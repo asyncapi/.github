@@ -5,7 +5,7 @@
 # if the comment contains /ping-for-attention or /pfa it will add a comment pinging 
 # the code-owners who have not yet reviewed the pull request
 
-name: ping-for-attention
+name: Please take a Look
 
 on:
   issue_comment:
@@ -18,14 +18,13 @@ jobs:
       github.event.issue.state != 'closed' &&
       github.actor != 'asyncapi-bot' &&
       (
-        contains(github.event.comment.body, '/ping-for-attention') ||
-        contains(github.event.comment.body, '/pfa') ||
+        contains(github.event.comment.body, '/please-take-a-look') ||
         contains(github.event.comment.body, '/ptal') ||
         contains(github.event.comment.body, '/PTAL') 
       )
     runs-on: ubuntu-latest
     steps:
-      - name: Check for Ping for Attention Command
+      - name: Check for Please Take a Look Command
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GH_TOKEN }}
