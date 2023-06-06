@@ -1,0 +1,37 @@
+name: 'Specify Node version based on package-lock file version'
+outputs:
+  version:
+    description: 'Node.js version number to use with actions/setup-node action'
+    value: ${{ steps.getnode.outputs.version }}
+runs:
+  using: "composite"
+  steps:
+    - name: Get Node version
+      uses: actions/github-script@v6
+      id: getnode
+      with:
+        script: |
+          const { resolve } = require('path');
+          const packageLockLocation = './package-lock.json';
+          core.info(`Location of the packae-lock verification script is: ${ resolve(packageLockLocation) }`)
+          const packageLock = require(packageLockLocation);
+
+          const packageLockVersion = packageLock.lockfileVersion;
+          let nodeVersion;
+
+          switch (packageLockVersion) {
+            case 1:
+                nodeVersion = '14'
+                break;
+            case 2:
+                nodeVersion = '16'
+                break;
+            case 3:
+                nodeVersion = '18'
+                break;
+            default:
+                nodeVersion = '16'
+                break;
+          }
+
+          core.setOutput('version', nodeVersion);
