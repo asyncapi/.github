@@ -1,5 +1,5 @@
 name: 💡 Feature Request
-description: Have a new idea/feature ? Please suggest!
+description: Suggest a new idea/feature
 title: "[FEATURE] <description>"
 labels: ["enhancement"]
 
@@ -30,7 +30,7 @@ body:
   - type: textarea
     id: implemented
     attributes:
-      label: How could it be implemented/designed ?
+      label: How could it be implemented/designed?
     validations:
       required: true
   
@@ -38,7 +38,7 @@ body:
     id: breakingchange
     attributes:
       label: "🚧 Breaking changes"
-      description: "Will this be a breaking change ?"
+      description: "Will this be a breaking change?"
       options:
         - "Yes"
         - "No"
@@ -50,7 +50,7 @@ body:
     attributes:
       label: "👀 Have you checked for similar open issues?"
       options:
-        - label: "I checked and didn't find similar issue"
+        - label: "I checked and didn't find a similar issue"
           required: true
 
   - type: checkboxes
@@ -63,8 +63,8 @@ body:
 
   - type: dropdown
     attributes:
-      label: Are you willing to work on this issue ?
+      label: Are you willing to work on this issue?
       description: This is absolutely not required, but we are happy to guide you in the contribution process.
       options:
         - "Yes I am willing to submit a PR!"
-        - "No, someone else can work on it"
+        - "No, someone else can work on it."
