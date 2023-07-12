@@ -28,9 +28,9 @@ jobs:
       - run: cd previous_state && git checkout HEAD^
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install js-yaml
         run: npm install js-yaml@3.14.1
