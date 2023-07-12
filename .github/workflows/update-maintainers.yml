@@ -126,3 +126,8 @@ jobs:
           git add .
           git commit -m "Update MAINTAINERS.yaml"
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} master
+
+      - name: Create PR
+        working-directory: ./current_state
+        run: |
+          gh pr create --title "docs(community): update latest maintainers list" --body "Updated Maintainers list is available and this PR introduces changes with latest information about Maintainers" --head "update-maintainers-${{ github.head_ref }}"
