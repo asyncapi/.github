@@ -35,12 +35,6 @@ jobs:
       - name: Install js-yaml
         run: npm install js-yaml@3.14.1
 
-      - name: Get repository name
-        run: |
-          REPO_NAME=$(basename ${{ github.repository }})
-          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
-          echo "Repository Name: $REPO_NAME"
-
       - name: Compare CODEOWNERS
         id: compare-codeowners
         uses: actions/github-script@v6
@@ -50,7 +44,7 @@ jobs:
             const yaml = require('js-yaml');
 
             // Get repository name
-            const repoName = process.env.REPO_NAME;
+            const repoName = context.repo.repo;
 
             function extractGitHubUsernames(content) {
               const regex = /@([a-zA-Z0-9_-]+)/g;
