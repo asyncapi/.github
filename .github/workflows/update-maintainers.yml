@@ -40,6 +40,8 @@ jobs:
 
       - name: Compare CODEOWNERS
         id: compare-codeowners
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -78,7 +80,7 @@ jobs:
             const { Octokit } = require("@octokit/rest");
 
             const octokit = new Octokit({
-              auth: process.env.BOT_TOKEN,
+              auth: process.env.GITHUB_TOKEN,
               request: {
                 fetch: (url, options) => fetch(url, options)
               }
