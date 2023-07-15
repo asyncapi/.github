@@ -35,6 +35,9 @@ jobs:
       - name: Install js-yaml
         run: npm install js-yaml@3.14.1
 
+      - name: Install @octokit/rest
+        run: npm install @octokit/rest
+
       - name: Compare CODEOWNERS
         id: compare-codeowners
         uses: actions/github-script@v6
@@ -72,8 +75,20 @@ jobs:
             const maintainersFile = './current_state/MAINTAINERS.yaml';
             const maintainers = yaml.safeLoad(fs.readFileSync(maintainersFile, 'utf8'));
 
+            const { Octokit } = require("@octokit/rest");
+
+            const octokit = new Octokit({
+              auth: process.env.BOT_TOKEN,
+              request: {
+                fetch: (url, options) => fetch(url, options)
+              }
+            });
+
             // Update for added usernames
             addedUsernames.forEach(username => {
+              const { data } = await octokit.users.getByUsername({ username });
+              const twitterUsername = data.twitter_username;
+
               // Exclude bot accounts
               if (username === 'asyncapi-bot' || username === 'asyncapi-bot-eve') {
                 console.log('Skipping bot account:', username);
@@ -83,6 +98,7 @@ jobs:
               if (!existingMaintainer) {
                 maintainers.push({
                   github: username,
+                  twitter: twitterUsername,
                   isTscMember: false,
                   repos: [repoName]
                 });
