@@ -30,7 +30,7 @@ jobs:
       - name: Checkout community repo
         uses: actions/checkout@v3
         with:
-          repository: 'asyncapi/community'
+          repository: asyncapi/community
           token: ${{ secrets.GITHUB_TOKEN }}
           path: community
 
