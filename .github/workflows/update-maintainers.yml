@@ -68,7 +68,7 @@ jobs:
 
             const addedUsernames = currentUsernames.filter(username => !previousUsernames.includes(username));
             const removedUsernames = previousUsernames.filter(username => !currentUsernames.includes(username));
-            
+
             console.log('Added Usernames:', addedUsernames);
             console.log('Removed Usernames:', removedUsernames);
             console.log(`ADDED_USERNAMES=${addedUsernames.join(', ')}`);
@@ -98,8 +98,8 @@ jobs:
                 return; // Skip the iteration for bot accounts
               }
 
-              const maintainerExists = maintainers.find(maintainer => maintainer.github === username);
-              if (!maintainerExists) {
+              const maintainer = maintainers.find(maintainer => maintainer.github === username);
+              if (!maintainer) {
                 maintainers.push({
                   github: username,
                   twitter: twitterUsername,
@@ -108,7 +108,13 @@ jobs:
                 });
                 console.log('Added maintainer:', username);
               } else {
-                console.log('Maintainer', username, 'already exists. Skipping addition.');
+                // If the maintainer already exists, check if the current repo is in their list
+                if (!maintainer.repos.includes(repoName)) {
+                  maintainer.repos.push(repoName);
+                  console.log('Added repository to existing maintainer:', username);
+                } else {
+                  console.log('Maintainer', username, 'already exists and already has the repo. Skipping addition.');
+                }
               }
             }
 
