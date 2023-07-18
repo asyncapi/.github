@@ -60,14 +60,15 @@ jobs:
               return matches.map(match => match.substr(1));
             }
       
-            const mainCodeowners = fs.readFileSync('./current_state/CODEOWNERS', 'utf8');
-            const prCodeowners = fs.readFileSync('./previous_state/CODEOWNERS', 'utf8');
+            const currentCodeowners = fs.readFileSync('./current_state/CODEOWNERS', 'utf8');
+            const previousCodeowners = fs.readFileSync('./previous_state/CODEOWNERS', 'utf8');
       
-            const mainUsernames = extractGitHubUsernames(mainCodeowners);
-            const prUsernames = extractGitHubUsernames(prCodeowners);
+            const currentUsernames = extractGitHubUsernames(currentCodeowners);
+            const previousUsernames = extractGitHubUsernames(previousCodeowners);
 
-            const addedUsernames = mainUsernames.filter(username => !prUsernames.includes(username));
-            const removedUsernames = prUsernames.filter(username => !mainUsernames.includes(username));
+            const addedUsernames = currentUsernames.filter(username => !previousUsernames.includes(username));
+            const removedUsernames = previousUsernames.filter(username => !currentUsernames.includes(username));
+            
             console.log('Added Usernames:', addedUsernames);
             console.log('Removed Usernames:', removedUsernames);
             console.log(`ADDED_USERNAMES=${addedUsernames.join(', ')}`);
