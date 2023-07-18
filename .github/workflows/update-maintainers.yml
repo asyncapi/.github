@@ -97,8 +97,8 @@ jobs:
                 return; // Skip the iteration for bot accounts
               }
 
-              const existingMaintainer = maintainers.find(maintainer => maintainer.github === username);
-              if (!existingMaintainer) {
+              const maintainerExists = maintainers.find(maintainer => maintainer.github === username);
+              if (!maintainerExists) {
                 maintainers.push({
                   github: username,
                   twitter: twitterUsername,
