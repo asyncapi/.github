@@ -27,6 +27,13 @@ jobs:
 
       - run: cd previous_state && git checkout HEAD^
 
+      - name: Checkout community repo
+        uses: actions/checkout@v3
+        with:
+          repository: 'asyncapi/community'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: community
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -75,7 +82,7 @@ jobs:
             console.log(`REMOVED_USERNAMES=${removedUsernames.join(', ')}`);
 
             // Update MAINTAINERS.yaml
-            const maintainersFile = './current_state/MAINTAINERS.yaml';
+            const maintainersFile = ./community/MAINTAINERS.yaml';
             const maintainers = yaml.safeLoad(fs.readFileSync(maintainersFile, 'utf8'));
 
             const { Octokit } = require("@octokit/rest");
@@ -147,14 +154,14 @@ jobs:
             console.log('Updated MAINTAINERS.yaml:', updatedMaintainers);
 
       - name: Commit and push
-        working-directory: ./current_state
+        working-directory: ./community
         run: |
           git add .
           git commit -m "Update MAINTAINERS.yaml"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} master
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/asyncapi/community master
 
       - name: Create PR
-        working-directory: ./current_state
+        working-directory: ./community
         run: |
           gh pr create --title "docs(community): update latest maintainers list" --body "Updated Maintainers list is available and this PR introduces changes with latest information about Maintainers" --head "update-maintainers-${{ github.head_ref }}"
 
