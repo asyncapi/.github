@@ -82,7 +82,7 @@ jobs:
             console.log(`REMOVED_USERNAMES=${removedUsernames.join(', ')}`);
 
             // Update MAINTAINERS.yaml
-            const maintainersFile = ./community/MAINTAINERS.yaml';
+            const maintainersFile = './community/MAINTAINERS.yaml';
             const maintainers = yaml.safeLoad(fs.readFileSync(maintainersFile, 'utf8'));
 
             const { Octokit } = require("@octokit/rest");
@@ -153,17 +153,23 @@ jobs:
             fs.writeFileSync(maintainersFile, updatedMaintainers);
             console.log('Updated MAINTAINERS.yaml:', updatedMaintainers);
 
+      - name: Create new branch
+        working-directory: ./community
+        run: |
+          git checkout -b update-maintainers-${{ github.run_id }}
+
       - name: Commit and push
         working-directory: ./community
         run: |
           git add .
           git commit -m "Update MAINTAINERS.yaml"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/asyncapi/community master
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/asyncapi/community update-maintainers-${{ github.run_id }}
 
       - name: Create PR
         working-directory: ./community
         run: |
-          gh pr create --title "docs(community): update latest maintainers list" --body "Updated Maintainers list is available and this PR introduces changes with latest information about Maintainers" --head "update-maintainers-${{ github.head_ref }}"
+          gh pr create --title "docs(community): update latest maintainers list" --body "Updated Maintainers list is available and this PR introduces changes with latest information about Maintainers" --head update-maintainers-${{ github.run_id }}
+
 
       - name: Report workflow run status to Slack
         if: failure() # Only, on failure, send a message on the slack channel
