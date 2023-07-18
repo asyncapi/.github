@@ -129,9 +129,8 @@ jobs:
 
             // Update for removed usernames
             for (const username of removedUsernames) {
-              const index = maintainers.findIndex(maintainer => maintainer.github === username);
-              if (index !== -1) {
-                const maintainer = maintainers[index];
+              const maintainer = maintainers.find(maintainer => maintainer.github === username);
+              if (maintainer) {
                 const repoIndex = maintainer.repos.indexOf(repoName);
 
                 if (repoIndex !== -1) {
@@ -139,6 +138,7 @@ jobs:
                   console.log(`Removed repository ${repoName} from maintainer ${username}`);
 
                   if (maintainer.repos.length === 0) {
+                    const index = maintainers.indexOf(maintainer);
                     maintainers.splice(index, 1);
                     console.log(`Removed maintainer ${username} as they have no other repositories`);
                   }
