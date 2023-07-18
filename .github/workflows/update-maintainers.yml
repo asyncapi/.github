@@ -59,12 +59,15 @@ jobs:
             const repoName = context.repo.repo;
 
             function extractGitHubUsernames(content) {
-              const regex = /@([a-zA-Z0-9_-]+)/g;
-              const matches = content.match(regex);
-              if (!matches) {
-                return [];
-              }
-              return matches.map(match => match.substr(1));
+                // Remove lines starting with #
+                content = content.replace(/^#.*$/mg, "");
+            
+                const regex = /@([a-zA-Z0-9_-]+)/g;
+                const matches = content.match(regex);
+                if (!matches) {
+                    return [];
+                }
+                return matches.map(match => match.substr(1));
             }
       
             const currentCodeowners = fs.readFileSync('./current_state/CODEOWNERS', 'utf8');
