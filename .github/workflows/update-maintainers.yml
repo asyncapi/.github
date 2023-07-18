@@ -99,17 +99,16 @@ jobs:
 
             // Update for added usernames
             for (const username of addedUsernames) {
-              const { data } = await octokit.users.getByUsername({ username });
-              const twitterUsername = data.twitter_username;
-
               // Exclude bot accounts
               if (username === 'asyncapi-bot' || username === 'asyncapi-bot-eve') {
                 console.log('Skipping bot account:', username);
-                return; // Skip the iteration for bot accounts
+                continue; // Skip the iteration for bot accounts
               }
 
               const maintainer = maintainers.find(maintainer => maintainer.github === username);
               if (!maintainer) {
+                const { data } = await octokit.users.getByUsername({ username });
+                const twitterUsername = data.twitter_username;
                 maintainers.push({
                   github: username,
                   twitter: twitterUsername,
