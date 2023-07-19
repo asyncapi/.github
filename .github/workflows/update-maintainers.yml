@@ -42,9 +42,6 @@ jobs:
       - name: Install js-yaml
         run: npm install js-yaml@3.14.1
 
-      - name: Install @octokit/rest
-        run: npm install @octokit/rest
-
       - name: Compare CODEOWNERS
         id: compare-codeowners
         env:
@@ -88,14 +85,6 @@ jobs:
             const maintainersFile = './community/MAINTAINERS.yaml';
             const maintainers = yaml.safeLoad(fs.readFileSync(maintainersFile, 'utf8'));
 
-            const { Octokit } = require("@octokit/rest");
-
-            const octokit = new Octokit({
-              auth: process.env.GITHUB_TOKEN,
-              request: {
-                fetch: (url, options) => fetch(url, options)
-              }
-            });
 
             // Update for added usernames
             for (const username of addedUsernames) {
@@ -107,7 +96,7 @@ jobs:
 
               const maintainer = maintainers.find(maintainer => maintainer.github === username);
               if (!maintainer) {
-                const { data } = await octokit.users.getByUsername({ username });
+                const { data } = await github.rest.users.getByUsername({ username });
                 const twitterUsername = data.twitter_username;
                 maintainers.push({
                   github: username,
