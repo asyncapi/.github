@@ -111,7 +111,7 @@ jobs:
                   maintainer.repos.push(repoName);
                   console.log('Added repository to existing maintainer:', username);
                 } else {
-                  console.log('Maintainer', username, 'already exists and already has the repo. Skipping addition.');
+                  console.log(`Maintainer ${username} already exists and already has the repo. Skipping addition.`);
                 }
               }
             }
