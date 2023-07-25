@@ -1,4 +1,4 @@
-name: Update MAINTAINERS.yaml
+name: Update MAINTAINERS.yaml in community repo
 
 on:
   pull_request:
