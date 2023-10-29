@@ -31,7 +31,7 @@ jobs:
       - name: Regenerate docs
         run: npm run generate:assets
       - name: Create Pull Request with updated docs
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # use 4.2.4 https://github.com/peter-evans/create-pull-request/releases/tag/v5.0.2
         with:
           token: ${{ secrets.GH_TOKEN }}
           commit-message: 'chore: update generated docs'
