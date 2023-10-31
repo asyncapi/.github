@@ -3,7 +3,7 @@
 
 # The given workflow is responsible for generating docs and creating PR with them when there is a commit with docs: prefix
 
-# This workflow will be updated in all repos with the topic autogenerate-docs
+# This workflow will be updated in all repos with the topic get-global-docs-autoupdate
 
 name: 'Update generated parts of documentation on docs: commits'
 
@@ -22,14 +22,19 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Check package-lock version
+        uses: asyncapi/.github/.github/actions/get-node-version-from-package-lock@master
+        id: lockversion
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: "${{ steps.lockversion.outputs.version }}"
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
       - name: Install dependencies
         run: npm ci
       - name: Regenerate docs
-        run: npm run generate:assets
+        run: npm run generate:assets --if-present
       - name: Create Pull Request with updated docs
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # uses 5.0.2 https://github.com/peter-evans/create-pull-request/releases/tag/v5.0.2
         with:
@@ -39,4 +44,4 @@ jobs:
           author: asyncapi-bot <info@asyncapi.io>
           title: 'chore: update generated docs'
           body: 'Update of docs that are generated and were forgotten on PR level.'
-          branch: gen-docs-update
+          branch: gen-docs-update/${{ github.job }}

@@ -192,9 +192,9 @@ jobs:
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with: 
           github_token: ${{ secrets.GH_TOKEN }}
-          patterns_to_include: .github/workflows/update-docs-on-docs-commit.yml
-          topics_to_include: autogenerate-docs
+          patterns_to_include: .github/workflows/update-docs-on-docs-commits.yml
+          topics_to_include: get-global-docs-autoupdate
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
-          bot_branch_name: bot/update-files-from-global-repo 
+          bot_branch_name: bot/update-files-from-global-repo/${{ github.job }}
