@@ -46,7 +46,7 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           patterns_to_include: CONTRIBUTING.md
-          repos_to_ignore: shape-up-process,glee-hello-world,spec,community,php-template,tck,modelina,dotnet-nats-template,ts-nats-template
+          repos_to_ignore: shape-up-process,glee-hello-world,spec,community,php-template,tck,modelina,dotnet-nats-template,ts-nats-template,extensions-catalog
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
