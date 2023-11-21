@@ -17,9 +17,24 @@ on:
       - 'bot/**'
       - 'all-contributors/**'
 
+  issue_comment: 
+    types: [created]
+
 jobs:
   autoupdate-fork:
-    if: startsWith(github.repository, 'asyncapi/')
+    if: > 
+      startsWith(github.repository, 'asyncapi/') &&
+      (
+        github.event_name == 'push' ||
+        (
+          github.event_name == 'issue_comment' &&
+          github.event.issue.pull_request != null &&
+          (
+            contains(github.event.comment.body, '/update') ||
+            contains(github.event.comment.body, '/u')
+          )
+        )
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Autoupdate PR branches
@@ -30,10 +45,3 @@ jobs:
           pr_label: 'autoupdate'
           merge_fail_action: 'comment'
           ignore_conflicts: true
-
-
-  
-
-
-  
-      
