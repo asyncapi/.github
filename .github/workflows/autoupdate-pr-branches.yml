@@ -1,7 +1,7 @@
 # This workflow is centrally managed in https://github.com/asyncapi/.github/
 # Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 
-# This workflow will run on every push to the repository. And will create merge-commits for all PRs to respective branches.
+# This workflow will run on every push to the repository or comment with /update or /u. And will create merge-commits for all PRs to respective branches.
 # This also works with forks, not only with branches in the same repository/organization.
 # Currently, does not work with forks in different organizations.
 
