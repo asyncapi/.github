@@ -1,0 +1,39 @@
+# This workflow is centrally managed in https://github.com/asyncapi/.github/
+# Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
+
+# This workflow will run on every push to the repository. And will create merge-commits for all PRs to respective branches.
+# This also works with forks, not only with branches in the same repository/organization.
+# Currently, does not work with forks in different organizations.
+
+# This workflow will be distributed to all repositories in the AsyncAPI organization.
+
+name: Autoupdate PR branches
+
+on:
+  push:
+    branches-ignore:  
+      - 'version-bump/**'
+      - 'dependabot/**'
+      - 'bot/**'
+      - 'all-contributors/**'
+
+jobs:
+  autoupdate-fork:
+    if: startsWith(github.repository, 'asyncapi/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Autoupdate PR branches
+        uses: Shurtu-gal/autoupdate-fork-action@401ab8a7cea6c1288599f7cd030093a58c6765ee
+        with:
+          github_token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+          pr_filter: 'labelled'
+          pr_label: 'autoupdate'
+          merge_fail_action: 'comment'
+          ignore_conflicts: true
+
+
+  
+
+
+  
+      
