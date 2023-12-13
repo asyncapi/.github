@@ -67,3 +67,8 @@ jobs:
           text: 'Unable to bump the version in package.json after the release'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_CI_FAIL_NOTIFY }}
+      -
+        name: Trigger Docker Release Workflow
+        uses: asyncapi/cli/.github/workflows/release-docker.yml@master
+        with:
+          release: ${{github.event.release.tag_name}}
