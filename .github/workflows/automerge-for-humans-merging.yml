@@ -21,41 +21,70 @@ jobs:
     if: github.event.pull_request.draft == false && (github.event.pull_request.user.login != 'asyncapi-bot' || github.event.pull_request.user.login != 'dependabot[bot]' || github.event.pull_request.user.login != 'dependabot-preview[bot]') #it runs only if PR actor is not a bot, at least not a bot that we know
     runs-on: ubuntu-latest
     steps:
-      - name: fetch commits and authors
-        id: fetch-commits-and-authors
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install node-fetch @octokit/core @octokit/plugin-paginate-rest
+
+      - name: Merge PR with Co-Authors
+
         run: |
-          page = 1
-          per_page = 100
-          commits=()
+          run: |
+          const fetch = require('node-fetch');
+          const { Octokit } = require('@octokit/rest');
+          const { paginateRest } = require('@octokit/plugin-paginate-rest');
 
-          while : ; do
-            result = $(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" "${{ github.event.pull_request._links.commits.href }}?per_page=$per_page&page=$page")
+          const token = process.env.GITHUB_TOKEN;
+          const prNumber = process.env.PR_NUMBER;
+          const prTitle = process.env.PR_TITLE;
+          const repostory = process.env.GITHUB_REPOSITORY;
 
-            if [ $(echo "$result" | jq length ) -eq 0 ]; then
-              break
-            fi
-            commits+=("$result")
-            ((page++))
-          done
+          async function getCoAuthors() {
+            try {
+              const octokit = new Octokit({ auth: token });
+              const commitsResponse = await octokit.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/commits", {
+                owner: "asyncapi",
+                repo: repostory,
+                pull_number: prNumber,
+                per_page: 100,
+              });
 
-          co_authors=()
-          for commit in "${commits[@]}"; do
-            authors=$(echo "$commit" | jq -r '.[] | {name: .commit.author.name, email: .commit.author.email, login: .author.login} | select(.login != "${{github.event.pull_request.user.login}}")')
+              const coAuthors = commitsResponse
+                .map(commit => ({
+                  name: commit.commit.author.name,
+                  email: commit.commit.author.email,
+                  login: commit.author.login,
+                }))
+                .filter(author => author.login !== 'main_author_login') // Replace 'main_author_login' with the main author's login
+                .reduce((uniqueAuthors, author) => {
+                  if (!uniqueAuthors.some(a => a.email === author.email)) {
+                    uniqueAuthors.push(author);
+                  }
+                  return uniqueAuthors;
+                }, [])
+                .map(author => `Co-authored-by: ${author.name} <${author.email}>`)
+                .join('\n');
 
-            while read -r author; do
-              name=$(echo "$author" | jq -r '.name')
-              email=$(echo "$author" | jq -r '.email')
-              co_authors+=("Co-authored-by: $name <$email>")
-            done <<< "$authors"
-          done
+              return coAuthors;
+            } catch (error) {
+              console.error('Error fetching commits:', error);
+              return null;
+            }
+          }
 
-          co_authors=$(echo "${co_authors[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')
-
-          echo "::set-output name=co_authors::$co_authors"
       - name: Automerge PR
         uses: pascalgn/automerge-action@22948e0bc22f0aa673800da838595a3e7347e584 #v0.15.6 https://github.com/pascalgn/automerge-action/releases/tag/v0.15.6
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
+          PR_NUMBER: ${{ github.event.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
           MERGE_LABELS: "!do-not-merge,ready-to-merge"
           MERGE_METHOD: "squash"
           # Using the output of the previous step (`Co-authored-by: ...` lines) as commit description.
