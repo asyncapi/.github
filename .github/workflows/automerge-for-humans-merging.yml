@@ -1,7 +1,3 @@
-# This workflow is centrally managed in https://github.com/asyncapi/.github/
-# Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
-
-# Purpose of this workflow is to allow people to merge PR without a need of maintainer doing it. If all checks are in place (including maintainers approval) - JUST MERGE IT!
 name: Automerge For Humans
 
 on:
@@ -18,48 +14,88 @@ on:
 
 jobs:
   automerge-for-humans:
-    if: github.event.pull_request.draft == false && (github.event.pull_request.user.login != 'asyncapi-bot' || github.event.pull_request.user.login != 'dependabot[bot]' || github.event.pull_request.user.login != 'dependabot-preview[bot]') #it runs only if PR actor is not a bot, at least not a bot that we know
+    if: 
+      github.event.pull_request.draft == false &&
+      (github.event.pull_request.user.login != 'asyncapi-bot' &&
+       github.event.pull_request.user.login != 'dependabot[bot]' &&
+       github.event.pull_request.user.login != 'dependabot-preview[bot]')
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: fetch commits and authors
-        id: fetch-commits-and-authors
-        run: |
-          page = 1
-          per_page = 100
-          commits=()
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-          while : ; do
-            result = $(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" "${{ github.event.pull_request._links.commits.href }}?per_page=$per_page&page=$page")
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-            if [ $(echo "$result" | jq length ) -eq 0 ]; then
-              break
-            fi
-            commits+=("$result")
-            ((page++))
-          done
+      - name: Install dependencies
+        run: npm install @octokit/core @octokit/plugin-paginate-rest @octokit/rest cross-fetch
 
-          co_authors=()
-          for commit in "${commits[@]}"; do
-            authors=$(echo "$commit" | jq -r '.[] | {name: .commit.author.name, email: .commit.author.email, login: .author.login} | select(.login != "${{github.event.pull_request.user.login}}")')
+      - name: Get List of authors
+        id: authors
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { Octokit } = require('@octokit/rest');
+            const { paginateRest } = require('@octokit/plugin-paginate-rest');
 
-            while read -r author; do
-              name=$(echo "$author" | jq -r '.name')
-              email=$(echo "$author" | jq -r '.email')
-              co_authors+=("Co-authored-by: $name <$email>")
-            done <<< "$authors"
-          done
+            const fetch = require('cross-fetch');
 
-          co_authors=$(echo "${co_authors[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+            const token = process.env.GITHUB_TOKEN;
+            const prNumber = process.env.PR_NUMBER;
+            const repository = process.env.GITHUB_REPOSITORY;
 
-          echo "::set-output name=co_authors::$co_authors"
+            async function getCoAuthors() {
+              try {
+                const octokit = new Octokit({
+                  auth: token,
+                  request: {
+                    fetch,
+                  },
+                });
+                  
+                const commitsResponse = await octokit.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/commits", {
+                  owner: repository.split('/')[0],
+                  repo: repository.split('/')[1],
+                  pull_number: ${{ github.event.number }},
+                  per_page: 100,
+                });
+                  
+                const authors = commitsResponse
+                  .map(data => ({
+                    name: data.commit.author.name,
+                    email: data.commit.author.email,
+                    login: data.commit.author.login,
+                  }))
+                  .filter(author => author.login !== 'PR_sender_login')
+                  .reduce((uniqueAuthors, author) => {
+                    if (!uniqueAuthors.some(a => a.email === author.email)) {
+                      uniqueAuthors.push(author);
+                    }
+                    return uniqueAuthors;
+                  }, [])
+                  .map(author => `Co-authored-by: ${author.name} <${author.email}>`)
+                  .join('\n');
+                console.log(authors);
+                return authors;
+              } catch (error) {
+                console.error('Error fetching commits:', error);
+                return null;
+              }
+            }
+          
+            await getCoAuthors();
+
       - name: Automerge PR
-        uses: pascalgn/automerge-action@22948e0bc22f0aa673800da838595a3e7347e584 #v0.15.6 https://github.com/pascalgn/automerge-action/releases/tag/v0.15.6
+        uses: pascalgn/automerge-action@v0.15.6
         env:
-          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "!do-not-merge,ready-to-merge"
           MERGE_METHOD: "squash"
-          # Using the output of the previous step (`Co-authored-by: ...` lines) as commit description.
-          # Important to keep 2 empty lines as https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors#creating-co-authored-commits-on-the-command-line mentions
-          MERGE_COMMIT_MESSAGE: "{pullRequest.title} (#{pullRequest.number})\n\n\n${{ steps.authors.outputs.value }}" 
+          MERGE_COMMIT_MESSAGE: "{pullRequest.title} (#{pullRequest.number})\n\n\n${{ steps.authors.outputs.value }}"
           MERGE_RETRIES: "20"
           MERGE_RETRY_SLEEP: "30000"
