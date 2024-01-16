@@ -69,6 +69,7 @@ jobs:
           ISSUE_TITLE: ${{ github.event.issue.title }}
         with:
           script: |
+            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
             sendEmail('${{github.event.issue.html_url}}', process.env.ISSUE_TITLE);
 
   pull_request:
@@ -115,6 +116,7 @@ jobs:
 
         with:
           script: |
+               const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
                sendEmail('${{github.event.pull_request.html_url}}', process.env.PR_TITLE);
 
   discussion:
@@ -160,6 +162,7 @@ jobs:
           DISCUSSION_TITLE: ${{ github.event.discussion.title }}
         with:
           script: |
+            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');          
             sendEmail('${{github.event.discussion.html_url}}', process.env.DISCUSSION_TITLE);
 
   issue_comment:
@@ -205,6 +208,7 @@ jobs:
           ISSUE_TITLE: ${{ github.event.issue.title }}
         with:
           script: |
+            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');          
             sendEmail('${{github.event.comment.html_url}}', process.env.ISSUE_TITLE);
 
   pr_comment:
@@ -250,6 +254,7 @@ jobs:
           PR_TITLE: ${{ github.event.issue.title }}
         with:
           script: |
+            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
             sendEmail('${{github.event.comment.html_url}}', process.env.PR_TITLE);
 
   discussion_comment:
@@ -295,4 +300,5 @@ jobs:
           DISCUSSION_TITLE: ${{ github.event.discussion.title }}
         with:
           script: |
+            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
             sendEmail('${{github.event.comment.html_url}}', process.env.DISCUSSION_TITLE);
