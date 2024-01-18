@@ -11,16 +11,13 @@ jobs:
   yaml-lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Install actionlint
-        run: |
-          curl -sLO https://github.com/rhysd/actionlint/releases/download/v1.6.3/actionlint_1.6.3_linux_amd64.tar.gz
-          tar xzf actionlint_1.6.3_linux_amd64.tar.gz
-          chmod +x actionlint
-          sudo mv actionlint /usr/local/bin/
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
 
-      - name: Run actionlint
-        run: actionlint
-        
+      - name: Check workflow files
+        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        shell: bash
