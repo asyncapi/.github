@@ -41,7 +41,6 @@ jobs:
         uses: Shurtu-gal/autoupdate-fork-action@401ab8a7cea6c1288599f7cd030093a58c6765ee
         with:
           github_token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
-          pr_filter: 'labelled'
-          pr_label: 'autoupdate'
+          pr_filter: 'all'
           merge_fail_action: 'comment'
           ignore_conflicts: true
