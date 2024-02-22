@@ -56,7 +56,7 @@ body:
         - Opera
         - Other
     validations:
-        required: optional
+        required: false
 
   - type: checkboxes
     id: no-duplicate-issues
