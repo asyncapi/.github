@@ -199,7 +199,7 @@ jobs:
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo/${{ github.job }}
 
-  replicate_get_global_prettierignore:
+  replicate_prettierignore_file:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate .prettierignore file in the required repositories
     runs-on: ubuntu-latest
