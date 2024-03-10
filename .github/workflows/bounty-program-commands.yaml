@@ -31,7 +31,8 @@ jobs:
         with:
           github-token: ${{ secrets.GH_TOKEN }}
           script: |
-            const commentText = `❌ @${{github.actor}} is not authorized to use a Bounty Program's command.`;
+            const commentText = `❌ @${{github.actor}} is not authorized to use the Bounty Program's commands.
+            These commands can only be used by members of the [Bounty Team](https://github.com/orgs/asyncapi/teams/bounty_team).`;
 
             console.log(`❌ @${{github.actor}} made an unauthorized attempt to use a Bounty Program's command.`);
             github.rest.issues.createComment({
