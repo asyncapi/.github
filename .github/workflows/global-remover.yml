@@ -49,5 +49,5 @@ jobs:
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
-          repos_to_ignore: shape-up-process,glee-hello-world
+          repos_to_ignore: shape-up-process,glee-hello-world,saunter
           bot_branch_name: bot/update-files-from-global-repo
