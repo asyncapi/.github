@@ -28,7 +28,7 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           patterns_to_include: CODE_OF_CONDUCT.md
-          repos_to_ignore: shape-up-process,glee-hello-world
+          repos_to_ignore: shape-up-process,glee-hello-world,saunter
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
@@ -46,7 +46,7 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           patterns_to_include: CONTRIBUTING.md
-          repos_to_ignore: shape-up-process,glee-hello-world,spec,community,php-template,tck,modelina,dotnet-nats-template,ts-nats-template,extensions-catalog
+          repos_to_ignore: shape-up-process,glee-hello-world,spec,community,php-template,tck,modelina,dotnet-nats-template,ts-nats-template,extensions-catalog,saunter
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
@@ -142,7 +142,7 @@ jobs:
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
-          repos_to_ignore: shape-up-process,glee-hello-world
+          repos_to_ignore: shape-up-process,glee-hello-world,saunter
           bot_branch_name: bot/update-files-from-global-repo
 
   replicate_docker_workflows:
