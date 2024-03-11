@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Autoupdate PR branches
-        uses: Shurtu-gal/autoupdate-fork-action@a5019320a0462993ded9bbe6c04fb1c6684d67c7
+        uses: Shurtu-gal/autoupdate-fork-action@2fdcd58a50e41c187e56160d05c128b00c664164
         with:
           github_token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           # The label to see on push event. By default, on issue_comment event there will be no PR_FILTER
