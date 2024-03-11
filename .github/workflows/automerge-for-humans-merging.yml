@@ -29,41 +29,24 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install @octokit/core @octokit/plugin-paginate-rest @octokit/rest cross-fetch
 
       - name: Get List of authors
         id: authors
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { Octokit } = require('@octokit/rest');
-            const { paginateRest } = require('@octokit/plugin-paginate-rest');
-
-            const fetch = require('cross-fetch');
-
-            const token = process.env.GITHUB_TOKEN;
-            const prNumber = process.env.PR_NUMBER;
-            const repository = process.env.GITHUB_REPOSITORY;
-
             async function getCoAuthors() {
-              try {
-                const octokit = new Octokit({
-                  auth: token,
-                  request: {
-                    fetch,
-                  },
-                });
-                  
-                const commitsResponse = await octokit.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/commits", {
+              try { 
+                const commitsResponse = await github.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/commits", {
                   owner: repository.split('/')[0],
                   repo: repository.split('/')[1],
                   pull_number: ${{ github.event.number }},
@@ -76,7 +59,7 @@ jobs:
                     email: data.commit.author.email,
                     login: data.commit.author.login,
                   }))
-                  .filter(author => author.login !== 'PR_sender_login')
+                  .filter(author => author.email !== commitsResponse[0].commit.author.email)
                   .reduce((uniqueAuthors, author) => {
                     if (!uniqueAuthors.some(a => a.email === author.email)) {
                       uniqueAuthors.push(author);
