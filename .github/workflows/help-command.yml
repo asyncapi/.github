@@ -35,9 +35,6 @@ jobs:
                     - `/do-not-merge` or `/dnm` - This comment will block automerging even if all conditions are met and ready-to-merge label is added
                     - `/autoupdate` or `/au` - This comment will add `autoupdate` label to the PR and keeps your PR up-to-date to the target branch's future changes. Unless there is a merge conflict or it is a draft PR.
                     - `/please-take-a-look` or `/ptal` - This comment will add a comment to the PR asking for attention from the reviewrs who have not reviewed the PR yet.
-                    - `/review` or `/rerequest` - This comment will add the given reviewers to the PR and request them to review the PR. It can be used in two ways.
-                      - `/review @reviewer1 @reviewer2` - This will add the given reviewers to the PR and request them to review the PR.
-                      - `/review` - This will add the default reviewers to the PR and request them to re-review the PR. The default reviewers are the ones who have reviewed the PR before.`
             })
 
   create_help_comment_issue:
