@@ -36,9 +36,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install @octokit/core @octokit/plugin-paginate-rest @octokit/rest cross-fetch
-
       - name: Get List of authors
         id: authors
         uses: actions/github-script@v7
