@@ -1,13 +1,14 @@
-# This workflow is centrally managed in https://github.com/asyncapi/.github/
+# This action is centrally managed in https://github.com/asyncapi/.github/
 # Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 
-# This workflow will run on every push to the repository or comment with /update or /u. And will create merge-commits for all PRs to respective branches.
-# This also works with forks, not only with branches in the same repository/organization.
-# Currently, does not work with forks in different organizations.
+# This workflow is designed to work with:
+# - autoapprove and automerge workflows for dependabot and asyncapibot.
+# - special release branches that we from time to time create in upstream repos. If we open up PRs for them from the very beginning of the release, the release branch will constantly update with new things from the destination branch they are opened against
 
-# This workflow will be distributed to all repositories in the AsyncAPI organization.
+# It uses GitHub Action that auto-updates pull requests branches, whenever changes are pushed to their destination branch.
+# Autoupdating to latest destination branch works only in the context of upstream repo and not forks
 
-name: Autoupdate PR branches
+name: autoupdate
 
 on:
   push:
@@ -17,32 +18,17 @@ on:
       - 'bot/**'
       - 'all-contributors/**'
 
-  issue_comment: 
-    types: [created]
-
 jobs:
-  autoupdate-fork:
-    if: > 
-      startsWith(github.repository, 'asyncapi/') &&
-      (
-        github.event_name == 'push' ||
-        (
-          github.event_name == 'issue_comment' &&
-          github.event.issue.pull_request != null &&
-          (
-            contains(github.event.comment.body, '/update') ||
-            contains(github.event.comment.body, '/u')
-          )
-        )
-      )
+  autoupdate-for-bot:
+    if: startsWith(github.repository, 'asyncapi/')
+    name: Autoupdate autoapproved PR created in the upstream
     runs-on: ubuntu-latest
     steps:
-      - name: Autoupdate PR branches
-        uses: Shurtu-gal/autoupdate-fork-action@a5019320a0462993ded9bbe6c04fb1c6684d67c7
-        with:
-          github_token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
-          # The label to see on push event. By default, on issue_comment event there will be no PR_FILTER
-          pr_filter: 'labelled'
-          pr_label: 'autoupdate'
-          merge_fail_action: 'comment'
-          ignore_conflicts: true
+      - name: Autoupdating
+        uses: docker://chinthakagodawita/autoupdate-action:v1
+        env:
+          GITHUB_TOKEN: '${{ secrets.GH_TOKEN_BOT_EVE }}'
+          PR_FILTER: "labelled"
+          PR_LABELS: "autoupdate"
+          PR_READY_STATE: "ready_for_review"
+          MERGE_CONFLICT_ACTION: "ignore"
