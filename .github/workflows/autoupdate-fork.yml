@@ -17,7 +17,8 @@ jobs:
   autoupdate-pr:
     if: >
       startsWith(github.repository, 'asyncapi/') &&
-      github.event_name == 'issue_comment' && (
+      github.event.issue.pull_request && 
+      github.event.issue.state != 'closed' && (
         contains(github.event.comment.body, '/update') ||
         contains(github.event.comment.body, '/u')
       )
@@ -83,8 +84,7 @@ jobs:
               ) {
                 // Add comment to PR if the bot doesn't have permissions to update the PR
 
-                const comment = `@${context.actor} I don't have permissions to update this PR. Please ask the PR author to check the "Allow edits from maintainers" checkbox in the PR settings.`;
-
+                const comment = `@${context.actor} I don't have permissions to update this PR. Please ask the PR author to check the "Allow edits from maintainers" checkbox in the PR settings. Another possible reason for failure can due to the fork being in an organisation and not under a user.`;
                 await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
