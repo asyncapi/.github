@@ -44,7 +44,7 @@ jobs:
             const reviewersWhoHaveNotReviewed = reviewers.filter(reviewer => !reviewersWhoHaveReviewed.includes(reviewer));
 
             if (reviewersWhoHaveNotReviewed.length > 0) {
-              const comment = reviewersWhoHaveNotReviewed.map(reviewer => `@${reviewer}`).join(' ');
+              const comment = reviewersWhoHaveNotReviewed.filter(reviewer => reviewer !== 'asyncapi-bot-eve' ).map(reviewer => `@${reviewer}`).join(' ');
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
