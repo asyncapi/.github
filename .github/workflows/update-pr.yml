@@ -7,14 +7,14 @@
 
 # This workflow will be distributed to all repositories in the AsyncAPI organization
 
-name: Autoupdate PR branches from fork
+name: Update PR branches from fork
 
 on:
   issue_comment: 
     types: [created]
 
 jobs:
-  autoupdate-pr:
+  update-pr:
     if: >
       startsWith(github.repository, 'asyncapi/') &&
       github.event.issue.pull_request && 
@@ -83,8 +83,11 @@ jobs:
                 )
               ) {
                 // Add comment to PR if the bot doesn't have permissions to update the PR
+                const comment = `@${context.actor} The updation of PR has failed. It can be due to one of the following reasons:
+                -  I don't have permissions to update this PR. To update your fork with upstream using bot you need to to enable [Allow edits from maintainers](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork) option in the PR. 
+                -  The fork is located in an organization, not under your personal profile.
+                -  There may be a conflict in the PR. Please resolve the conflict and try again.`;
 
-                const comment = `@${context.actor} I don't have permissions to update this PR. Please ask the PR author to check the "Allow edits from maintainers" checkbox in the PR settings. Another possible reason for failure can due to the fork being in an organisation and not under a user.`;
                 await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
