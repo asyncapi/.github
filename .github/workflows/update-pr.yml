@@ -83,9 +83,9 @@ jobs:
                 )
               ) {
                 // Add comment to PR if the bot doesn't have permissions to update the PR
-                const comment = `@${context.actor} The updation of PR has failed. It can be due to one of the following reasons:
-                -  I don't have permissions to update this PR. To update your fork with upstream using bot you need to to enable [Allow edits from maintainers](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork) option in the PR. 
-                -  The fork is located in an organization, not under your personal profile.
+                const comment = `Hi @${context.actor}. Update of PR has failed. It can be due to one of the following reasons:
+                -  I don't have permissions to update this PR. To update your fork with upstream using bot you need to enable [Allow edits from maintainers](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork) option in the PR. 
+                -  The fork is located in an organization, not under your personal profile. No solution for that. You are on your own with manual update.
                 -  There may be a conflict in the PR. Please resolve the conflict and try again.`;
 
                 await github.rest.issues.createComment({
