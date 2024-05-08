@@ -2,7 +2,7 @@
 # Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 
 # This action handles merge conflicts and provides auto-rebase functionality for pull requests
-name: Merge Conflict and Auto-Rebase 
+name: Merge Conflict and Auto-Rebase
 
 on:
   pull_request_target:
@@ -12,81 +12,87 @@ on:
 
 jobs:
   check-merge-conflicts:
-    if: github.event_name == 'pull_request_target'
-    runs-on: ubuntu-latest
-    outputs:
-      conflicts: ${{ steps.conflicts.outputs.conflicts }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Check for merge conflicts
-        id: conflicts
-        run: |
-          git fetch origin ${{ github.base_ref }}
-          git merge origin/${{ github.base_ref }} --no-commit --no-ff
-          if [[ $(git ls-files -u | wc -l) -gt 0 ]]; then
-            echo "Merge conflicts detected."
-            echo "::set-output name=conflicts::true"
-            git merge --abort
-          else
-            echo "No merge conflicts."
-            echo "::set-output name=conflicts::false"
-          fi
-      - name: Post Merge Conflict Notification
-        if: steps.conflicts.outputs.conflicts == 'true'
-        uses: marocchino/sticky-pull-request-comment@v2.5.0
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: merge-conflict-warning
-          message: |
-            ⚠️ Merge conflicts detected. Please resolve them.
-            **Options to Resolve Conflicts:**
-            - **Manually:** Resolve the conflicts in your local environment and push the changes.
-            - **Automated Commands:** Use `/rebase`, `/solve_conflict`, or `/sf` to automatically rebase this PR.
-            **Good Practices:**
-            - Fetch and merge the latest changes from the base branch into your branch.
-            - Consider using a visual diff tool to clearly see and resolve conflicts.
-            - Test your changes after resolving to ensure nothing is broken.
-            For more detailed guidance, refer to your project's contributing guidelines or documentation.
+      if: github.event_name == 'pull_request_target'
+      runs-on: ubuntu-latest
+      outputs:
+        conflicts: ${{ steps.conflicts.outputs.conflicts }}
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        - name: Check for merge conflicts
+          id: conflicts
+          run: |
+            git fetch origin ${{ github.base_ref }}
+            git merge origin/${{ github.base_ref }} --no-commit --no-ff
+            if [[ $(git ls-files -u | wc -l) -gt 0 ]]; then
+              echo "Merge conflicts detected."
+              echo "conflicts=true" >> $GITHUB_ENV
+              git merge --abort
+            else
+              echo "No merge conflicts."
+              echo "conflicts=false" >> $GITHUB_ENV
+            fi
+        - name: Set Output
+          id: set_output
+          run: echo "::set-output name=conflicts::${{ env.conflicts }}"
+        - name: Post Merge Conflict Notification
+          if: steps.conflicts.outputs.conflicts == 'true'
+          uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd #use 2.5.0 https://github.com/marocchino/sticky-pull-request-comment/releases/tag/v2.5.0
+          with:
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+            header: merge-conflict-warning
+            message: |
+              ⚠️ Merge conflicts detected. Please resolve them.
+              **Options to Resolve Conflicts:**
+              - **Manually:** Resolve the conflicts in your local environment and push the changes.
+              - **Automated Commands:** Use `/rebase`, `/solve_conflict`, or `/sf` to automatically rebase this PR.
+              **Good Practices:**
+              - Fetch and merge the latest changes from the base branch into your branch.
+              - Consider using a visual diff tool to clearly see and resolve conflicts.
+              - Test your changes after resolving to ensure nothing is broken.
+              For more detailed guidance, refer to your project's contributing guidelines or documentation.
+              auto-rebase:
+                if: github.event_name == 'issue_comment' && github.event.issue.pull_request && startsWith(github.event.comment.body, '/rebase')
+                runs-on: ubuntu-latest
+                steps:
+                   - name: Checkout the latest code
+                     uses: actions/checkout@v4
+                     with:
+                       token: ${{ secrets.GH_TOKEN }}
+                       fetch-depth: 0
+                   - name: Automatic Rebase
+                     run: |
+                       git fetch origin ${{ github.base_ref }}
+                       git rebase origin/${{ github.base_ref }}
+                       if [[ $? -ne 0 ]]; then
+                         echo "::error::Automatic rebase failed. Manual resolution required."
+                         exit 1
+                       fi
+                     env:
+                       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                   - name: Post Success Message
+                     if: success()
+                     uses: actions/github-script@v6
+                     with:
+                       script: |
+                         await github.rest.issues.createComment({
+                           issue_number: context.issue.number,
+                           owner: context.repo.owner,
+                           repo: context.repo.repo,
+                           body: 'Congratulations! 🎉 The automatic rebase was successful.'
+                         });
+                   - name: Post Failure Message
+                     if: failure()
+                     uses: actions/github-script@v6
+                     with:
+                       script: |
+                         await github.rest.issues.createComment({
+                           issue_number: context.issue.number,
+                           owner: context.repo.owner,
+                           repo: context.repo.repo,
+                           body: 'The automatic rebase encountered issues and was not successful. Please manually resolve these conflicts and push your changes.'
+                         });
+                  
 
-  auto-rebase:
-    if: github.event_name == 'issue_comment' && github.event.issue.pull_request && (startsWith(github.event.comment.body, '/rebase') || startsWith(github.event.comment.body, '/solve_conflict') || startsWith(github.event.comment.body, '/sf'))
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the latest code
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-      - name: Automatic Rebase
-        run: |
-          git fetch origin ${{ github.base_ref }}
-          git rebase origin/${{ github.base_ref }}
-          if [[ $? -ne 0 ]]; then
-            echo "::error::Automatic rebase failed. Manual resolution required."
-            exit 1
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Post Success Message
-        if: success()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Congratulations! 🎉 The automatic rebase was successful.'
-            });
-      - name: Post Failure Message
-        if: failure()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'The automatic rebase encountered issues and was not successful. Please manually resolve these conflicts and push your changes.'
-            });
+
+
