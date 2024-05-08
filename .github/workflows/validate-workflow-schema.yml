@@ -14,11 +14,5 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Download actionlint
-        id: get_actionlint
-        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-        shell: bash
-
       - name: Check workflow files
-        run: ${{ steps.get_actionlint.outputs.executable }} -color
-        shell: bash
+        uses: raven-actions/actionlint@v1
