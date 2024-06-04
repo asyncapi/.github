@@ -19,7 +19,6 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: 16
-        cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
     - name: Install slackify-markdown package
       shell: bash
