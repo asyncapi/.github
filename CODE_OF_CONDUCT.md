@@ -41,7 +41,7 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 
 ## Enforce Responsibilities
 
-The Code of Conduct Committee (CoC Committee) responds to, investigates, and resolves AsyncAPI Incidents. The Committee is responsible for clarifying the standards of acceptable behavior and taking appropriate and fair corrective action in response to unacceptable behavior.
+The [Code of Conduct Committee (CoC Committee)](https://github.com/asyncapi/community/blob/master/code_of_conduct/code-of-conduct-committee.md) responds to, investigates, and resolves AsyncAPI Incidents. The Committee is responsible for clarifying the standards of acceptable behavior and taking appropriate and fair corrective action in response to unacceptable behavior.
 
 The Committee has the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that do not align with this Code of Conduct. The Committee may also temporarily or permanently ban any contributor for inappropriate, threatening, offensive, or harmful behaviors to the community.
 
