@@ -7,3 +7,5 @@
 # The default owners are automatically added as reviewers when you open a pull request unless different owners are specified in the file.
 
 * @derberg @alequetzalli @KhudaDad414 @asyncapi-bot-eve
+
+CODE_OF_CONDUCT.md @asyncapi/code_of_conduct
