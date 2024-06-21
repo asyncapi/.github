@@ -1,0 +1,51 @@
+name: Update maintainer onboarding documentation in the community
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - "docs/maintainer-onboarding-guide/**.md"
+  workflow_dispatch:
+jobs:
+  Make-PR:
+    name: Make PR on community repository with updated maintainer onboarding documentation
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - name: Checkout Current repository
+        uses: actions/checkout@v3
+        with:
+          path: .github
+      - name: Checkout Another repository
+        uses: actions/checkout@v3
+        with:
+          repository: asyncapi/community
+          path: community
+          token: ${{ env.GITHUB_TOKEN }}
+      - name: Config git
+        run: |
+          git config --global user.name asyncapi-bot
+          git config --global user.email info@asyncapi.io
+      - name: Create branch
+        working-directory: ./community
+        run: |
+          git checkout -b update-maintainer-onboarding-docs-${{ github.sha }}
+      - name: Copy maintainer onboarding guide folder from Current Repo to Another
+        working-directory: ./community
+        run: |
+          mkdir -p ./docs/maintainer-onboarding-guide
+          printf "%s\ntitle: Maintainer Onboarding Guide\nweight:10\n%s" "---" "---" > ../.github/docs/maintainer-onboarding-guide/_section.md
+          mv ../.github/docs/maintainer-onboarding-guide/**.md ./docs/maintainer-onboarding-guide
+
+      - name: Commit and push
+        working-directory: ./community
+        run: |
+          git add .
+          git commit -m "docs(maintainer-onboarding): update latest maintainer onboarding docs"
+          git push https://${{ env.GITHUB_TOKEN }}@github.com/asyncapi/community
+      - name: Create PR
+        working-directory: ./community
+        run: |
+          gh pr create --title "docs(maintainer-onboarding): update latest maintainer onboarding documentation" --body "Updated maintainer onboarding documentation is available and this PR introduces update to `community/docs/maintainer-onboarding-guide` folder on the community website" --head "update-maintainer-onboarding-docs-${{ github.sha }}"
