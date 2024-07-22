@@ -24,4 +24,5 @@ jobs:
         with:
           # The PAT with the 'public_repo' scope is required
           token: ${{ secrets.GH_TOKEN }}
+          repository: ${{ github.repository_owner }}/community
           event-type: trigger-maintainers-update
