@@ -229,7 +229,7 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           patterns_to_include: .github/workflows/update-maintainers-trigger.yml
-          repos_to_ignore: community,shape-up-process
+          repos_to_ignore: community,shape-up-process # community repo is ignored as it has its own version of this workflow, version that is triggered by this workflow
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update update-maintainers-trigger.yml workflow from global .github repo"
