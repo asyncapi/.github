@@ -217,6 +217,8 @@ jobs:
           commit_message: "ci: update .prettierignore from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
 
+  # This setup is separate from the generic workflow setup because this workflow is mandatory. 
+  # Maintainers cannot opt out for any reason except technical ones.
   replicate_update_maintainers_workflow:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate update-maintainers-trigger.yml workflow in the required repositories
