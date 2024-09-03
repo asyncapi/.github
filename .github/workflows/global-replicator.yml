@@ -216,3 +216,23 @@ jobs:
           committer_email: info@asyncapi.io
           commit_message: "ci: update .prettierignore from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
+
+  # This setup is separate from the generic workflow setup because this workflow is mandatory. 
+  # Maintainers cannot opt out for any reason except technical ones.
+  replicate_update_maintainers_workflow:
+    if: startsWith(github.repository, 'asyncapi/')
+    name: Replicate update-maintainers-trigger.yml workflow in the required repositories
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Replicating file
+        uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          patterns_to_include: .github/workflows/update-maintainers-trigger.yml
+          repos_to_ignore: community,shape-up-process # community repo is ignored as it has its own version of this workflow, version that is triggered by this workflow
+          committer_username: asyncapi-bot
+          committer_email: info@asyncapi.io
+          commit_message: "ci: update update-maintainers-trigger.yml workflow from global .github repo"
+          bot_branch_name: bot/update-files-from-global-repo
