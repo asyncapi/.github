@@ -1,0 +1,35 @@
+
+name: Transfer Issues between repositories
+
+on:
+  issue_comment:
+    types:
+      - created
+
+
+jobs:
+  transfer:
+    if: ${{(!github.event.issue.pull_request && github.event.issue.state != 'closed' && github.actor != 'asyncapi-bot') && (contains(github.event.comment.body, '/trasfer-issue') || contains(github.event.comment.body, '/ti'))}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update 
+          sudo apt-get install gh
+      - name: Authenticate GitHub CLI
+        run: |
+          gh action login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Extract Input
+        id: extract_step
+        run: |
+          COMMENT="${{github.event.comment.body}}"
+          REPO=$(echo $COMMENT | awk '{print $2}')
+          echo repo=$REPO >> $GITHUB_OUTPUT
+      
+      - name: Trasfer Issue
+        run: |
+          gh issue transfer ${{github.event.issue.number}} asyncapi/${{steps.extract_step.outputs.repo}}
+
