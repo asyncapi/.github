@@ -72,6 +72,8 @@ body:
   - type: checkboxes
     id: help-fixing
     attributes:
+      label: Are you willing to work on this issue?
+      description: This is absolutely not required, but we are happy to guide you in the contribution process.
       label: Would you like to help fix this issue? (Not required, but appreciated!)
       options:
         - label: Yes, I am interested in contributing to the fix.
