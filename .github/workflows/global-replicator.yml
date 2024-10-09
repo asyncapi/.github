@@ -216,6 +216,7 @@ jobs:
           committer_email: info@asyncapi.io
           commit_message: "ci: update .prettierignore from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
+          destination: ./ 
 
   # This setup is separate from the generic workflow setup because this workflow is mandatory. 
   # Maintainers cannot opt out for any reason except technical ones.
