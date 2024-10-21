@@ -1,0 +1,82 @@
+name: Design Issue Report 🎨
+description: Suggest a new design idea
+title: "[DESIGN]: (Brief, descriptive title of the issue)"
+labels: ["design"]
+
+body:
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Describe the Issue
+      description: Please describe the design issue you’ve encountered clearly and concisely.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected Outcome
+      description: What should the design look like, or how should it behave?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Attach any screenshots or visuals that help illustrate the issue.
+    validations:
+      required: false
+
+
+  - type: textarea
+    id: steps-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: |
+
+        1. Open the Design File/Tool: [e.g., “Open the Figma file named ‘Homepage Design’.”]
+        2. Go to the Issue Area: [e.g., “Navigate to the ‘Header’ section on the ‘Home’ page.”]
+        3. Perform the Action: [e.g., “Change the font size of the text box.”]
+        4. See the Result: [e.g., “Notice that the text overlaps with other elements.”]
+
+    validations:
+      required: true
+  
+  - type: textarea
+    id: device-info
+    attributes:
+      label: Browser/Device
+      description: What browser or device were you using?
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra-info
+    attributes:
+      label: Additional Notes
+      description:  Include any other relevant information or context.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: check-before-submission
+    attributes:
+      label: Check Before Submitting
+      options:
+        - label: I have looked for similar issues to avoid duplicates.
+          required: true
+        - label: I have reviewed the [Contributing Guidelines](https://github.com/asyncapi/.github/blob/master/CONTRIBUTING.md).
+          required: true
+
+  - type: checkboxes
+    id: help-fixing
+    attributes:
+      label: Are you willing to work on this issue?
+      description: This is absolutely not required, but we are happy to guide you in the contribution process.
+      label: Would you like to help fix this issue? (Not required, but appreciated!)
+      options:
+        - label: Yes, I am interested in contributing to the fix.
+          required: true
+        - label: No, I am just reporting the issue.
+          required: true
