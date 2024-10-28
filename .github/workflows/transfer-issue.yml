@@ -8,7 +8,7 @@ on:
 
 jobs:
   transfer:
-    if: ${{(!github.event.issue.pull_request && github.event.issue.state != 'closed' && github.actor != 'asyncapi-bot') && (startsWith(github.event.comment.body, '/trasfer-issue') || startsWith(github.event.comment.body, '/ti'))}}
+    if: ${{(!github.event.issue.pull_request && github.event.issue.state != 'closed' && github.actor != 'asyncapi-bot') && (startsWith(github.event.comment.body, '/transfer-issue') || startsWith(github.event.comment.body, '/ti'))}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
