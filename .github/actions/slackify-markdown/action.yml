@@ -27,17 +27,18 @@ runs:
         npm init -y
     - name: Install slackify-markdown package
       shell: bash
+      working-directory: slackify
       run: |
-        cd slackify
         npm install slackify-markdown@4.3.1
     - name: Slackify
       uses: actions/github-script@v6
       id: slackify
+      working-directory: slackify
       env:
         MARKDOWN: ${{ inputs.markdown }}
       with:
         script: |
-          const slackifyMarkdown = require('./slackify/node_modules/slackify-markdown');
+          const slackifyMarkdown = require('slackify-markdown');
 
           try {
               const md = process.env.MARKDOWN;
@@ -49,5 +50,4 @@ runs:
     - name: Clean up slackify directory
       shell: bash
       run: |
-        cd ..
         rm -rf slackify
