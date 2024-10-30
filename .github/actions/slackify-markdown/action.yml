@@ -46,3 +46,8 @@ runs:
           } catch (error) {
               core.setFailed(error.message);
           }
+    - name: Clean up slackify directory
+      shell: bash
+      run: |
+        cd ..
+        rm -rf slackify
