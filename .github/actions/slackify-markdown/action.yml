@@ -19,12 +19,21 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: 16
+    - name: Create and initialize slackify directory
+      shell: bash
+      run: | # We need to create a directory to install the slackify-markdown package to avoid conflicting with repositories using pnpm.
+        mkdir slackify
+        cd slackify
+        npm init -y
     - name: Install slackify-markdown package
       shell: bash
-      run: npm install -g slackify-markdown@4.3.1
+      working-directory: slackify
+      run: |
+        npm install slackify-markdown@4.3.1
     - name: Slackify
       uses: actions/github-script@v6
       id: slackify
+      working-directory: slackify
       env:
         MARKDOWN: ${{ inputs.markdown }}
       with:
@@ -38,3 +47,7 @@ runs:
           } catch (error) {
               core.setFailed(error.message);
           }
+    - name: Clean up slackify directory
+      shell: bash
+      run: |
+        rm -rf slackify
