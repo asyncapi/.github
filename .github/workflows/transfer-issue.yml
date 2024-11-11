@@ -43,7 +43,7 @@ jobs:
               })
                 process.exit(1)
             }
-      - name: Trasfer Issue
+      - name: Transfer Issue
         id: transferIssue
         working-directory: ./
         run: |
