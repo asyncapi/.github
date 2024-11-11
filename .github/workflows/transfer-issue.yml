@@ -26,7 +26,6 @@ jobs:
           script: |
             const r = process.env.GITHUB_REPOSITORY
             const [owner, repo] = r.split('/')
-            console.log(process.env.GITHUB_REPOSITORY)
             const repoToMove = process.env.REPO_TO_MOVE
             const issue_number = process.env.ISSUE_NUMBER
             try {
@@ -36,7 +35,6 @@ jobs:
               })
             }catch (e) {
               const body = `${repoToMove} is not a repo under ${owner}. You can only transfer issue to repos that belong to the same organisation.`
-              console.log(issue_number, owner, repo, repoToMove)
               await github.rest.issues.createComment({
                 owner,
                 repo,
