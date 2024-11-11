@@ -19,7 +19,37 @@ jobs:
           COMMENT="${{github.event.comment.body}}"
           REPO=$(echo $COMMENT | awk '{print $2}')
           echo repo=$REPO >> $GITHUB_OUTPUT
+      - name: Check Repo
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const r = process.env.GITHUB_REPOSITORY
+            const [owner, repo] = r.split('/')
+            console.log(process.env.GITHUB_REPOSITORY)
+            const repoToMove = process.env.REPO_TO_MOVE
+            const issue_number = process.env.ISSUE_NUMBER
+            try {
+              const {data} = await github.rest.repos.get({
+                owner,
+                repo: repoToMove
+              })
+            }catch (e) {
+              const body = `${repoToMove} is not a repo under ${owner}. You can only transfer issue to repos that belong to the same organisation.`
+              console.log(issue_number, owner, repo, repoToMove)
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body
+              })
+                process.exit(1)
+            }
       - name: Trasfer Issue
+        id: transferIssue
         working-directory: ./
         run: |
           gh issue transfer ${{github.event.issue.number}} asyncapi/${{steps.extract_step.outputs.repo}}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
