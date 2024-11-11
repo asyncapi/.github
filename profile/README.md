@@ -35,7 +35,7 @@ Are you wondering where to look first? Then search no more! Here are some great 
 
 - [Intro to AsyncAPI](https://www.asyncapi.com/docs/getting-started) 🔮
 - [Tutorials](https://www.asyncapi.com/docs/tutorials) 📚
-- [Spec Details](https://www.asyncapi.com/docs/specifications/latest) 🔍
+- [Spec Details](https://www.asyncapi.com/docs/reference/specification/latest) 🔍
 - [Tools](https://www.asyncapi.com/docs/community/tooling) 🛠️
 
 ## 👩🏽‍💻 Contribute to AsyncAPI
