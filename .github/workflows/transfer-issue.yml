@@ -24,7 +24,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const r = process.env.GITHUB_REPOSITORY
+            const r = "${{github.repository}}"
             const [owner, repo] = r.split('/')
             const repoToMove = process.env.REPO_TO_MOVE
             const issue_number = context.issue.number
@@ -34,7 +34,7 @@ jobs:
                 repo: repoToMove
               })
             }catch (e) {
-              const body = `${repoToMove} is not a repo under ${owner}. You can only transfer issue to repos that belong to the same organisation.`
+              const body = `${repoToMove} is not a repo under ${owner}. You can only transfer issue to repos that belong to the same organization.`
               await github.rest.issues.createComment({
                 owner,
                 repo,
@@ -43,6 +43,9 @@ jobs:
               })
                 process.exit(1)
             }
+        env:
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
+          REPO_TO_MOVE: ${{steps.extract_step.outputs.repo}}
       - name: Transfer Issue
         id: transferIssue
         working-directory: ./
