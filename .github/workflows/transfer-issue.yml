@@ -22,7 +22,7 @@ jobs:
       - name: Check Repo
         uses: actions/github-script@v7
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.GH_TOKEN}}
           script: |
             const r = "${{github.repository}}"
             const [owner, repo] = r.split('/')
@@ -44,7 +44,6 @@ jobs:
                 process.exit(1)
             }
         env:
-          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
           REPO_TO_MOVE: ${{steps.extract_step.outputs.repo}}
       - name: Transfer Issue
         id: transferIssue
