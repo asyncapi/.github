@@ -48,10 +48,13 @@ body:
       label: "🖥️ Device Information [optional]"
       description: |
         Please provide details about your device to help us diagnose the issue more effectively.
-      value: |
         - Operating System (OS): e.g., Windows 10, macOS, Ubuntu 22.04
         - Browser: e.g., Google Chrome, Firefox
-        - Browser Version: e.g., 135.0, 133.0.
+        - Browser Version: e.g., 135.0, 133.0
+      value: |
+        - Operating System (OS):
+        - Browser:
+        - Browser Version:
     validations:
         required: false
 
