@@ -42,19 +42,16 @@ body:
     validations:
       required: true
   
-  - type: dropdown
-    id: browser
+  - type: textarea
+    id: device-information
     attributes:
-      label: "🥦 Browser"
-      description: "What browser are you using?"
-      options:
-        - Google Chrome
-        - Brave
-        - Microsoft Edge
-        - Mozilla Firefox
-        - Safari
-        - Opera
-        - Other
+      label: "🖥️ Device Information [optional]"
+      description: |
+        Please provide details about your device to help us diagnose the issue more effectively.
+      value: |
+        - Operating System (OS): e.g., Windows 10, macOS, Ubuntu 22.04
+        - Browser: e.g., Google Chrome, Firefox
+        - Browser Version: e.g., 135.0, 133.0.
     validations:
         required: false
 
