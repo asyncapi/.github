@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: npm install yaml-lint ajv axios js-yaml
@@ -30,7 +30,7 @@ jobs:
           echo "$files"
 
       - name: Run YAML validation
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const Ajv = require("ajv");
