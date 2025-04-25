@@ -17,7 +17,9 @@ stickers:
     alias: volunteer-badge
   - id: cm9squ4eq103310cjs0b6pjodo
     alias: mentor-badge
-
-  # more stickers
+  - id: cm9sqpuco89820cjscmppqm99
+    alias: champion-badge
+ 
+ # more stickers
 
 # To issue the badges tag @holopin-bot @username sticker-alias
