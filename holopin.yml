@@ -19,7 +19,16 @@ stickers:
     alias: mentor-badge
   - id: cm9sqpuco89820cjscmppqm99
     alias: champion-badge
- 
+  - id: cmae21gwr24210dl5oghsouey
+    alias: bronze-badge
+  - id: cmae22qm526240dl57yhq8opq   
+    alias: silver-badge
+  - id: cmae2583o30150dl56bl3ms9z
+    alias: gold-badge
+  - id: cmae26orl110420dkypr5dy0yn
+    alias: platinum-badge
+  - id: cmae288m9116470dky1ku70j1u
+    alias: diamond-badge
  # more stickers
 
 # To issue the badges tag @holopin-bot @username sticker-alias
