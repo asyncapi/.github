@@ -1,3 +1,21 @@
+#
+# This file enables maintainers to issue Holopin digital badges (stickers) to contributors,
+# and details which badges are available for your repo.
+#
+# - Prerequisite: Repo maintainer(s) must be members of the Holopin organization
+# - Open a Holopin account and ask  @thulieblack or @derberg to add you to the AsyncAPI Holopin org so that you can start issuing badges.
+
+# - Docs: https://docs.holopin.io/issuing-rewards/regular-badges
+#
+# Usage - Issuing Badges:
+# 1. To issue a badge, comment in an Issue or PR:
+#      @holopin-bot @username sticker-alias
+#    (Replace @username and sticker-alias as needed)
+# 
+#  - Docs: https://docs.holopin.io/integrations/github
+#
+
+
 organization: asyncapi
 defaultSticker: cm9sq1lb7148060cjmbvrpbcjh
 stickers:
