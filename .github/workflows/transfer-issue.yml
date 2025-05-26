@@ -17,8 +17,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Extract Input
         id: extract_step
+        env:
+          COMMENT: "${{ github.event.comment.body }}"
         run: |
-          COMMENT="${{github.event.comment.body}}"
           REPO=$(echo $COMMENT | awk '{print $2}')
           echo repo=$REPO >> $GITHUB_OUTPUT
       - name: Check Repo
