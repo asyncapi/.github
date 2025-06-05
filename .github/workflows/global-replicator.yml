@@ -252,7 +252,6 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           patterns_to_include: .github/holopin.yml
-          topics_to_include: get-global-holopin
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update holopin.yml from global .github repo"
