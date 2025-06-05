@@ -257,6 +257,5 @@ jobs:
           committer_email: info@asyncapi.io
           commit_message: "ci: update holopin.yml from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
-          destination: ./
 
 
