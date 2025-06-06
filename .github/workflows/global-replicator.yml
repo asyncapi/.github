@@ -2,7 +2,7 @@ name: Global workflow to rule them all
 
 # Triggers:
 # - on push to master, if certain files are modified
-# - manual trigger via workflow_dispatch
+# - manual trigger via workflow_dispatch, check in CODEOWNERS files who can trigger the workflow for you
 
 on:
   push:
