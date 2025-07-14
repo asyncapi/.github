@@ -35,3 +35,10 @@ body:
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
+  - type: dropdown
+    attributes:
+      label: Are you willing to work on this issue ?
+      description: This is absolutely not required, but we are happy to guide you in the contribution process.
+      options:
+        - "Yes I am willing to submit a PR!"
+        - "No, someone else can work on it" 
