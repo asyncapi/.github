@@ -1,5 +1,9 @@
 name: Global workflow to rule them all
 
+# Triggers:
+# - on push to master, if certain files are modified
+# - manual trigger via workflow_dispatch, check in CODEOWNERS files who can trigger the workflow for you
+
 on:
   push:
     branches: [master]
@@ -16,6 +20,9 @@ on:
         required: false
 
 jobs:
+   
+  # Synchronizes the CODE_OF_CONDUCT.md file across all AsyncAPI repositories.
+  # Ensures consistent community standards and behavior guidelines in every project
   replicate_coc:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate Code of Conduct in all repositories
@@ -34,6 +41,8 @@ jobs:
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
 
+  # Distributes the CONTRIBUTING.md guide to most AsyncAPI repositories.
+  # Helps contributors understand how to participate and follow consistent contribution processes.
   replicate_contributing:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate CONTRIBUTING guide to all repositories
@@ -46,12 +55,14 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           patterns_to_include: CONTRIBUTING.md
-          repos_to_ignore: shape-up-process,glee-hello-world,spec,community,php-template,tck,modelina,dotnet-nats-template,ts-nats-template,extensions-catalog,saunter,website
+          repos_to_ignore: shape-up-process,glee-hello-world,spec,community,php-template,tck,modelina,dotnet-nats-template,ts-nats-template,extensions-catalog,saunter,website,generator
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
 
+  # Adds or updates the Go-specific PR testing workflow (`if-go-pr-testing.yml`)
+  # to all repositories tagged with the `golang` topic, ensuring uniform CI behavior for Go projects.
   replicate_go_workflows:  
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate workflows for Go projects
@@ -70,6 +81,8 @@ jobs:
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
 
+  # Adds or updates the Node.js PR testing workflow (`if-nodejs-pr-testing.yml`)
+  # in all repositories tagged with the `nodejs` topic, enabling standardized testing setups.
   replicate_nodejs_workflows:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate workflows for Nodejs projects
@@ -88,6 +101,8 @@ jobs:
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
 
+  # Syncs release workflows for Node.js projects, including semantic version bumping and publishing.
+  # Targets only repos marked with `get-global-node-release-workflows`.
   replicate_nodejs_release_workflows:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate release workflows for Nodejs projects
@@ -108,6 +123,8 @@ jobs:
 
   # release config file must be managed separately
   # some projects may still use GH Action workflow for releases, but with different semantic-release config
+  # Ensures the presence of a consistent `.releaserc` config file for semantic-release
+  # in repositories tagged with `get-global-releaserc`.
   replicate_semantic_release_config:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate .releaserc file
@@ -127,6 +144,8 @@ jobs:
           destination: ./
           bot_branch_name: bot/update-files-from-global-repo
 
+  # Syncs reusable, general-purpose workflows (e.g., automerge, labeling, shared scripts).
+  # Excludes certain repos to avoid unnecessary duplication or conflicts.
   replicate_generic_workflows:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate generic workflows and scripts needed for any project
@@ -138,13 +157,15 @@ jobs:
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          patterns_to_include: .github/workflows/scripts,.github/workflows/automerge-for-humans-add-ready-to-merge-or-do-not-merge-label.yml,.github/workflows/add-good-first-issue-labels.yml,.github/workflows/automerge-for-humans-merging.yml,.github/workflows/automerge-for-humans-remove-ready-to-merge-label-on-edit.yml,.github/workflows/automerge-orphans.yml,.github/workflows/automerge.yml,.github/workflows/autoupdate.yml,.github/workflows/help-command.yml,.github/workflows/issues-prs-notifications.yml,.github/workflows/lint-pr-title.yml,.github/workflows/notify-tsc-members-mention.yml,.github/workflows/stale-issues-prs.yml,.github/workflows/welcome-first-time-contrib.yml,.github/workflows/release-announcements.yml,.github/workflows/bounty-program-commands.yml,.github/workflows/please-take-a-look-command.yml,.github/workflows/update-pr.yml
+          patterns_to_include: .github/workflows/scripts,.github/workflows/automerge-for-humans-add-ready-to-merge-or-do-not-merge-label.yml,.github/workflows/add-good-first-issue-labels.yml,.github/workflows/automerge-for-humans-merging.yml,.github/workflows/automerge-for-humans-remove-ready-to-merge-label-on-edit.yml,.github/workflows/automerge-orphans.yml,.github/workflows/automerge.yml,.github/workflows/autoupdate.yml,.github/workflows/help-command.yml,.github/workflows/issues-prs-notifications.yml,.github/workflows/lint-pr-title.yml,.github/workflows/notify-tsc-members-mention.yml,.github/workflows/stale-issues-prs.yml,.github/workflows/welcome-first-time-contrib.yml,.github/workflows/release-announcements.yml,.github/workflows/bounty-program-commands.yml,.github/workflows/please-take-a-look-command.yml,.github/workflows/update-pr.yml,.github/workflows/transfer-issue.yml
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
           commit_message: "ci: update of files from global .github repo"
           repos_to_ignore: shape-up-process,glee-hello-world,saunter
           bot_branch_name: bot/update-files-from-global-repo
 
+  # Applies Docker-related PR test workflows (`if-docker-pr-testing.yml`)
+  # to all repositories tagged with the `docker` topic for consistent CI.
   replicate_docker_workflows:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate Docker workflows needed for any project
@@ -163,6 +184,8 @@ jobs:
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
     
+  # Adds workflow schema validation to all repos tagged with `get-workflows-validation`.
+  # Helps catch structural issues in GitHub workflow YAML files.
   replicate_validate_workflow_schema:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate workflow schema validation to repositories
@@ -181,6 +204,8 @@ jobs:
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo 
     
+  # Adds the `update-docs.yml` workflow to projects tagged with `get-update-docs`.
+  # Automates documentation updates, typically after releases or content changes.
   replicate_docs_workflow:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate update-docs workflow to repositories
@@ -199,6 +224,8 @@ jobs:
           commit_message: "ci: update of files from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo/${{ github.job }}
 
+  # Syncs the `.prettierignore` file across all repositories tagged with `get-global-prettierignore`.
+  # Ensures consistent formatting exclusions and Prettier behavior in all relevant projects.
   replicate_prettierignore_file:
     if: startsWith(github.repository, 'asyncapi/')
     name: Replicate .prettierignore file in the required repositories
@@ -216,12 +243,14 @@ jobs:
           committer_email: info@asyncapi.io
           commit_message: "ci: update .prettierignore from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
+          destination: ./
 
-  # This setup is separate from the generic workflow setup because this workflow is mandatory. 
-  # Maintainers cannot opt out for any reason except technical ones.
+  # Distributes the `update-maintainers-trigger.yaml` workflow to most AsyncAPI repositories.
+  # This workflow is mandatory (non-optional) and used to update maintainer lists across the org.
+  # Some repos like `community` are excluded because they implement their own version of the workflow.
   replicate_update_maintainers_workflow:
     if: startsWith(github.repository, 'asyncapi/')
-    name: Replicate update-maintainers-trigger.yml workflow in the required repositories
+    name: Replicate update-maintainers-trigger.yaml workflow in the required repositories
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -230,9 +259,31 @@ jobs:
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          patterns_to_include: .github/workflows/update-maintainers-trigger.yml
+          patterns_to_include: .github/workflows/update-maintainers-trigger.yaml
           repos_to_ignore: community,shape-up-process # community repo is ignored as it has its own version of this workflow, version that is triggered by this workflow
           committer_username: asyncapi-bot
           committer_email: info@asyncapi.io
-          commit_message: "ci: update update-maintainers-trigger.yml workflow from global .github repo"
+          commit_message: "ci: update update-maintainers-trigger.yaml workflow from global .github repo"
           bot_branch_name: bot/update-files-from-global-repo
+
+# The holopin.yml file is replicated from the global .github repository to ensure consistency across all repositories.
+# This file is used to manage Holopin badge configurations for contributors, maintainers, and other roles in the organization.
+  replicate_holopin_file:
+    if: startsWith(github.repository, 'asyncapi/')
+    name: Replicate holopin.yml file to repositories
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Replicating holopin.yml file
+        uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          patterns_to_include: .github/holopin.yml
+          topics_to_include: get-global-holopin
+          committer_username: asyncapi-bot
+          committer_email: info@asyncapi.io
+          commit_message: "ci: update holopin.yml from global .github repo"
+          bot_branch_name: bot/update-files-from-global-repo
+
+
