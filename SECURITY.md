@@ -20,7 +20,7 @@ This form allows you to privately share details with the maintainers. We’ll us
 
 ### Email
 
-Alternatively, send an email to: **security@asyncapi.io**
+Alternatively, send an email to: **security@asyncapi.com**
 
 Include the following in your report:
 - Affected project and version
