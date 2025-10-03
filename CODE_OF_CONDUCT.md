@@ -50,7 +50,7 @@ When an incident does occur, it is important to report it promptly. To report a 
 
 - Join our [AsyncAPI Slack](https://asyncapi.com/slack-invite) and share your report in the `#coc` channel.  
 - Reach out directly to any member of the [Code of Conduct Committee](https://github.com/orgs/asyncapi/teams/code_of_conduct).
-- Or, if you’d prefer, just send us an email at **info@asyncapi.io**.
+- Or, if you’d prefer, just send us an email at **conduct@asyncapi.com**.
 
 Community Moderators take reports of violations seriously and will make every effort to respond in a timely manner. They will investigate all reports of code of conduct violations, reviewing messages, logs, and recordings, or interviewing witnesses and other participants. Community Moderators will keep investigation and enforcement actions as transparent as possible while prioritizing safety and confidentiality. In order to honor these values, enforcement actions are carried out in private with the involved parties, but communicating to the whole community may be part of a mutually agreed upon resolution.
 
