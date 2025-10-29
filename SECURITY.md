@@ -16,7 +16,7 @@ Submit a private report using GitHub’s security advisory form:
 
 [Report a vulnerability](https://github.com/asyncapi/asyncapi/security/advisories/new)
 
-This form allows you to privately share details with the maintainers. We’ll use [GitHub Security Advisories]() to fix and publish information about the vulnerability once resolved.
+This form allows you to privately share details with the maintainers. We’ll use [GitHub Security Advisories]() to fix and publish information about the vulnerability once it is resolved.
 
 ### Email
 
