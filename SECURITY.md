@@ -4,7 +4,7 @@ The AsyncAPI Initiative is committed to maintaining the security of our open sou
 
 ## Coordinated Vulnerability Disclosure
 
-At AsyncAPI, we follow the [coordinated vulnerability diclosure](https://en.wikipedia.org/wiki/Coordinated_vulnerability_disclosure). Please do not open an issue, do not notify us in public, and do not disclose this issue to third parties. We take security seriously and appreciate your discretion.
+At AsyncAPI, we follow the [coordinated vulnerability disclosure](https://en.wikipedia.org/wiki/Coordinated_vulnerability_disclosure). Please do not open an issue, do not notify us in public, and do not disclose this issue to third parties. We take security seriously and appreciate your discretion.
 
 ## How to Report a Vulnerability
 
