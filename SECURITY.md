@@ -46,7 +46,7 @@ Here’s how we handle reported vulnerabilities:
 4. **Disclose** the fix using GitHub Security Advisories.
 5. **Publish** a security advisory and notify our users.
 
-## Bounty Program
+## Security Bug Bounty Program
 
 AsyncAPI is an open source initiative maintained by the community. We currently **do not offer monetary bounties** for vulnerability disclosures. However, we deeply appreciate your contribution and may acknowledge your efforts publicly if you wish.
 
