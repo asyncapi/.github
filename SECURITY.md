@@ -23,6 +23,7 @@ This form allows you to privately share details with the maintainers. We’ll us
 Alternatively, send an email to: **security@asyncapi.com**
 
 Include the following in your report:
+- A description of the vulnerability
 - Affected project and version
 - Steps to reproduce the issue
 - Potential impact
