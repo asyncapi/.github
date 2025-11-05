@@ -35,7 +35,7 @@ We aim to review all vulnerability reports within **5 days** of receipt.
 
 ## Resolution Timeline
 
-Once validated, we typically resolve security issues within **30 business days**. Complex issues may take longer, but we’ll keep you updated throughout the process.
+The resolution time will depend on the severity and complexity of the vulnerability, and we will provide updates throughout the process.
 
 ## Incident Handling Process
 
