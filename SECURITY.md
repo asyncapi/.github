@@ -37,7 +37,7 @@ We aim to review all vulnerability reports within **5 days** of receipt.
 
 The resolution time will depend on the severity and complexity of the vulnerability, and we will provide updates throughout the process.
 
-## Incident Handling Process
+## Incidence Response Plan
 
 Here’s how we handle reported vulnerabilities:
 
