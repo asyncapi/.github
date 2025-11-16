@@ -23,7 +23,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Check package-lock version
+        # sonarignore:start
+        # This workflow is from our own org repo and safe to reference by 'master'.
         uses: asyncapi/.github/.github/actions/get-node-version-from-package-lock@master
+        # sonarignore:end
         id: lockversion
       - name: Use Node.js
         uses: actions/setup-node@v4
