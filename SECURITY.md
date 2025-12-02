@@ -62,7 +62,7 @@ Once the fix is ready and tested, we will create a **GitHub Security Advisory** 
    - **Patched Versions**: The versions that contain the security fix
    - **Credit**: Acknowledgment of the security researcher who reported the issue with their consent
 
-5. **Publish**  
+5. **Publish postmoterm doc**  
 After the GitHub Security Advisory goes live, we will ensure all AsyncAPI users are informed by including the security patch details in the changelog of the affected project, publishing a security article explaining the vulnerability, impact, and required actions to mitigate this for all our users. Finally, we will make a post in the Slack announcements channel. Each notification will include a summary of the vulnerability, clear upgrade instructions, and links to patched versions.
 
 6. **Learnings**  
