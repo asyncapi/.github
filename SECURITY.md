@@ -52,7 +52,7 @@ Maintainers will assess the severity and impact the vulnerability has on AsyncAP
 3. **Coordinate a Fix**  
 We will assign the security issue to one of the security maintainers who will be in charge of coordinating the fix with the maintainers. We will also audit our codebases to find similar vulnerabilities elsewhere. The fix will also undergo thorough testing and code review to ensure the security vulnerability is fully resolved.
 
-4. **Disclose**  
+4. **Vulnerability Disclosure**  
 Once the fix is ready and tested, we will create a **GitHub Security Advisory** (GHSA) in the affected repository. This advisory will include:
 
    - **Vulnerability Description**: A clear explanation of the security issue, including how it could be exploited
