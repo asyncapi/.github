@@ -41,7 +41,7 @@ flowchart TD
 
 The action checks for Node.js version in this order:
 
-1. **`NODE_VERSION` repository variable** (highest priority)
+1. **`node-version` input** (typically from `NODE_VERSION` repository variable) (highest priority)
 2. **`engines.node` field in `package.json`**
 3. **`package-lock.json` version** (fallback for backward compatibility)
 
@@ -50,6 +50,8 @@ The action checks for Node.js version in this order:
 ```yaml
 - name: Get Node version
   uses: asyncapi/.github/.github/actions/get-node-version-from-package-lock@master
+  with:
+    node-version: ${{ vars.NODE_VERSION }}
   id: nodeversion
 
 - name: Setup Node.js

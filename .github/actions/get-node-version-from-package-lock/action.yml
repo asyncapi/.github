@@ -1,5 +1,9 @@
 name: 'Specify Node version based on package-lock file version'
 description: 'This action reads package-lock.json file and determines Node.js version to use with actions/setup-node action. Can be overridden via NODE_VERSION repository variable or engines.node in package.json'
+inputs:
+  node-version:
+    description: 'Node.js version override (e.g. from vars.NODE_VERSION)'
+    required: false
 outputs:
   version:
     description: 'Node.js version number to use with actions/setup-node action'
@@ -15,17 +19,18 @@ runs:
       uses: actions/github-script@v7
       id: getnode
       env:
-        NODE_VERSION: ${{ vars.NODE_VERSION }}
+        # Map the composite action input to an environment variable for the script
+        OVERRIDE_NODE_VERSION: ${{ inputs.node-version }}
       with:
         script: |
           const { resolve } = require('path');
           const { access, constants } = require('fs').promises;
           const semver = require('semver');
           
-          // Priority 1: Check for NODE_VERSION environment variable/secret
-          const envNodeVersion = process.env.NODE_VERSION;
+          // Priority 1: Check for input override (e.g. vars.NODE_VERSION passed from caller)
+          const envNodeVersion = process.env.OVERRIDE_NODE_VERSION;
           if (envNodeVersion) {
-            core.info(`Using Node.js version from NODE_VERSION variable: ${envNodeVersion}`);
+            core.info(`Using Node.js version from input override: ${envNodeVersion}`);
             core.setOutput('version', envNodeVersion);
             return;
           }
