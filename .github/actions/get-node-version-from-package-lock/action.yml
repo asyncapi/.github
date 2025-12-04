@@ -1,5 +1,9 @@
 name: 'Specify Node version based on package-lock file version'
-description: 'This action reads package-lock.json file and determines Node.js version to use with actions/setup-node action'
+description: 'This action reads package-lock.json file and determines Node.js version to use with actions/setup-node action. Can be overridden via NODE_VERSION repository variable or engines.node in package.json'
+inputs:
+  node-version:
+    description: 'Node.js version override (e.g. from vars.NODE_VERSION)'
+    required: false
 outputs:
   version:
     description: 'Node.js version number to use with actions/setup-node action'
@@ -7,14 +11,75 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Install semver package
+      shell: bash
+      run: npm install --no-save semver@7.7.3
+      
     - name: Get Node version
       uses: actions/github-script@v7
       id: getnode
+      env:
+        # Map the composite action input to an environment variable for the script
+        OVERRIDE_NODE_VERSION: ${{ inputs.node-version }}
       with:
         script: |
           const { resolve } = require('path');
+          const { access, constants } = require('fs').promises;
+          const semver = require('semver');
+          
+          // Priority 1: Check for input override (e.g. vars.NODE_VERSION passed from caller)
+          const envNodeVersion = process.env.OVERRIDE_NODE_VERSION;
+          if (envNodeVersion) {
+            core.info(`Using Node.js version from input override: ${envNodeVersion}`);
+            core.setOutput('version', envNodeVersion);
+            return;
+          }
+          
+          // Priority 2: Check for engines.node in package.json
+          const packageJsonLocation = './package.json';
+          try {
+            //this is properly catched if the file does not exist
+            await access(packageJsonLocation, constants.F_OK);
+            const packageJson = require(resolve(packageJsonLocation));
+            if (packageJson.engines?.node) {
+              const enginesNode = packageJson.engines.node;
+              core.info(`Found engines.node in package.json: ${enginesNode}`);
+              
+              // Use semver to determine the best matching Node.js version
+              // Check against LTS (even-numbered) major versions
+              const ltsMajorVersions = [14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34];
+              
+              // Find the first even major version that satisfies the range
+              let selectedVersion = null;
+              for (const major of ltsMajorVersions) {
+                // Check if the major version range intersects with enginesNode
+                // Use a high patch version to ensure we're checking the full major version range
+                // Works well even with ranges like ">=16.10.3 <18" and picks 16
+                if (semver.satisfies(`${major}.999.999`, enginesNode)) {
+                  selectedVersion = major;
+                  break;
+                }
+              }
+              
+              if (selectedVersion) {
+                const nodeVersion = selectedVersion.toString();
+                core.info(`Using Node.js version ${nodeVersion} (satisfies ${enginesNode})`);
+                core.setOutput('version', nodeVersion);
+                return;
+              } else {
+                core.warning(`No even-numbered Node.js version satisfies range: ${enginesNode}. Falling back to package-lock.json detection.`);
+              }
+            }
+          } catch (error) {
+            // package.json doesn't exist or can't be read, continue to fallback
+            if (error.code !== 'ENOENT') {
+              core.warning(`Failed to read package.json engines field: ${error.message}`);
+            }
+          }
+          
+          // Priority 3: Fallback to package-lock.json logic (backward compatibility)
           const packageLockLocation = './package-lock.json';
-          core.info(`Location of the packae-lock verification script is: ${ resolve(packageLockLocation) }`)
+          core.info(`Location of the package-lock verification script is: ${ resolve(packageLockLocation) }`)
           const packageLock = require(packageLockLocation);
 
           const packageLockVersion = packageLock.lockfileVersion;
@@ -34,5 +99,6 @@ runs:
                 nodeVersion = '16'
                 break;
           }
-
+          
+          core.info(`Using Node.js version based on package-lock.json: ${nodeVersion}`);
           core.setOutput('version', nodeVersion);
