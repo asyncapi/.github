@@ -11,9 +11,15 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Install semver package
+    - name: Install semver package in temporary location
       shell: bash
-      run: npm install -g semver@7.7.3
+      run: |
+        # Install semver in runner's temp directory to avoid polluting the repository
+        # and interfering with project dependencies. actions/github-script can require
+        # packages using absolute paths, so we resolve $RUNNER_TEMP path in the script.
+        mkdir -p "$RUNNER_TEMP/github-script-deps"
+        cd "$RUNNER_TEMP/github-script-deps"
+        npm install semver@7.7.3 --no-package-lock --no-save
       
     - name: Get Node version
       uses: actions/github-script@v8
@@ -25,7 +31,8 @@ runs:
         script: |
           const { resolve } = require('path');
           const { access, constants } = require('fs').promises;
-          const semver = require('semver');
+          const semverPath = resolve(process.env.RUNNER_TEMP, 'github-script-deps/node_modules/semver');
+          const semver = require(semverPath);
           
           // Priority 1: Check for input override (e.g. vars.NODE_VERSION passed from caller)
           const envNodeVersion = process.env.OVERRIDE_NODE_VERSION;
