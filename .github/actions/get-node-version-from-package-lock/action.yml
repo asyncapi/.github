@@ -13,10 +13,10 @@ runs:
   steps:
     - name: Install semver package
       shell: bash
-      run: npm install --no-save semver@7.7.3
+      run: npm install -g semver@7.7.3
       
     - name: Get Node version
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       id: getnode
       env:
         # Map the composite action input to an environment variable for the script
