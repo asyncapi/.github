@@ -21,6 +21,7 @@ jobs:
     if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors[bot]"]'), github.actor) }} # zizmor: ignore[obfuscation]
     runs-on: ubuntu-latest
     permissions:
+      contents: read            # Required to read repository data for checking if it's the user's first contribution
       issues: write             # Required to post welcome message on issues
       pull-requests: write      # Required to post welcome message on pull requests
     steps:

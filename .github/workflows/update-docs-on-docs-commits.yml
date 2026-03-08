@@ -12,6 +12,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read            # Just to limit GITHUB_TOKEN as we use GH_TOKEN only
+
 jobs:
   docs-gen:
     name: 'Generate docs and create PR'
