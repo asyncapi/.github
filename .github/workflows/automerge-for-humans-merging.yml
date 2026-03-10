@@ -77,13 +77,30 @@ jobs:
               return '';
             }
 
+            // Sanitize author data to prevent injection in commit messages
+            function sanitizeCommitField(field) {
+              if (!field) return '';
+              // Remove newlines, control characters, and limit length
+              return String(field)
+                .replace(/[\r\n]/g, ' ')
+                .replace(/[\x00-\x1F\x7F]/g, '')
+                .substring(0, 100)
+                .trim();
+            }
+
             // Create a string of the form "Co-authored-by: Name <email>"
             // ref: https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors
             const coAuthors = Object.values(authors).map(author => {
-              return `Co-authored-by: ${author.name} <${author.email}>`;
-            }).join('\n');
+              const name = sanitizeCommitField(author.name);
+              const email = sanitizeCommitField(author.email);
+              // Validate email format (basic check)
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              const safeEmail = emailRegex.test(email) ? email : '';
+              if (!name || !safeEmail) return '';
+              return `Co-authored-by: ${name} <${safeEmail}>`;
+            }).filter(line => line !== '').join('\n');
 
-            core.debug(coAuthors);;
+            core.debug(coAuthors);
 
             return coAuthors;
 
