@@ -25,6 +25,9 @@ on:
     types:
       - created
 
+permissions:
+  contents: read
+
 jobs:
   issue:
     if: github.event_name == 'issues' && contains(github.event.issue.body, '@asyncapi/tsc_members')
