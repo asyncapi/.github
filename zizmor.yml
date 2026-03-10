@@ -3,4 +3,11 @@ rules:
     disable: false
   dangerous-triggers:
     disable: false
-  
+  unpinned-uses:
+    config:
+      policies:
+        actions/checkout: ref-pin
+        actions/setup-node: ref-pin
+        actions/github-script: ref-pin
+        asyncapi/.github/*: any
+        "*": hash-pin

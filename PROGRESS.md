@@ -27,7 +27,7 @@
 - [ ] [release-announcements.yml](.github/workflows/release-announcements.yml)
 - [ ] [stale-issues-prs.yml](.github/workflows/stale-issues-prs.yml)
 - [x] [transfer-issue.yml](.github/workflows/transfer-issue.yml) Removed that as it was not working right now.
-- [ ] [update-docs-on-docs-commits.yml](.github/workflows/update-docs-on-docs-commits.yml)
+- [ ] [update-docs-on-docs-commits.yml](.github/workflows/update-docs-on-docs-commits.yml) - Just added content read permissions since the workflow uses GH_TOKEN and removed checkout persist credentials.
 - [x] [update-maintainers-trigger.yaml](.github/workflows/update-maintainers-trigger.yaml) Didn't do too much, just added content read permissions since the workflow uses GH_TOKEN.
 - [x] [update-pr.yml](.github/workflows/update-pr.yml) - [Test PR](https://github.com/asyncapi-actions-test/asyncapi-github/pull/5)
 - [ ] [validate-workflow-schema.yml](.github/workflows/validate-workflow-schema.yml)
