@@ -24,8 +24,8 @@
 - [ ] [lint-pr-title.yml](.github/workflows/lint-pr-title.yml)
 - [ ] [notify-tsc-members-mention.yml](.github/workflows/notify-tsc-members-mention.yml)
 - [ ] [please-take-a-look-command.yml](.github/workflows/please-take-a-look-command.yml)
-- [ ] [release-announcements.yml](.github/workflows/release-announcements.yml)
-- [x] [stale-issues-prs.yml](.github/workflows/stale-issues-prs.yml) - Permissions added to the workflow and the job. [Test Issue]()
+- [x] [release-announcements.yml](.github/workflows/release-announcements.yml) Just added content read permissions and removed checkout persist credentials.
+- [x] [stale-issues-prs.yml](.github/workflows/stale-issues-prs.yml) - Permissions added to the workflow and the job. [Test Issue](https://github.com/asyncapi-actions-test/asyncapi-github/issues/2#issuecomment-4029175489) and [Test Workflow Run](https://github.com/asyncapi-actions-test/asyncapi-github/actions/runs/22891096690)
 - [x] [transfer-issue.yml](.github/workflows/transfer-issue.yml) Removed that as it was not working right now.
 - [x] [update-docs-on-docs-commits.yml](.github/workflows/update-docs-on-docs-commits.yml) - Just added content read permissions since the workflow uses GH_TOKEN and removed checkout persist credentials.
 - [x] [update-maintainers-trigger.yaml](.github/workflows/update-maintainers-trigger.yaml) Didn't do too much, just added content read permissions since the workflow uses GH_TOKEN.

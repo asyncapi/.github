@@ -8,6 +8,9 @@ on:
     types: 
       - published
 
+permissions:
+  contents: read            # To checkout code and read release information
+
 jobs:
 
   slack-announce:
@@ -16,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Convert markdown to slack markdown for issue
         # This workflow is from our own org repo and safe to reference by 'master'.
         uses: asyncapi/.github/.github/actions/slackify-markdown@master # //NOSONAR
@@ -42,6 +47,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Get version of last and previous release
         uses: actions/github-script@v7
         id: versions
