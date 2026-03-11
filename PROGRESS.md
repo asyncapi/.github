@@ -22,7 +22,7 @@
 - [ ] [if-nodejs-version-bump.yml](.github/workflows/if-nodejs-version-bump.yml)
 - [ ] [issues-prs-notifications.yml](.github/workflows/issues-prs-notifications.yml)
 - [ ] [lint-pr-title.yml](.github/workflows/lint-pr-title.yml)
-- [ ] [notify-tsc-members-mention.yml](.github/workflows/notify-tsc-members-mention.yml)
+- [x] [notify-tsc-members-mention.yml](.github/workflows/notify-tsc-members-mention.yml) - pull_request_target not a big issue for this one. Mailchimp script needs to be tightened though.
 - [x] [please-take-a-look-command.yml](.github/workflows/please-take-a-look-command.yml) - permissions added to the workflow. [Test PR](https://github.com/asyncapi-actions-test/asyncapi-github/pull/3#issuecomment-4031325220) and [Test Workflow Run](https://github.com/asyncapi-actions-test/asyncapi-github/actions/runs/22904380860/job/66458939263)
 - [x] [release-announcements.yml](.github/workflows/release-announcements.yml) Just added content read permissions and removed checkout persist credentials.
 - [x] [stale-issues-prs.yml](.github/workflows/stale-issues-prs.yml) - Permissions added to the workflow and the job. [Test Issue](https://github.com/asyncapi-actions-test/asyncapi-github/issues/2#issuecomment-4029175489) and [Test Workflow Run](https://github.com/asyncapi-actions-test/asyncapi-github/actions/runs/22891096690)
