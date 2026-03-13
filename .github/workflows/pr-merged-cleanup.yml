@@ -1,0 +1,68 @@
+name: PR Merged Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  mark-done:
+    if: >
+      startsWith(github.repository, 'asyncapi/') &&
+      github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const prBody = context.payload.pull_request.body || '';
+
+            const removeFromIssue = async (issueNum, toRemove) => {
+              const { data: i } = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNum
+              });
+              const names = i.labels.map(l => l.name);
+              for (const name of toRemove) {
+                if (!names.includes(name)) continue;
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNum,
+                  name
+                }).catch(() => {});
+              }
+            };
+
+            const obsoletePr = ['status/in-review', 'no-linked-issue'];
+            const obsoleteIssue = ['status/in-progress', 'status/to-be-triaged', 'status/not-needed', 'status/triaged'];
+
+            await removeFromIssue(prNumber, obsoletePr);
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              labels: ['status/done']
+            });
+            console.log(`Marked PR #${prNumber} as status/done`);
+
+            const issuePattern = /(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s*:?\s*#(\d+)/gi;
+            const matches = [...prBody.matchAll(issuePattern)];
+            const linkedIssues = [...new Set(matches.map(m => parseInt(m[1], 10)).filter(n => !isNaN(n)))];
+
+            for (const issueNumber of linkedIssues) {
+              try {
+                await removeFromIssue(issueNumber, obsoleteIssue);
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  labels: ['status/done']
+                });
+                console.log(`Marked linked issue #${issueNumber} as status/done`);
+              } catch (error) {
+                console.log(`Could not mark issue #${issueNumber} as done: ${error.message}`);
+              }
+            }

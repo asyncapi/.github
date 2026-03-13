@@ -1,0 +1,54 @@
+name: Issue Closure Label
+
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  add-closure-label:
+    if: startsWith(github.repository, 'asyncapi/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const issueNumber = context.payload.issue.number;
+
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber
+            });
+
+            if (issue.state !== 'closed') {
+              console.log(`Issue #${issueNumber} is now open (was reopened) - skipping closure label`);
+              return;
+            }
+
+            const labels = issue.labels.map(l => l.name);
+
+            if (labels.includes('status/done')) {
+              console.log(`Issue #${issueNumber} already marked as status/done - skipping`);
+              return;
+            }
+
+            for (const name of ['status/to-be-triaged', 'status/triaged', 'status/in-progress']) {
+              if (labels.includes(name)) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  name
+                }).catch(() => {});
+              }
+            }
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['status/not-needed']
+            });
+
+            console.log(`Added status/not-needed label to closed issue #${issueNumber}`);

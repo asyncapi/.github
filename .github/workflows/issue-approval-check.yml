@@ -1,0 +1,75 @@
+name: Issue Approval Check
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-unapproved-issues:
+    if: startsWith(github.repository, 'asyncapi/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const now = new Date();
+            const sevenDaysAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+            const twentyOneDaysAgo = new Date(now - 21 * 24 * 60 * 60 * 1000);
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'needs-approval',
+              per_page: 100
+            });
+
+            for (const issue of issues) {
+              if (issue.pull_request) continue;
+
+              const createdAt = new Date(issue.created_at);
+              const issueNumber = issue.number;
+
+              const { data: comments } = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                per_page: 100
+              });
+
+              const hasReminder = comments.some(c => 
+                c.body.includes('Reminder: This issue is still awaiting approval')
+              );
+
+              if (createdAt < twentyOneDaysAgo) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  body: `This issue has been automatically closed because it was not approved by a maintainer within 21 days.\n\nThis doesn't mean your issue isn't valid! It may simply mean maintainers haven't had time to review it. Feel free to:\n- Reopen this issue with more context\n- Reach out on [Slack](https://asyncapi.com/slack-invite) for discussion\n\nThank you for your understanding! ❤️`
+                });
+
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  state: 'closed',
+                  state_reason: 'not_planned'
+                });
+
+                console.log(`Closed issue #${issueNumber} (no approval after 21 days)`);
+              } 
+              else if (createdAt < sevenDaysAgo && !hasReminder) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  body: `**Reminder:** This issue is still awaiting approval from a maintainer.\n\nIf a maintainer doesn't approve this issue within the next **14 days**, it will be automatically closed.\n\nMaintainers: Please comment \`/approve\` to approve this issue or \`/reject\` to reject it.`
+                });
+
+                console.log(`Posted reminder on issue #${issueNumber}`);
+              }
+            }
+

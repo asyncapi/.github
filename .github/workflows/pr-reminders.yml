@@ -1,0 +1,143 @@
+name: PR Reminders
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-stale-prs:
+    if: startsWith(github.repository, 'asyncapi/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const now = new Date();
+            const msPerDay = 24 * 60 * 60 * 1000;
+            const oneWeekAgo = new Date(now - 7 * msPerDay);
+            const twoWeeksAgo = new Date(now - 14 * msPerDay);
+            const threeWeeksAgo = new Date(now - 21 * msPerDay);
+            const fourWeeksAgo = new Date(now - 28 * msPerDay);
+
+            const { data: waitingPRs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+
+            for (const pr of waitingPRs) {
+              const prNumber = pr.number;
+              const labels = pr.labels.map(l => l.name);
+
+              if (labels.includes('status/waiting-response')) {
+                const { data: commits } = await github.rest.pulls.listCommits({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: prNumber
+                });
+
+                if (commits.length === 0) continue;
+
+                const lastCommitDate = new Date(commits[commits.length - 1].commit.committer.date);
+
+                const { data: comments } = await github.rest.issues.listComments({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber
+                });
+
+                const hasFirstReminder = comments.some(c => 
+                  c.body.includes('Any update on the requested changes?')
+                );
+
+                const hasClosureProposal = labels.includes('bot/to-be-closed');
+
+                if (lastCommitDate < twoWeeksAgo && lastCommitDate >= threeWeeksAgo && !hasClosureProposal) {
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    labels: ['bot/to-be-closed']
+                  });
+
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    body: `This PR has been waiting for contributor response for **2-3 weeks** with no activity.\n\n@asyncapi/maintainers - Please review and decide whether to close this PR.\n\nThank you! ❤️`
+                  });
+
+                  console.log(`PR #${prNumber} proposed for closure (waiting-response, 2-3 weeks)`);
+                }
+                else if (lastCommitDate < oneWeekAgo && lastCommitDate >= twoWeeksAgo && !hasFirstReminder) {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    body: `👋 **Ping:** Any update on the requested changes? (1-2 weeks)\n\nThank you! ❤️`
+                  });
+
+                  console.log(`Posted reminder on PR #${prNumber} (waiting-response, 1-2 weeks)`);
+                }
+              }
+
+              if (labels.includes('no-linked-issue')) {
+                const prCreatedAt = new Date(pr.created_at);
+
+                const { data: comments } = await github.rest.issues.listComments({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber
+                });
+
+                const botComments = comments.filter(c => 
+                  c.user.login === 'github-actions[bot]' && 
+                  c.body.includes("this PR isn't linked to an approved issue")
+                );
+
+                const hasFirstReminder = botComments.length >= 2;
+                const hasSecondReminder = botComments.length >= 3;
+                const hasClosureProposal = labels.includes('bot/to-be-closed');
+
+                if (prCreatedAt < threeWeeksAgo && prCreatedAt >= fourWeeksAgo && !hasClosureProposal) {
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    labels: ['bot/to-be-closed']
+                  });
+
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    body: `This PR has been open for **3-4 weeks** without a linked approved issue.\n\n@asyncapi/maintainers - Please review and decide.\n\nThank you! ❤️`
+                  });
+
+                  console.log(`PR #${prNumber} proposed for closure (no-linked-issue, 3-4 weeks)`);
+                }
+                else if (prCreatedAt < twoWeeksAgo && prCreatedAt >= threeWeeksAgo && !hasSecondReminder) {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    body: `**Second reminder (2-3 weeks):** This PR still isn't linked to an approved issue. Please link one in the description.\n\nThank you! ❤️`
+                  });
+
+                  console.log(`Posted second reminder on PR #${prNumber} (no-linked-issue)`);
+                }
+                else if (prCreatedAt < oneWeekAgo && prCreatedAt >= twoWeeksAgo && !hasFirstReminder) {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    body: `**Reminder (1-2 weeks):** This PR still isn't linked to an approved issue. Please link one in the description.\n\nThank you! ❤️`
+                  });
+
+                  console.log(`Posted first reminder on PR #${prNumber} (no-linked-issue)`);
+                }
+              }
+            }

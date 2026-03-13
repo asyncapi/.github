@@ -1,0 +1,57 @@
+name: PR Closed Without Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  mark-not-needed:
+    if: >
+      startsWith(github.repository, 'asyncapi/') &&
+      github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+
+            if (pr.state !== 'closed') {
+              console.log(`PR #${prNumber} is now open (was reopened) - skipping closure label`);
+              return;
+            }
+
+            const labels = pr.labels.map(l => l.name);
+
+            if (labels.includes('status/done')) {
+              console.log(`PR #${prNumber} already marked as status/done - skipping`);
+              return;
+            }
+
+            const toRemove = ['status/in-review', 'no-linked-issue'];
+            for (const name of toRemove) {
+              if (labels.includes(name)) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  name
+                }).catch(() => {});
+              }
+            }
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              labels: ['status/not-needed']
+            });
+
+            console.log(`Added status/not-needed to closed (unmerged) PR #${prNumber}`);

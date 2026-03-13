@@ -1,0 +1,63 @@
+name: Issue Needs Approval
+
+on:
+  issues:
+    types: [opened, reopened]
+  
+jobs:
+  add-needs-approval:
+    if: startsWith(github.repository, 'asyncapi/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const botsList = ['asyncapi-bot', 'dependabot[bot]', 'dependabot-preview[bot]', 'allcontributors[bot]', 'github-actions[bot]'];
+            const issueAuthor = context.payload.issue.user.login;
+            
+            if (botsList.includes(issueAuthor)) {
+              console.log(`Skipping: ${issueAuthor} is a bot`);
+              return;
+            }
+
+            let permissionLevel = 'none';
+            try {
+              const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: issueAuthor
+              });
+              permissionLevel = data.permission;
+            } catch (error) {
+              console.log(`Could not get permission level for ${issueAuthor}: ${error.message}`);
+            }
+
+            if (['admin', 'write'].includes(permissionLevel)) {
+              console.log(`Skipping: ${issueAuthor} is a maintainer (${permissionLevel})`);
+              return;
+            }
+
+            const issueNumber = context.payload.issue.number;
+            const action = context.payload.action;
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['needs-approval']
+            });
+
+            const message = action === 'reopened' 
+              ? `This issue has been reopened and requires maintainer approval again.\n\nMaintainers can approve this issue by commenting \`/approve\` or reject it by commenting \`/reject\`.\n\nIf no approval is given within **21 days**, this issue will be automatically closed.\n\nThank you for your patience! ❤️`
+              : `Thank you for opening this issue! 🎉\n\nThis issue requires approval from a maintainer before work can begin. Maintainers can approve this issue by commenting \`/approve\` or reject it by commenting \`/reject\`.\n\n**Timeline:**\n- If not approved within **7 days**, a reminder will be posted\n- If not approved within **21 days**, this issue will be automatically closed\n\nPlease make sure your issue follows our [Contributing Guidelines](https://github.com/asyncapi/.github/blob/master/CONTRIBUTING.md).\n\nThank you for your patience! ❤️`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: message
+            });
+
+            console.log(`Added needs-approval label and comment to issue #${issueNumber}`);
+

@@ -1,0 +1,145 @@
+name: Issue Approval Commands
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  handle-approval-command:
+    if: >
+      startsWith(github.repository, 'asyncapi/') &&
+      !github.event.issue.pull_request &&
+      github.event.issue.state != 'closed' &&
+      (
+        contains(github.event.comment.body, '/approve') ||
+        contains(github.event.comment.body, '/reject')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const commentBody = context.payload.comment.body.trim();
+            const commenter = context.payload.comment.user.login;
+            const issueNumber = context.payload.issue.number;
+            
+            const botsList = ['asyncapi-bot', 'dependabot[bot]', 'dependabot-preview[bot]', 'allcontributors[bot]', 'github-actions[bot]'];
+            if (botsList.includes(commenter)) {
+              console.log(`Skipping: ${commenter} is a bot`);
+              return;
+            }
+
+            const isApprove = commentBody === '/approve' || commentBody.startsWith('/approve ');
+            const isReject = commentBody === '/reject' || commentBody.startsWith('/reject ');
+
+            if (!isApprove && !isReject) {
+              return;
+            }
+
+            let permissionLevel = 'none';
+            try {
+              const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: commenter
+              });
+              permissionLevel = data.permission;
+            } catch (error) {
+              console.log(`Could not get permission level for ${commenter}: ${error.message}`);
+            }
+
+            if (!['admin', 'write'].includes(permissionLevel)) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: `@${commenter} Only maintainers with write or admin permissions can use the \`/approve\` and \`/reject\` commands.`
+              });
+              return;
+            }
+
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber
+            });
+
+            const labels = issue.labels.map(l => l.name);
+
+            if (isApprove) {
+              if (labels.includes('approved')) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  body: `@${commenter} This issue is already approved. ✅`
+                });
+                return;
+              }
+
+              if (labels.includes('needs-approval')) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  name: 'needs-approval'
+                });
+              }
+
+              if (!labels.includes('approved')) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  labels: ['approved']
+                });
+              }
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: `This issue has been approved by @${commenter}! 🎉\n\nContributors are welcome to work on this issue. If you'd like to work on it, please comment below to get assigned.`
+              });
+
+              console.log(`Issue #${issueNumber} approved by ${commenter}`);
+            }
+
+            if (isReject) {
+              if (labels.includes('needs-approval')) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  name: 'needs-approval'
+                });
+              }
+
+              if (labels.includes('approved')) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  name: 'approved'
+                });
+              }
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: `This issue has been rejected by @${commenter}.\n\nThis issue doesn't align with current project priorities or guidelines. If you believe this was closed in error, feel free to reopen it with additional context.`
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                state: 'closed',
+                state_reason: 'not_planned'
+              });
+
+              console.log(`Issue #${issueNumber} rejected and closed by ${commenter}`);
+            }
+

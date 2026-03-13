@@ -1,0 +1,45 @@
+name: PR Commit Detection
+
+on:
+  pull_request_target:
+    types: [synchronize]
+
+jobs:
+  detect-commits:
+    if: startsWith(github.repository, 'asyncapi/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+
+            const labels = pr.labels.map(l => l.name);
+
+            if (!labels.includes('status/waiting-response')) {
+              console.log(`PR #${prNumber} does not have status/waiting-response - skipping`);
+              return;
+            }
+
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              name: 'status/waiting-response'
+            }).catch(err => console.log('Could not remove label:', err.message));
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              labels: ['status/ready-for-rereview']
+            });
+
+            console.log(`PR #${prNumber} has new commits - changed status/waiting-response to status/ready-for-rereview`);
