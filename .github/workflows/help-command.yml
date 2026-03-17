@@ -8,6 +8,10 @@ on:
         types: 
             - created
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   create_help_comment_pr:
     if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/help') && github.actor != 'asyncapi-bot' }}
