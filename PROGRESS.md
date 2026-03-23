@@ -18,7 +18,7 @@
 - [ ] [if-docker-pr-testing.yml](.github/workflows/if-docker-pr-testing.yml)
 - [ ] [if-go-pr-testing.yml](.github/workflows/if-go-pr-testing.yml)
 - [ ] [if-nodejs-pr-testing.yml](.github/workflows/if-nodejs-pr-testing.yml)
-- [ ] [if-nodejs-release.yml](.github/workflows/if-nodejs-release.yml)
+- [x] [if-nodejs-release.yml](.github/workflows/if-nodejs-release.yml) - Permissions were already well defined. 
 - [x] [if-nodejs-version-bump.yml](.github/workflows/if-nodejs-version-bump.yml) GITHUB_TOKEN used instead of GH_TOKEN and permissions added to the workflow and the job. [Test PR](https://github.com/asyncapi-actions-test/asyncapi-github/pull/8) and [Test Workflow Run](https://github.com/asyncapi-actions-test/asyncapi-github/actions/runs/23110097695).
 - [x] [issues-prs-notifications.yml](.github/workflows/issues-prs-notifications.yml) No permissions needed since the workflow only reads context data. Pull request target not a big problem but can have spam notifications or phishing links. 
 - [x] [lint-pr-title.yml](.github/workflows/lint-pr-title.yml) - Using GITHUB_TOKEN instead of GH_TOKEN and added permissions to the workflow and the job. [Test PR](https://github.com/asyncapi-actions-test/asyncapi-github/pull/7#issuecomment-4045958191) and [Test Workflow Run](https://github.com/asyncapi-actions-test/asyncapi-github/actions/runs/22999531548/job/66780332833?pr=7)
