@@ -2,22 +2,21 @@ name: 📑 Docs
 description: Propose changes and improvements to AsyncAPI Docs.
 labels: "📑 docs"
 title: "[📑 Docs]: "
-assignees: alequetzalli
-  - 
+type: Feature
 body:
   - type: markdown
     attributes:
       value: |
         Thank you for contributing to AsyncAPI Docs! 📑 👩🏻‍💻 We appreciate your feedback, ideas, and contributions. 
         
-        Before filing this issue, please make sure to check if there's already a similar issue open in our [Dev Docs Board](https://github.com/orgs/asyncapi/projects/8).
+        Before proceeding, please make sure to check if there's already a similar issue open in our [Dev Docs Board](https://github.com/orgs/asyncapi/projects/8).
   
   - type: textarea
     id: reason-context
     attributes:
       label: What Dev Docs changes are you proposing?
       description: Why do the Docs need this improvement? What is the motivation for this change? How will this change benefit our Open-Source community?
-      placeholder: "I would like to contribute to AsyncAPI Docs 📑 by..."
+      placeholder: "I would like to contribute to AsyncAPI 📑 Docs by..."
     validations:
       required: true
   - type: checkboxes
@@ -30,7 +29,7 @@ body:
           required: true
   - type: dropdown
     attributes:
-      label: Are you willing to work on this issue ?
+      label: Are you willing to work on this issue?
       description: This is absolutely not required, but we are happy to guide you in the contribution process.
       options:
         - "Yes I am willing to submit a PR!"
