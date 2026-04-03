@@ -11,9 +11,9 @@
 - [ ] [automerge.yml](.github/workflows/automerge.yml)
 - [ ] [autoupdate.yml](.github/workflows/autoupdate.yml)
 - [ ] [bounty-program-commands.yml](.github/workflows/bounty-program-commands.yml)
-- [ ] [bump.yml](.github/workflows/bump.yml)
-- [ ] [global-remover.yml](.github/workflows/global-remover.yml)
-- [ ] [global-replicator.yml](.github/workflows/global-replicator.yml)
+- [x] [bump.yml](.github/workflows/bump.yml)
+- [x] [global-remover.yml](.github/workflows/global-remover.yml) - Removed this file as not needed.
+- [x] [global-replicator.yml](.github/workflows/global-replicator.yml)
 - [x] [help-command.yml](.github/workflows/help-command.yml) [Issue Comment](https://github.com/asyncapi-actions-test/asyncapi-github/issues/10#issuecomment-4182003782) and [Workflow](https://github.com/asyncapi-actions-test/asyncapi-github/actions/runs/23935538387/job/69811125732)
 - [x] [if-docker-pr-testing.yml](.github/workflows/if-docker-pr-testing.yml)
 - [x] [if-go-pr-testing.yml](.github/workflows/if-go-pr-testing.yml)
@@ -55,3 +55,4 @@
 ## Still need to verify
 
 - [ ] [issues-prs-notifications.yml](.github/workflows/issues-prs-notifications.yml)
+- [ ] [global-remover.yml](.github/workflows/global-remover.yml)
