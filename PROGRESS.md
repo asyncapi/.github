@@ -3,7 +3,7 @@
 ### Github workflows
 
 - [ ] [zizmor.yml](zizmor.yml)
-- [ ] [add-good-first-issue-labels.yml](.github/workflows/add-good-first-issue-labels.yml)
+- [x] [add-good-first-issue-labels.yml](.github/workflows/add-good-first-issue-labels.yml) [Test Workflow Run](https://github.com/asyncapi-actions-test/asyncapi-github/actions/runs/23940582027) and [Test Issue Comment](https://github.com/asyncapi-actions-test/asyncapi-github/issues/11#issuecomment-4182608726)
 - [ ] [automerge-for-humans-add-ready-to-merge-or-do-not-merge-label.yml](.github/workflows/automerge-for-humans-add-ready-to-merge-or-do-not-merge-label.yml)
 - [ ] [automerge-for-humans-merging.yml](.github/workflows/automerge-for-humans-merging.yml)
 - [ ] [automerge-for-humans-remove-ready-to-merge-label-on-edit.yml](.github/workflows/automerge-for-humans-remove-ready-to-merge-label-on-edit.yml)
