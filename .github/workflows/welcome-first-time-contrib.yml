@@ -4,18 +4,26 @@
 name: Welcome first time contributors
 
 on:
-  pull_request_target:
+  pull_request:
     types: 
       - opened
   issues:
     types:
       - opened
 
+permissions:
+  issues: read                  # Required to check if the issue is the user's first contribution
+  pull-requests: read           # Required to check if the pull request is the user's first contribution
+
 jobs:
   welcome:
     name: Post welcome message
-    if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors[bot]"]'), github.actor) }}
+    if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors[bot]"]'), github.actor) }} # zizmor: ignore[obfuscation]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read            # Required to read repository data for checking if it's the user's first contribution
+      issues: write             # Required to post welcome message on issues
+      pull-requests: write      # Required to post welcome message on pull requests
     steps:
     - uses: actions/github-script@v7
       with:

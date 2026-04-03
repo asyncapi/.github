@@ -21,6 +21,9 @@ on:
           If you do not specify the exact repository name, the workflow will try to replicate all missing changes to all repositories.
         required: false
 
+permissions:
+  contents: read  # Just to checkout the code
+
 jobs:
    
   # Synchronizes the CODE_OF_CONDUCT.md file across all AsyncAPI repositories.
@@ -32,6 +35,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -52,6 +57,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -72,6 +79,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -92,6 +101,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -112,6 +123,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -134,6 +147,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -155,6 +170,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -175,6 +192,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -195,6 +214,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -215,6 +236,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with: 
@@ -235,6 +258,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -257,6 +282,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -277,6 +304,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating holopin.yml file
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
@@ -297,6 +326,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Replicating LICENSE and NOTICE files
         uses: derberg/manage-files-in-multiple-repositories@beecbe897cf5ed7f3de5a791a3f2d70102fe7c25
         with:
