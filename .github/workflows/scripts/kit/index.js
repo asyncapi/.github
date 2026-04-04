@@ -9,9 +9,8 @@ module.exports = async (link, title) => {
     const KIT_BASE = 'https://api.kit.com/v4';
     const TSC_TAG_ID = Number(process.env.KIT_TSC_TAG_ID);
 
-    // Schedule ~1 hour ahead, on the hour (same timing logic as previous Mailchimp version)
-    const sendAt = new Date(Date.now() + 60 * 60 * 1000);
-    sendAt.setUTCMinutes(0, 0, 0);
+    // Schedule 1 minute ahead
+    const sendAt = new Date(Date.now() + 60 * 1000);
 
     const res = await fetch(`${KIT_BASE}/broadcasts`, {
         method: 'POST',
@@ -32,5 +31,5 @@ module.exports = async (link, title) => {
     });
 
     if (!res.ok) return core.setFailed(`Failed creating broadcast: ${await res.text()}`);
-    core.info('Kit.com TSC broadcast scheduled');
+    core.info(`Kit.com TSC broadcast scheduled for ${sendAt.toISOString()}`);
 };
