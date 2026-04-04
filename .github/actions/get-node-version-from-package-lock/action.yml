@@ -94,16 +94,16 @@ runs:
 
           switch (packageLockVersion) {
             case 1:
-                nodeVersion = '14'
-                break;
-            case 2:
-                nodeVersion = '16'
-                break;
-            case 3:
                 nodeVersion = '18'
                 break;
+            case 2:
+                nodeVersion = '20'
+                break;
+            case 3:
+                nodeVersion = '20'
+                break;
             default:
-                nodeVersion = '16'
+                nodeVersion = '20'
                 break;
           }
           
