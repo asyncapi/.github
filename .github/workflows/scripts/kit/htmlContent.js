@@ -2,7 +2,7 @@
  * This code is centrally managed in https://github.com/asyncapi/.github/
  * Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
  *
- * Kit.com version — Mailchimp merge tags removed. Kit.com automatically appends unsubscribe links.
+ * Kit.com version — greeting uses Kit Liquid (subscriber.first_name). Unsubscribe is provided by the Kit email template/footer.
  */
 module.exports = (link, title) => {
 
@@ -21,7 +21,7 @@ module.exports = (link, title) => {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>TSC Attention Required</title>
+        <title>${title}</title>
         
     <style type="text/css">
 		p{
@@ -379,7 +379,7 @@ module.exports = (link, title) => {
                         
                         <td class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;" valign="top">
                         
-                            Hey TSC member,<br>
+                            Hey {{ subscriber.first_name | strip | default: "TSC member" }},<br>
 <br>
 There is a new topic at AsyncAPI Initiative that requires Technical Steering Committee attention. 
 <br>
