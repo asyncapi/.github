@@ -1,0 +1,52 @@
+name: Validate GitHub Workflows
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - '.github/workflows/**.yml'
+  pull_request:
+    branches:
+      - master
+      - main
+    paths:
+      - '.github/workflows/**.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read # Required for actions/checkout and scanning workflow files
+  pull-requests: write # Required for actions-permissions to post comments on PRs
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Task: Run actionlint on existing workflows
+      - name: Run actionlint
+        uses: reviewdog/action-actionlint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review # Reports findings as comments on the pull request
+          # actionlint_flags: "-error" # Uncomment to make warnings errors for stricter enforcement
+
+      # Task: Integrate actions-permissions to detect insecure permissions
+      # Task: Ensure all workflows explicitly define permissions: and avoid implicit defaults.
+      - name: Run GitHub Actions Permissions Validator
+        uses: GitHubSecurityLab/actions-permissions@v1
+        # This action automatically scans all workflow files in the repository
+        # and flags insecure permissions or implicitly defined ones.
+        # It requires `pull-requests: write` permission to post comments on PRs.
+        # Ensure that any existing workflows are updated to explicitly define `permissions:`
+        # as a prerequisite for this check to pass without false positives.
+
+      # Note: The issue mentions existing basic JSON Schema validation.
+      # actionlint covers many common YAML syntax and GitHub Actions specific schema rules.
+      # If a more advanced, custom JSON schema validation is required beyond what actionlint offers,
+      # it should be integrated as an additional step here (e.g., using 'yq' and 'ajv-cli' with a custom schema).
+      # For the purpose of this fix, actionlint's comprehensive checks are considered sufficient
+      # to meet the spirit of syntax and basic schema validation alongside security checks.
+
