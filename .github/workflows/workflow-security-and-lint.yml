@@ -1,0 +1,54 @@
+name: Workflow Security and Lint
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/**.yml'
+      - '.github/workflows/**.yaml'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/**.yml'
+      - '.github/workflows/**.yaml'
+
+jobs:
+  lint-and-validate:
+    name: Lint and Validate Workflows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required to checkout code
+      pull-requests: write # Required by actions-permissions for annotations
+      security-events: write # Required by actions-permissions for SARIF output
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run actionlint
+        uses: rhysd/actionlint@v1
+        with:
+          github_api_token: ${{ secrets.GITHUB_TOKEN }}
+          # For more strict checking or custom rules, uncomment and configure a .actionlint.yml file:
+          # config: .actionlint.yml
+
+      - name: Run actions-permissions
+        uses: GitHubSecurityLab/actions-permissions@v1
+        with:
+          # Set fail_on_severity to automatically fail PR checks for severe issues.
+          # Example: fail_on_severity: critical,high
+          # This will also ensure explicit permissions are defined, as implicit defaults are flagged.
+          sarif_output: sarif
+          sarif_file: github-actions-permissions.sarif
+          # No input needed for file globs, it scans all by default.
+      
+      - name: Upload SARIF file
+        if: always() # Upload even if previous step fails
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: github-actions-permissions.sarif
+          category: GitHub Actions Permissions
