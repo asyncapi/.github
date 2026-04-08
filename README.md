@@ -9,8 +9,9 @@ Below is a list of workflows with their corresponding topics and descriptions. B
 
 | Topic to include | Workflows you will get | Description |
 | --- | --- | --- |
-| `get-workflows-validation` | [workflow-security-and-lint](.github/workflows/workflow-security-and-lint.yml) | Performs security analysis and linting on GitHub Actions workflow files, ensuring explicit permissions and catching common errors
-| `golang` | [if-go-pr-testing](.github/workflows/if-go-pr-testing.yml) | Compiles and tests Go code using multiple versions of Go| `nodejs` | [if-nodejs-pr-testing](.github/workflows/if-nodejs-pr-testing.yml) | Builds and tests Node.js projects using multiple Node.js versions
+| `get-workflows-validation` | [validate-github-workflows](.github/workflows/validate-github-workflows.yml) | Validates GitHub Actions workflow files for syntax, best practices, security, and permissions. 
+| `golang` | [if-go-pr-testing](.github/workflows/if-go-pr-testing.yml) | Compiles and tests Go code using multiple versions of Go
+| `nodejs` | [if-nodejs-pr-testing](.github/workflows/if-nodejs-pr-testing.yml) | Builds and tests Node.js projects using multiple Node.js versions
 | `get-global-node-release-workflows` | [if-nodejs-release](.github/workflows/if-nodejs-release.yml), [if-nodejs-version-bump.yml](.github/workflows/if-nodejs-version-bump.yml) , [bump.yml](.github/workflows/bump.yml) | Fetches and publishes Node.js release information to the project's website
 | `get-global-releaserc` | [.releaserc](.github/workflows/.releaserc) | Fetches release configuration files from a remote repository andUpdates the documentation of a project using `generate:assets` command (if it exists) when the commit starts with `docs makes them available to other workflows 
 | `get-global-docs-autoupdate` | [update-docs-on-docs-commits](.github/workflows/update-docs-on-docs-commits.yml) | Updates the documentation of a project using `generate:assets` command (if it exists) when the commit starts with `docs:`
