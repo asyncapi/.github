@@ -22,7 +22,7 @@ jobs:
         uses: amannn/action-semantic-pull-request@c3cd5d1ea3580753008872425915e343e351ab54 #version 5.2.0 https://github.com/amannn/action-semantic-pull-request/releases/tag/v5.2.0
         id: lint_pr_title
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           subjectPattern: ^(?![A-Z]).+$
           subjectPatternError: |
@@ -34,7 +34,7 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd #use 2.5.0 https://github.com/marocchino/sticky-pull-request-comment/releases/tag/v2.5.0
         with:
           header: pr-title-lint-error
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ github.token }}
           message: |
 
             We require all PRs to follow [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/). 
@@ -49,4 +49,4 @@ jobs:
         with:
           header: pr-title-lint-error
           delete: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ github.token }}

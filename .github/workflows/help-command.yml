@@ -23,7 +23,7 @@ jobs:
         env:
           ACTOR: ${{ github.actor }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
           script: |
             //Yes to add comment to PR the same endpoint is use that we use to create a comment in issue
             //For more details http://developer.github.com/v3/issues/comments/
@@ -57,7 +57,7 @@ jobs:
         env:
           ACTOR: ${{ github.actor }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,

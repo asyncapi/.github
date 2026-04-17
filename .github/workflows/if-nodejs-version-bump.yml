@@ -65,7 +65,7 @@ jobs:
           RELEASE_TAG: ${{github.event.release.tag_name}}
           RELEASE_URL: ${{github.event.release.html_url}}
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           commit-message: 'chore(release): ${{ env.RELEASE_TAG }}'
           committer: asyncapi-bot <info@asyncapi.io>
           author: asyncapi-bot <info@asyncapi.io>

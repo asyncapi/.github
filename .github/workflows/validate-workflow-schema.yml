@@ -118,7 +118,7 @@ jobs:
           config: ./zizmor.yml
           persona: auditor
           version: 1.23.1
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
 
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@71321a20a9ded102f6e9ce5718a2fcec2c4f70d8
@@ -127,5 +127,5 @@ jobs:
           config: ./zizmor.yml
           persona: auditor
           version: 1.23.1
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           min-severity: medium
