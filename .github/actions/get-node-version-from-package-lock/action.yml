@@ -22,7 +22,7 @@ runs:
         npm install semver@7.7.3 --no-package-lock --no-save
       
     - name: Get Node version
-      uses: actions/github-script@v8
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
       id: getnode
       env:
         # Map the composite action input to an environment variable for the script
