@@ -18,7 +18,7 @@ jobs:
     if: >
       github.event.issue.pull_request &&
       github.event.issue.state != 'closed' &&
-      github.actor != 'asyncapi-bot' &&
+      github.event.comment.user.login != 'asyncapi-bot' &&
       (
         contains(github.event.comment.body, '/please-take-a-look') ||
         contains(github.event.comment.body, '/ptal') ||

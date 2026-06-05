@@ -13,7 +13,7 @@ permissions: {}
 jobs:
   create_help_comment_pr:
     name: Help Comment in PR
-    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/help') && github.actor != 'asyncapi-bot' }}
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/help') && github.event.comment.user.login != 'asyncapi-bot' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write                # To comment on Pull requests
@@ -47,7 +47,7 @@ jobs:
 
   create_help_comment_issue:
     name: Help Comment in Issue
-    if: ${{ !github.event.issue.pull_request && startsWith(github.event.comment.body, '/help') && github.actor != 'asyncapi-bot' }}
+    if: ${{ !github.event.issue.pull_request && startsWith(github.event.comment.body, '/help') && github.event.comment.user.login != 'asyncapi-bot' }}
     runs-on: ubuntu-latest
     permissions:
       issues: write                       # To comment on Issues
