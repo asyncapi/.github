@@ -27,7 +27,8 @@ jobs:
       - name: Label autoapproved
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
+          # Use Eve PAT: GH_TOKEN (asyncapi-bot) no longer has rights to apply
+          github-token: ${{ secrets.GH_TOKEN_BOT_EVE }}
           script: |
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
