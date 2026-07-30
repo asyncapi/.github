@@ -36,7 +36,7 @@ jobs:
         shell: bash
       - if: steps.should_run.outputs.shouldrun == 'true'
         name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - if: steps.should_run.outputs.shouldrun == 'true'
@@ -46,14 +46,14 @@ jobs:
         shell: bash
       - if: steps.gomod.outputs.exists == 'true'
         name: Setup Go
-        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # using 5.3.0 https://github.com/actions/setup-go/releases/tag/v4.0.0
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: 1.18
       - if: steps.gomod.outputs.exists == 'true'
         name: golangci-lint
-        uses: golangci/golangci-lint-action@4696ba8babb6127d732c3c6dde519db15edab9ea # using v6.5.1 https://github.com/golangci/golangci-lint-action/releases/tag/v3.4.0
-        # golangci-lint version extracted from go.mod. `latest` if missing.
-        # The skip-go-installation option has been removed https://github.com/golangci/golangci-lint-action/tree/v6.5.1?tab=readme-ov-file#compatibility
+        uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9.3.0
+        # No `version` input set, so the action installs the latest golangci-lint v2.x.
+        # Repos still on golangci-lint v1 config format need to migrate: https://golangci-lint.run/product/migration-guide/
 
   test-go-pr:
     name: Test Go PR - ${{ matrix.os }}
@@ -82,7 +82,7 @@ jobs:
         shell: bash
       - if: steps.should_run.outputs.shouldrun == 'true'
         name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - if: steps.should_run.outputs.shouldrun == 'true'
@@ -92,7 +92,7 @@ jobs:
         shell: bash
       - if: steps.gomod.outputs.exists == 'true'
         name: Setup Go
-        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # using 5.3.0 https://github.com/actions/setup-go/releases/tag/v4.0.0
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: 1.18
       - if: steps.gomod.outputs.exists == 'true'
