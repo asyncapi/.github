@@ -1,0 +1,32 @@
+name: PR Review Checklist
+
+on:
+  pull_request_target:
+    types: 
+      - opened
+
+permissions: {}
+
+jobs:
+  pr-review-list:
+    name: Post PR Review Checklist
+    # it runs only if PR actor is not a bot, at least not a bot that we know
+    if: |
+      (github.event.pull_request.user.login != 'asyncapi-bot' && 
+      github.event.pull_request.user.login != 'dependabot[bot]' && 
+      github.event.pull_request.user.login != 'dependabot-preview[bot]') 
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # permission to create-or-update-comment posts to the PR thread
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+          persist-credentials: false # read-only; only used to access .github/pr-review-checklist.md
+
+    - name: Post initial PR checklist
+      uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 #v4.0.0 https://github.com/peter-evans/create-or-update-comment/releases/tag/v4.0.0
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body-path: '.github/pr-review-checklist.md'
