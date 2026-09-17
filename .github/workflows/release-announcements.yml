@@ -73,13 +73,15 @@ jobs:
             // In case of first release in the package, there is no such thing as previous error, so we set info about previous version only once we have it
             // We should tweet about the release no matter of the type as it is initial release
             if (nodes.length != 1) core.setOutput('previousver', nodes[1].name);
+      - name: Install semver diff CLI
+        run: npm install --ignore-scripts --save-dev semver-diff-cli@1.0.0
       - name: Identify release type
         id: releasetype
         # if previousver is not provided then this steps just logs information about missing version, no errors
         env:
           PREV_VERSION: ${{steps.versions.outputs.previousver}}
           LAST_VERSION: ${{steps.versions.outputs.lastver}}
-        run: echo "type=$(npx -q -p semver-diff-cli semver-diff "$PREV_VERSION" "$LAST_VERSION")" >> "$GITHUB_OUTPUT"
+        run: echo "type=$(./node_modules/.bin/semver-diff "$PREV_VERSION" "$LAST_VERSION")" >> "$GITHUB_OUTPUT"
       - name: Get name of the person that is behind the newly released version
         id: author
         run: |
