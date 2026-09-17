@@ -11,6 +11,7 @@ on:
         description: |
           You can specify the repository's name where workflows should be pushed manually, as long as workflow settings do not ignore the repository.
           If you do not specify the exact repository name, the workflow will try to replicate all missing changes to all repositories.
+        type: string
         required: false
 
 permissions:
