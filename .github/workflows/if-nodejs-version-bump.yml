@@ -46,7 +46,7 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
       - if: steps.packagejson.outputs.exists == 'true'
         name: Assets generation
         run: npm run generate:assets --if-present
