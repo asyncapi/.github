@@ -69,11 +69,11 @@ jobs:
         #npm cli 10 is buggy because of some cache issue
         name: Install npm cli 8
         shell: bash
-        run: npm install -g npm@8.19.4
+        run: npm install --ignore-scripts -g npm@8.19.4
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
-        run: npm ci
+        run: npm ci --ignore-scripts
       - if: steps.packagejson.outputs.exists == 'true'
         name: Test
         run: npm test --if-present

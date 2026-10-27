@@ -32,12 +32,12 @@ jobs:
           persist-credentials: false
 
       - name: Install Dependencies
-        run: npm install --no-save yaml-lint ajv axios js-yaml
+        run: npm install --ignore-scripts --no-save yaml-lint ajv axios js-yaml
 
       - name: Lint YAML Files
         run: |
           set -e
-          find .github/workflows -type f \( -name "*.yml" -o -name "*.yaml" \) -print0 | xargs -0 ./node_modules/.bin/yamllint -q
+          find .github/workflows -type f \( -name "*.yml" -o -name "*.yaml" \) -print0 | xargs -0 ./node_modules/.bin/yamllint
 
       - name: Run YAML validation
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0

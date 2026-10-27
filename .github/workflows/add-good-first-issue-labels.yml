@@ -25,7 +25,7 @@ jobs:
           github-token: ${{ github.token }}
           script: |
             const areas = ['javascript', 'typescript', 'java' , 'go', 'docs', 'ci-cd', 'design'];
-            const words = context.payload.comment.body.trim().split(" ");
+            const words = context.payload.comment.body.trim().split(/\s+/);
             const areaIndex = words.findIndex((word)=> word === '/gfi' || word === '/good-first-issue') + 1
             let area = words[areaIndex];
             switch(area){
@@ -57,17 +57,18 @@ jobs:
                 repo: context.repo.repo,
               })).data.map(label => label.name);
 
-              const shouldBeRemoved = currentLabels.filter(label => (label.startsWith('area/') && !label.endsWith(area)));
-              shouldBeRemoved.forEach(label => {
-                github.rest.issues.deleteLabel({
+              const shouldBeRemoved = currentLabels.filter(label => label.startsWith('area/') && label !== `area/${area}`);
+              await Promise.all(shouldBeRemoved.map(label =>
+                github.rest.issues.removeLabel({
+                  issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   name: label,
-                });
-              });
+                })
+              ));
 
                // Add new labels.
-              github.rest.issues.addLabels({
+              await github.rest.issues.addLabels({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
