@@ -66,11 +66,11 @@ jobs:
         name: Install npm cli 8
         shell: bash
         #npm cli 10 is buggy because of some cache issues
-        run: npm install -g npm@8.19.4
+        run: npm install --ignore-scripts -g npm@8.19.4
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
-        run: npm ci
+        run: npm ci --ignore-scripts
       - if: steps.packagejson.outputs.exists == 'true'
         name: Run test
         run: npm test --if-present
@@ -122,7 +122,7 @@ jobs:
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
-        run: npm ci
+        run: npm ci --ignore-scripts
       - if: steps.packagejson.outputs.exists == 'true'
         name: Add plugin for conventional commits for semantic-release
         run: npm install --ignore-scripts --save-dev conventional-changelog-conventionalcommits@9.1.0

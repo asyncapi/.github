@@ -30,14 +30,16 @@ const sanitizeLinkAndTitle = (link, title) => {
     return { sanitizedLink: parsedLink.toString(), sanitizedTitle };
 };
 
-module.exports = async (link, title) => {
+module.exports = async function sendEmail(link, title) {
     const KIT_BASE = 'https://api.kit.com/v4';
     const TSC_TAG_ID = Number(process.env.KIT_TSC_TAG_ID);
 
     // Schedule 1 minute ahead
     const sendAt = new Date(Date.now() + 60 * 1000);
 
-    const { sanitizedLink, sanitizedTitle } = sanitizeLinkAndTitle(link, title);
+    const sanitized = sanitizeLinkAndTitle(link, title);
+    if (!sanitized) return;
+    const { sanitizedLink, sanitizedTitle } = sanitized;
 
     const res = await fetch(`${KIT_BASE}/broadcasts`, {
         method: 'POST',

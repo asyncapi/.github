@@ -39,6 +39,12 @@ jobs:
           github-token: ${{ secrets.GH_TOKEN || github.token }}
           previews: 'merge-info-preview' # https://docs.github.com/en/graphql/overview/schema-previews#merge-info-preview-more-detailed-information-about-a-pull-requests-merge-state-preview
           script: |
+            const commands = context.payload.comment.body.trim().split(/\s+/);
+            if (!commands.some(command => command === '/update' || command === '/u')) {
+              core.setOutput('updateable', false);
+              return;
+            }
+
             const prNumber = context.payload.issue.number;
             core.debug(`PR Number: ${prNumber}`);
             const { data: pr } = await github.rest.pulls.get({
@@ -48,7 +54,7 @@ jobs:
             });
 
             // If the PR has conflicts, we don't want to update it
-            const updateable = ['behind', 'blocked', 'unknown', 'draft', 'clean', 'unstable'].includes(pr.mergeable_state);
+            const updateable = !pr.draft && ['behind', 'blocked', 'unknown', 'clean', 'unstable'].includes(pr.mergeable_state);
             console.log(`PR #${prNumber} is ${pr.mergeable_state} and is ${updateable ? 'updateable' : 'not updateable'}`);
             core.setOutput('updateable', updateable);
 

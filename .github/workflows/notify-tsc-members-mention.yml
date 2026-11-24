@@ -63,7 +63,7 @@ jobs:
       # Handling Kit.com notifications
       #########
       - name: Install deps
-        run: npm install
+        run: npm ci --ignore-scripts
         working-directory: ./.github/workflows/scripts/kit
       - name: Send email with Kit.com
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -112,7 +112,7 @@ jobs:
       # Handling Kit.com notifications
       #########
       - name: Install deps
-        run: npm install
+        run: npm ci --ignore-scripts
         working-directory: ./.github/workflows/scripts/kit
       - name: Send email with Kit.com
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -161,7 +161,7 @@ jobs:
       # Handling Kit.com notifications
       #########
       - name: Install deps
-        run: npm install
+        run: npm ci --ignore-scripts
         working-directory: ./.github/workflows/scripts/kit
       - name: Send email with Kit.com
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -210,7 +210,7 @@ jobs:
       # Handling Kit.com notifications
       #########
       - name: Install deps
-        run: npm install
+        run: npm ci --ignore-scripts
         working-directory: ./.github/workflows/scripts/kit
       - name: Send email with Kit.com
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -259,7 +259,7 @@ jobs:
       # Handling Kit.com notifications
       #########
       - name: Install deps
-        run: npm install
+        run: npm ci --ignore-scripts
         working-directory: ./.github/workflows/scripts/kit
       - name: Send email with Kit.com
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -308,7 +308,7 @@ jobs:
       # Handling Kit.com notifications
       #########
       - name: Install deps
-        run: npm install
+        run: npm ci --ignore-scripts
         working-directory: ./.github/workflows/scripts/kit
       - name: Send email with Kit.com
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
